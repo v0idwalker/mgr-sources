@@ -4,8 +4,11 @@ import scrapy
 
 class IndependentSpider(scrapy.Spider):
     name = "independent"
-    allowed_domains = ["http://www.independent.co.uk/news/world"]
-    start_urls = ['http://http://www.independent.co.uk/news/world/']
+    basuURL = "http://www.independent.co.uk/"
+    allowed_domains = ["http://www.independent.co.uk/"]
+    start_urls = ['http://www.independent.co.uk/news/world/']
 
     def parse(self, response):
-        pass
+        items = response.css('.content h1 a')
+        for i in items:
+            print(u + i.extract())

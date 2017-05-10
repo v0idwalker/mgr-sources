@@ -8,7 +8,18 @@
 import scrapy
 
 
-class CrawlItem(scrapy.Item):
+class theBaseItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    pass
+    name = scrapy.Field()
+    url = scrapy.Field()
+    date = scrapy.Field()
+    tag = scrapy.Field()
+
+class theGuardianItem(theBaseItem):
+    # define the fields for your item here like:
+    date = scrapy.Field()
+    tag = scrapy.Field()
+
+class theIndependednt(theBaseItem):
+    addtional = scrapy.Field()
