@@ -21,6 +21,11 @@ NEWSPIDER_MODULE = 'crawl.spiders'
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 
+FEED_URI = './storage/data/%(name)/%(time).csv'
+FEED_FORMAT = 'csv'
+FEED_EXPORT_FIELDS = {'name', 'url'}
+FEED_EXPORTERS = 'CsvItemExporter'
+
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
 
