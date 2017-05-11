@@ -14,6 +14,9 @@ BOT_NAME = 'crawl'
 SPIDER_MODULES = ['crawl.spiders']
 NEWSPIDER_MODULE = 'crawl.spiders'
 
+# store scraped data
+FEED_URI='./scraped/%(name)/%(time)'
+FEED_FORMAT='csv'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'crawl (+http://www.yourdomain.com)'

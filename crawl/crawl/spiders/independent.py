@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
-
+from crawl.items import theIndependentItem
 
 class IndependentSpider(scrapy.Spider):
     name = "independent"
@@ -9,6 +9,13 @@ class IndependentSpider(scrapy.Spider):
     start_urls = ['http://www.independent.co.uk/news/world/']
 
     def parse(self, response):
-        items = response.css('.content h1 a')
-        for i in items:
-            print(u + i.extract())
+        link_data = response.xpath('//div[@class="content"]/h1/a')
+        for l in link_data:
+            data = theIndependentItem()
+            data['url'] = l.xpath('@href').extract()
+            data['name'] = l.xpath('text()').extract()
+            data['tag'] = ''
+            data['date'] = ''
+            # data['']
+
+            yield data

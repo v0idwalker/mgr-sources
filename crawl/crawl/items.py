@@ -21,5 +21,5 @@ class theGuardianItem(theBaseItem):
     date = scrapy.Field()
     tag = scrapy.Field()
 
-class theIndependednt(theBaseItem):
+class theIndependentItem(theBaseItem):
     addtional = scrapy.Field()
