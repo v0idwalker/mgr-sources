@@ -14,20 +14,16 @@ BOT_NAME = 'crawl'
 SPIDER_MODULES = ['crawl.spiders']
 NEWSPIDER_MODULE = 'crawl.spiders'
 
-# store scraped data
-FEED_URI='./scraped/%(name)/%(time)'
-FEED_FORMAT='csv'
-
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'crawl (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 
-FEED_URI = './storage/data/%(name)/%(time).csv'
-FEED_FORMAT = 'csv'
-FEED_EXPORT_FIELDS = {'name', 'url'}
-FEED_EXPORTERS = 'CsvItemExporter'
+# FEED_URI = '/home/void/PycharmProjects/mgr-sources/storage/data/%(name)/%(time).json'
+# FEED_FORMAT = 'jsonlines'
+# FEED_EXPORT_FIELDS = {'name', 'url'}
+# FEED_EXPORTERS = 'JsonLinesItemExporter'
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32

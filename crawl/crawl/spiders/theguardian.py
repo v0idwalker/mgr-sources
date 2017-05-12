@@ -16,8 +16,8 @@ class TheguardianSpider(scrapy.Spider):
             data = theGuardianItem()
             data['url'] = d.xpath('@href').extract()
             data['name'] = d.xpath('text()').extract()
-            data['tag'] = ''
-            data['date'] = ''
+            # data['tag'] = ''
+            # data['date'] = ''
             if data['name'] == [' ', ' ']:
                 pass
             else:

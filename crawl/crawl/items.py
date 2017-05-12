@@ -13,13 +13,15 @@ class theBaseItem(scrapy.Item):
     # name = scrapy.Field()
     name = scrapy.Field()
     url = scrapy.Field()
-    date = scrapy.Field()
-    tag = scrapy.Field()
+    # date = scrapy.Field()
+    # tag = scrapy.Field()
 
 class theGuardianItem(theBaseItem):
     # define the fields for your item here like:
-    date = scrapy.Field()
-    tag = scrapy.Field()
+    # date = scrapy.Field()
+    # tag = scrapy.Field()
+    pass
 
 class theIndependentItem(theBaseItem):
-    addtional = scrapy.Field()
+    # addtional = scrapy.Field()
+    pass
