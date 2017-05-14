@@ -1,0 +1,3 @@
+It is not possible to write a script of reasobable lenght that could handle all the web pages, so its neccessary to
+write one per news-portal. Maybe a program that would run for each sys.argv[n..n+x](n,x from Z+) in a manner that would
+.decompose() the respective HTML element.
