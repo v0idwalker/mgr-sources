@@ -4,8 +4,11 @@ from bs4 import BeautifulSoup
 import sys
 
 # windows specific requirenment for printing out
-import win_unicode_console
-win_unicode_console.enable()
+try:
+    import win_unicode_console
+    win_unicode_console.enable()
+except ImportError as e:
+    print(e.message)
 
 website = sys.argv[1]
 

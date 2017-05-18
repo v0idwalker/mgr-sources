@@ -1,6 +1,7 @@
 # pre-process data, by removing stuff that does not help store in ES
 import requests
 from bs4 import BeautifulSoup as BS
+from nltk import word_tokenize
 
 urls = [] #from spiders
 

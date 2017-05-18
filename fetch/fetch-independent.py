@@ -2,10 +2,15 @@
 import requests
 from bs4 import BeautifulSoup
 import sys
+from nltk import word_tokenize, sent_tokenize
+import csv
 
 # windows specific requirenment for printing out
-import win_unicode_console
-win_unicode_console.enable()
+try:
+    import win_unicode_console
+    win_unicode_console.enable()
+except ImportError as e:
+    print(e)
 
 website = sys.argv[1]
 
@@ -22,6 +27,10 @@ for div in body_dirty.find_all("ul", attrs={"class":"inline-pipes-list"}):
     div.decompose()
 body_dirty.find("a", attrs={"class":"syndication-btn"}).decompose()
 body_clean = body_dirty.get_text()
-print(body_clean)
 
+sentence_clean = sent_tokenize(body_clean, "english")
+f2 = open("tmp/independent_"+sys.argv[2]+'.txt', "w+")
 
+for sentence in sentence_clean:
+        print(sentence.strip())
+        f2.write(sentence.strip()+"\r\n")

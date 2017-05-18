@@ -13,23 +13,30 @@ file2 = csv.reader(f2)
 
 for r in file1:
     pres = [0] * len(searchlist)
-    for c in r:
-        if c.find(" "):
-            itr = 0
-            for t in searchlist:
-                pres[itr] = c.find(t)
-                itr = itr+1
-        if not all(pres):
-            print(r)
+    # for c in r:
+    if (r[0].find(" ")!=-1):
+        itr = 0
+        for t in searchlist:
+            if (r[0].lower().find(t) != -1):
+                pres[itr] = 1
+            itr = itr + 1
+    if all(pres):
+            print(r[1])
+            print(pres)
+            # print(searchlist)
+        # print(pres)
 
 for r in file2:
     pres = [0] * len(searchlist)
-    for c in r:
-        if c.find(" "):
-            itr = 0
-            for t in searchlist:
-                pres[itr] = c.find(t)
-                itr = itr+1
-        if not any(pres):
-            print(r)
-
+    # for c in r:
+    if (r[0].find(" ")!=-1):
+        itr = 0
+        for t in searchlist:
+            if (r[0].lower().find(t) != -1):
+                pres[itr] = 1
+            itr = itr+1
+    if all(pres):
+        print(r[1])
+        print(pres)
+        # print(searchlist)
+    # print(pres+" "+c)
