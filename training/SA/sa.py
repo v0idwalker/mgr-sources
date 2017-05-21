@@ -2,6 +2,7 @@ import nltk
 import re
 import codecs
 from collections import Counter
+import random
 import sys
 import os
 
@@ -16,15 +17,16 @@ import os
 nltk.download('stopwords')  # only in case of english texts could this help
 
 
-def sanitise_tokenize_text(string):
-    string = re.sub(r"[^A-Za-z0-9(),!?\'\`]", " ", string)
-    # english pre-processing for TF
+def sanitise_text(string):
+    # english regexp pre-processing for TF
+    string = re.sub(r"[^A-Za-z0-9(),!?\'\`\"]", " ", string) # weird string removal
     string = re.sub(r"\'s", " \'s", string)
     string = re.sub(r"\'ve", " \'ve", string)
     string = re.sub(r"n\'t", " n\'t", string)
     string = re.sub(r"\'re", " \'re", string)
     string = re.sub(r"\'d", " \'d", string)
     string = re.sub(r"\'ll", " \'ll", string)
+    string = re.sub(r"\.", " . ", string)
     string = re.sub(r",", " , ", string)
     string = re.sub(r"!", " ! ", string)
     string = re.sub(r"\(", " \( ", string)
@@ -32,13 +34,15 @@ def sanitise_tokenize_text(string):
     string = re.sub(r"\?", " \? ", string)
     string = re.sub(r"\s{2,}", " ", string)
     string = re.sub(r"-", " - ", string)
+    string = re.sub(r"'", " \" ", string)
+    string = re.sub(r"\"", " \" ", string)
     return string.strip().lower()
 
 
 def sanitise_vocabulary_string(string):
     # weird
-    if string not in [".", ",", "(", ")", "[", "]", "\"", "--", "'", "``", "`"]:
-        # , "'s", "n't" ??
+    if string not in ["--", "``", "`"]:
+        # , "'s", "n't", ".", ",", "(", ")", "[", "]", "'", "\"", ??
         return True
     else:
         return False
@@ -66,37 +70,41 @@ text_pos = codecs.open("training/SA/sentence_polarity/rt-polaritydata/rt-polarit
 text_neg = codecs.open("training/SA/sentence_polarity/rt-polaritydata/rt-polarity.neg", "r", "ISO-8859-1")
 
 stopwords = set(nltk.corpus.stopwords.words('english'))
-
-longest = 0
+longest = 0     # longest sentence in the data
 
 count = Counter()
 vocab = {}
+data = []
+labels = []
 i = 0
 
 for l in text_pos:
     # print(l)
+    l = sanitise_text(l)
     if (longest < len(nltk.word_tokenize(l, 'english'))):
         longest = len(nltk.word_tokenize(l, 'english'))
+    sentence = []
     for w in nltk.word_tokenize(l, 'english'):
         # remove stopwords and useless strings
-        w = sanitise_tokenize_text(w)
         if (w.lower() not in stopwords) and (sanitise_vocabulary_string(w.lower())):
             count[w.lower()] += 1
-            # if w.lower() not in vocab:
-            #     vocab[i] = w.lower()
-            #     i += 1
+            sentence.append(w)
+    data.append(sentence)
+    labels.append(1)
 
 for l in text_neg:
     # print(l)
+    l = sanitise_text(l)
     if (longest < len(nltk.word_tokenize(l, 'english'))):
         longest = len(nltk.word_tokenize(l, 'english'))
+    sentence = []
     for w in nltk.word_tokenize(l, 'english'):
         # remove stopwords and useless strings
         if (w.lower() not in stopwords) and (sanitise_vocabulary_string(w.lower())):
             count[w.lower()] += 1
-            # if w.lower() not in vocab:
-            #     vocab[i] = w.lower()
-            #     i += 1
+            sentence.append(w)
+    data.append(sentence)
+    labels.append(0)
 
 # print(longest)
 # print(vocab)
@@ -104,17 +112,25 @@ for l in text_neg:
 # the longest sentence in the data is 62 character long ~64 is nicer
 
 # print(count.most_common())
-# creating vocab
+# creating vocabulary from all the words in data
 it = 0
 vocab = dict()
 for tupl in count.most_common():
-    vocab[it] = tupl
+    vocab[tupl[0]] = it
     it += 1
 
-for v in vocab.items():
-    print(v)
+# for v in vocab.items():
+#     print(v)
 
-# todo: break - interconnected words apart
+id_data = []
+for d in data:
+    sentence = []
+    for w in d:
+        sentence.append(vocab[w])
+    id_data.append(sentence)
+
+# print(id_data)
+
 
 # 4-5k should be enough as after that, there are words that do not have enough instances in the text
 
@@ -130,70 +146,100 @@ from keras.datasets import imdb
 # create param space, test with cutting out the most used words as well as least used, as the former tend to appear too
 # often, while the latter has too few instances.
 
-# perc = 0.7 # the ratio of training data compared to test data
-# param = {
-#     "max_feat": 5000,
+perc = 90  # the ratio of training data compared to test data
+# baseparam = {
+#     "max_feat": 6000,
 #     "max_len": 64,
-#     "batch_size": 32,
+#     "batch_size": 128,
 #     "embed_dims": 50,
-#     "filters": 250,
-#     "kernel_size": 3,
-#     "hidden_dims": 250,
-#     "epochs": 4
+#     "filters": 24,
+#     "kernel_size": 4,
+#     "hidden_dims": 128,
+#     "epochs": 10
 # }
 #
-# print('Data is being distributed into train/test sets')
-#
+# for
+
+param = {
+    "max_feat": 6000,
+    "max_len": 64,
+    "batch_size": 128,
+    "embed_dims": 50,
+    "filters": 24,
+    "filter_size": 4,
+    "hidden_dims": 128,
+    "epochs": 100
+}
+
+print('Data is being distributed into train/test sets')
+
+
 # (x_train, y_train), (x_test, y_test) = imdb.load_data(num_words=param["max_feat"]) #(train_data, train_)
-#
-# print(len(x_train), 'train sequences')
-# print(len(x_test), 'test sequences')
-#
-# print('Pad data to be "rectangular" (samples lenght x time)')
-# x_train = sequence.pad_sequences(x_train, maxlen=param["max_len"])
-# x_test = sequence.pad_sequences(x_test, maxlen=param["max_len"])
-# print('x_train shape:', x_train.shape)
-# print('x_test shape:', x_test.shape)
-#
-#
-# print('Build model...')
-#
-# model = Sequential()
-#
-# # we start off with an efficient embedding layer which maps
-# # our vocab indices into embedding_dims dimensions
-# model.add(Embedding(param["max_feat"],
-#                     param["embed_dims"],
-#                     input_length=param["max_len"]))
-# model.add(Dropout(0.2))
-#
-# # we add a Convolution1D, which will learn filters
-# # word group filters of size filter_length:
-# model.add(Conv1D(param["filters"],
-#                  param["kernel_size"],
-#                  padding='valid',
-#                  activation='relu',
-#                  strides=1))
-# # we use max pooling:
-# model.add(GlobalMaxPooling1D())
-#
-# # We add a vanilla hidden layer:
-# model.add(Dense(param["hidden_dims"]))
-# model.add(Dropout(0.2))
-# model.add(Activation('relu'))
-#
-# # We project onto a single unit output layer, and squash it with a sigmoid:
-# model.add(Dense(1))
-# model.add(Activation('sigmoid'))
-#
-# model.compile(loss='binary_crossentropy',
-#               optimizer='adam',
-#               metrics=['accuracy'])
-# model.fit(x_train, y_train,
-#           batch_size=param["batch_size"],
-#           epochs=param["epochs"],
-#           validation_data=(x_test, y_test))
-#
-# # plot model
-#
-# plot_model(model, to_file='model.png')
+
+train_data = []
+train_labels = []
+test_data = []
+test_labels = []
+
+for (d, l) in zip(id_data, labels):
+    if (random.randint(1,100)<=perc):
+        # traindata
+        train_data.append(d)
+        train_labels.append(l)
+    else:
+        # testdata
+        test_data.append(d)
+        test_labels.append(l)
+
+# print(imdb.load_data(num_words=param["max_feat"]))
+# print("\n\n")
+# print(x_train)
+# print(y_train)
+
+print(len(train_data), 'train sequences')
+print(len(test_data), 'test sequences')
+
+print('Pad data to be uniformly long (samples length x time)')
+train_data = sequence.pad_sequences(train_data, maxlen=param["max_len"])
+test_data = sequence.pad_sequences(test_data, maxlen=param["max_len"])
+print('x_train shape:', train_data.shape)
+print('x_test shape:', test_data.shape)
+
+
+print('Build model...')
+
+model = Sequential()
+
+# we start off with an efficient embedding layer which maps
+# our vocab indices into embedding_dims dimensions
+model.add(Embedding(param["max_feat"],
+                    param["embed_dims"],
+                    input_length=param["max_len"]))
+model.add(Dropout(0.4)) # 0.2
+
+# we add a Convolution1D, which will learn filters
+# word group filters of size filter_length:
+model.add(Conv1D(param["filters"],
+                 param["filter_size"],
+                 padding='valid',
+                 activation='relu',
+                 strides=1))
+# we use max pooling:
+model.add(GlobalMaxPooling1D())
+
+# We add a vanilla hidden layer:
+model.add(Dense(param["hidden_dims"]))
+model.add(Dropout(0.4)) # 0.1
+model.add(Activation('relu'))
+
+# We project onto a single unit output layer, and squash it with a sigmoid:
+model.add(Dense(1))
+model.add(Activation('sigmoid'))
+
+model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+model.fit(train_data, train_labels, batch_size=param["batch_size"], epochs=param["epochs"],
+          validation_data=(test_data, test_labels))
+
+# plot model
+
+plot_model(model, to_file='model.png')
