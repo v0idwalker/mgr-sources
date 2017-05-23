@@ -4,7 +4,6 @@ import codecs
 from collections import Counter
 import random
 import sys
-import os
 
 # we want to find the Named Entities in the text
 # then select all the sentences containing the entities and get their respective sentiment
@@ -146,7 +145,7 @@ from keras.datasets import imdb
 # create param space, test with cutting out the most used words as well as least used, as the former tend to appear too
 # often, while the latter has too few instances.
 
-perc = 90  # the ratio of training data compared to test data
+perc = 80  # the ratio of training data compared to test data
 # baseparam = {
 #     "max_feat": 6000,
 #     "max_len": 64,
@@ -215,7 +214,7 @@ model = Sequential()
 model.add(Embedding(param["max_feat"],
                     param["embed_dims"],
                     input_length=param["max_len"]))
-model.add(Dropout(0.4)) # 0.2
+model.add(Dropout(0.3)) # 0.2
 
 # we add a Convolution1D, which will learn filters
 # word group filters of size filter_length:
@@ -229,7 +228,7 @@ model.add(GlobalMaxPooling1D())
 
 # We add a vanilla hidden layer:
 model.add(Dense(param["hidden_dims"]))
-model.add(Dropout(0.4)) # 0.1
+model.add(Dropout(0.2)) # 0.1
 model.add(Activation('relu'))
 
 # We project onto a single unit output layer, and squash it with a sigmoid:
@@ -242,4 +241,7 @@ model.fit(train_data, train_labels, batch_size=param["batch_size"], epochs=param
 
 # plot model
 
-plot_model(model, to_file='model.png')
+# plot_model(model, to_file='model.png')
+
+model.save("textcnn.h5")
+model.save_weights("textcnn_weights.h5")
