@@ -3,6 +3,8 @@ import re
 import codecs
 from collections import Counter
 import random
+from hyperas import optim
+from hyperopt import STATUS_OK, Trials, tpe
 import sys
 
 # we want to find the Named Entities in the text
@@ -10,7 +12,7 @@ import sys
 # show the words with their respective prevalent sentiment used in the text
 
 # the interesting windows is a sentence
-# the context of the whole scope is or is not interesting
+# the context of the whole scope of the text is not interesting
 
 
 nltk.download('stopwords')  # only in case of english texts could this help
