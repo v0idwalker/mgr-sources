@@ -3,9 +3,13 @@ import re
 import codecs
 from collections import Counter
 import random
+
+from hyperopt import Trials, STATUS_OK, tpe
 from hyperas import optim
-from hyperopt import STATUS_OK, Trials, tpe
+from hyperas.distributions import choice, uniform, conditional
+
 import sys
+import os
 
 # we want to find the Named Entities in the text
 # then select all the sentences containing the entities and get their respective sentiment
@@ -16,6 +20,7 @@ import sys
 
 
 nltk.download('stopwords')  # only in case of english texts could this help
+nltk.download('punkt')
 
 
 def sanitise_text(string):
@@ -66,9 +71,8 @@ def sanitise_en_negation(string):
 
 
 # create vocabulary from training files/words/
-
-text_pos = codecs.open("training/SA/sentence_polarity/rt-polaritydata/rt-polarity.pos", "r", "ISO-8859-1")
-text_neg = codecs.open("training/SA/sentence_polarity/rt-polaritydata/rt-polarity.neg", "r", "ISO-8859-1")
+text_pos = codecs.open(os.path.join('training','SA','sentence_polarity','rt-polaritydata', 'rt-polarity.pos'), "r", "ISO-8859-1")
+text_neg = codecs.open(os.path.join('training','SA','sentence_polarity','rt-polaritydata', 'rt-polarity.neg'), "r", "ISO-8859-1")
 
 stopwords = set(nltk.corpus.stopwords.words('english'))
 longest = 0     # longest sentence in the data
@@ -131,6 +135,92 @@ for d in data:
     id_data.append(sentence)
 
 # print(id_data)
+
+# for hyperas/hyperopt to work, we need to define the functions as follows, otherwise the data has to be loaded every
+# time a run is completed
+
+def data():
+    train_data = []
+    train_labels = []
+    test_data = []
+    test_labels = []
+
+    for (d, l) in zip(id_data, labels):
+        if (random.randint(1, 100) <= perc):
+            # traindata
+            train_data.append(d)
+            train_labels.append(l)
+        else:
+            # testdata
+            test_data.append(d)
+            test_labels.append(l)
+
+    # print(imdb.load_data(num_words=param["max_feat"]))
+    # print("\n\n")
+    # print(x_train)
+    # print(y_train)
+
+    print(len(train_data), 'train sequences')
+    print(len(test_data), 'test sequences')
+
+    print('Pad data to be uniformly long (samples length x time)')
+    train_data = sequence.pad_sequences(train_data, maxlen=param["max_len"])
+    test_data = sequence.pad_sequences(test_data, maxlen=param["max_len"])
+    print('x_train shape:', train_data.shape)
+    print('x_test shape:', test_data.shape)
+    return train_data, train_labels, test_data, test_labels
+
+def model_wrap(X_train, Y_train, X_test, Y_test):
+    from keras.preprocessing import sequence
+    from keras.models import Sequential
+    from keras.layers import Dense, Dropout, Activation, Embedding, Conv1D, GlobalMaxPooling1D
+
+    param = {
+        "max_feat": {{choice(3000, 3500, 4000, 4500, 5000, 5500, 6000)}},
+        "max_len": 64,
+        "batch_size": {{choice(32, 64, 96, 128)}},
+        "embed_dims": {{choice(32, 64, 128)}},
+        "filters": {{choice(8, 16, 32, 64)}},
+        "filter_size": {{uniform(4, 12)}},
+        "hidden_dims": {{choice(32, 64, 128, 256)}},
+        "epochs": 50
+    }
+    model = Sequential()
+
+    # we start off with an efficient embedding layer which maps
+    # our vocab indices into embedding_dims dimensions
+    # maybe w2v/gensim would have been better/more efficient.
+    # It's too late. Always has been. Allways will be. Too late.
+    model.add(Embedding(param["max_feat"],
+                        param["embed_dims"],
+                        input_length=param["max_len"]))
+    model.add(Dropout({{uniform(0, 0.5)}}))  # 0.2
+
+    # we add a Convolution1D, which will learn filters
+    # word group filters of size filter_length:
+    model.add(Conv1D(param["filters"],
+                     param["filter_size"],
+                     padding='valid',
+                     activation='relu',
+                     strides=1))
+    # we use max pooling:
+    model.add(GlobalMaxPooling1D())
+
+    # We add a vanilla hidden layer:
+    model.add(Dense(param["hidden_dims"]))
+    model.add(Dropout({{uniform(0, 0.5)}}))  # 0.1
+    model.add(Activation('relu'))
+
+    # We project onto a single unit output layer, and squash it with a sigmoid:
+    model.add(Dense(1))
+    model.add(Activation('sigmoid'))
+
+    model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+    model.fit(train_data, train_labels, batch_size=param["batch_size"], epochs=param["epochs"],
+              validation_data=(test_data, test_labels))
+    score, acc = model.evaluate(X_test, Y_test, show_accuracy=True, verbose=1)
+    print('Test accuracy:', acc)
+    return {'loss': -acc, 'status': STATUS_OK, 'model': model}
 
 
 # 4-5k should be enough as after that, there are words that do not have enough instances in the text
@@ -207,7 +297,7 @@ print('x_train shape:', train_data.shape)
 print('x_test shape:', test_data.shape)
 
 
-print('Build model...')
+# print('Build model...')
 
 model = Sequential()
 
