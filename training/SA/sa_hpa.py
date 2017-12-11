@@ -6,7 +6,7 @@ from numpy import random
 
 from hyperopt import Trials, STATUS_OK, tpe
 from hyperas import optim
-from hyperas.distributions import choice, uniform
+from hyperas.distributions import choice
 
 import os
 
@@ -170,7 +170,7 @@ def model_wrap(X_train, Y_train, X_test, Y_test):
     model.add(Embedding({{choice([3000, 3500, 4000, 4500, 5000, 5500, 6000])}},
                         {{choice([32, 64, 128])}},
                         input_length=param["max_len"]))
-    model.add(Dropout({{uniform(0, 0.5)}}))  # 0.2
+    model.add(Dropout({{choice([0.1, 0.2, 0.3])}}))  # 0.2
 
     model.add(Conv1D({{choice([8, 16, 32, 64])}},
                      {{choice([4, 8, 12])}},
@@ -180,7 +180,7 @@ def model_wrap(X_train, Y_train, X_test, Y_test):
     model.add(GlobalMaxPooling1D())
 
     model.add(Dense({{choice([32, 64, 128, 256])}}))
-    model.add(Dropout({{uniform(0, 0.5)}}))  # 0.1
+    model.add(Dropout({{choice([0.1, 0.2, 0.3])}}))  # 0.1
     model.add(Activation('relu'))
 
     model.add(Dense(1))
@@ -204,15 +204,26 @@ if __name__ == '__main__':
     best_run, best_model, space = optim.minimize(model=model_wrap,
                                                 data=data,
                                                 algo=tpe.suggest,
-                                                max_evals=5,
+                                                max_evals=100,
                                                 trials=trials,
                                                 eval_space=True,
                                                 return_space=True
                                                 )
     X_train, Y_train, X_test, Y_test = data()
-    print("Evalutation of best performing model:")
-    print(best_model.evaluate(X_test, Y_test))
     f = open('SA_trials.txt', 'w')
+
+    print("Evalutation of best performing model:")
+    f.write("Evalutation of best performing model:")
+    print(best_model.evaluate(X_test, Y_test))
+    f.write(best_model.evaluate(X_test, Y_test))
+    print("Best performing model chosen hyper-parameters:")
+    f.write("Best performing model chosen hyper-parameters:")
+    print(best_run)
+    f.write(best_run)
+    print('\n\n')
+    f.write('\n\n')
+
+
     for t, trial in enumerate(trials):
         vals = trial.get('misc').get('vals')
         print("Trial %s vals: %s" % (t, vals) + '\n')
