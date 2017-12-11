@@ -25,8 +25,12 @@ nltk.download('punkt')
 # time a run is completed
 
 
-# training takes between 1.0040s - 1.0080s per epoch on nv-1060-6G@2088MHz
-
+# training takes between 1s - 4s per epoch on nv-1060-6G@2088MHz depending on hyperparameters.
+# best run:
+# {'Dense': 64, 'batch_size': 32, 'Dropout_1': 0.2, 'Dropout': 0.3,
+# 'Conv1D': 16, 'Embedding_1': 128, 'Conv1D_1': 4, 'Embedding': 6000}
+# 2.25s per epoch.
+# depending on the batch size (32 - 2.25s, 16 - 4.5s)
 def data():
     from keras.preprocessing import sequence
     def sanitise_text(string):
@@ -167,20 +171,20 @@ def model_wrap(X_train, Y_train, X_test, Y_test):
         "epochs": 70
     }
     model = Sequential()
-    model.add(Embedding({{choice([3000, 3500, 4000, 4500, 5000, 5500, 6000])}},
-                        {{choice([32, 64, 128])}},
+    model.add(Embedding({{choice([3000, 3500, 4000, 4500, 5000, 5500, 6000])}}, # 6000
+                        {{choice([32, 64, 128])}},  # 128
                         input_length=param["max_len"]))
-    model.add(Dropout({{choice([0.1, 0.2, 0.3])}}))  # 0.2
+    model.add(Dropout({{choice([0.1, 0.2, 0.3])}})) # .3
 
-    model.add(Conv1D({{choice([8, 16, 32, 64])}},
-                     {{choice([4, 8, 12])}},
+    model.add(Conv1D({{choice([8, 16, 32, 64])}},   # 16
+                     {{choice([4, 8, 12])}},        # 4
                      padding='valid',
                      activation='relu',
                      strides=1))
     model.add(GlobalMaxPooling1D())
 
-    model.add(Dense({{choice([32, 64, 128, 256])}}))
-    model.add(Dropout({{choice([0.1, 0.2, 0.3])}}))  # 0.1
+    model.add(Dense({{choice([32, 64, 128, 256])}})) # 64
+    model.add(Dropout({{choice([0.1, 0.2, 0.3])}}))  # .2
     model.add(Activation('relu'))
 
     model.add(Dense(1))
@@ -190,7 +194,7 @@ def model_wrap(X_train, Y_train, X_test, Y_test):
                   optimizer='adam',
                   metrics=['accuracy'])
     model.fit(X_train, Y_train,
-              batch_size={{choice([32, 64, 96, 128])}},
+              batch_size={{choice([32, 64, 96, 128])}},     # 32 16?
               epochs=param["epochs"],
               validation_data=(X_test, Y_test))
     score, acc = model.evaluate(X_test, Y_test,
@@ -199,34 +203,32 @@ def model_wrap(X_train, Y_train, X_test, Y_test):
     return {'loss': -acc, 'status': STATUS_OK, 'model': model}
 
 from hyperas.utils import eval_hyperopt_space
+import time
+
 if __name__ == '__main__':
     trials = Trials()
     best_run, best_model, space = optim.minimize(model=model_wrap,
                                                 data=data,
                                                 algo=tpe.suggest,
-                                                max_evals=100,
+                                                max_evals=20,
                                                 trials=trials,
                                                 eval_space=True,
                                                 return_space=True
                                                 )
     X_train, Y_train, X_test, Y_test = data()
-    f = open('SA_trials.txt', 'w')
+    f = open('SA_trials'+ str(int(time.time())) +'.txt', 'w')
 
     print("Evalutation of best performing model:")
-    f.write("Evalutation of best performing model:")
     print(best_model.evaluate(X_test, Y_test))
-    f.write(best_model.evaluate(X_test, Y_test))
     print("Best performing model chosen hyper-parameters:")
-    f.write("Best performing model chosen hyper-parameters:")
     print(best_run)
-    f.write(best_run)
     print('\n\n')
-    f.write('\n\n')
+
 
 
     for t, trial in enumerate(trials):
         vals = trial.get('misc').get('vals')
-        print("Trial %s vals: %s" % (t, vals) + '\n')
-        f.write("Trial %s vals: %s" % (t, vals) + '\n')
-        print(eval_hyperopt_space(space, vals))
+        print("Trial %s vals: %s" % (t, vals))
+        f.write("Trial %s vals: %s" % (t, vals))
+        print(eval_hyperopt_space(space, vals)+ '\n')
     f.close()
