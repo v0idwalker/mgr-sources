@@ -6,9 +6,8 @@ from numpy import random
 
 from hyperopt import Trials, STATUS_OK, tpe
 from hyperas import optim
-from hyperas.distributions import choice, uniform, conditional
+from hyperas.distributions import choice, uniform
 
-import sys
 import os
 
 # we want to find the Named Entities in the text
@@ -22,13 +21,14 @@ import os
 nltk.download('stopwords')  # only in case of english texts could this help
 nltk.download('punkt')
 
-
-
 # for hyperas/hyperopt to work, we need to define the functions as follows, otherwise the data has to be loaded every
 # time a run is completed
 
-def data():
 
+# training takes between 1.0040s - 1.0080s per epoch on nv-1060-6G@2088MHz
+
+def data():
+    from keras.preprocessing import sequence
     def sanitise_text(string):
 
         string = re.sub(r"[^A-Za-z0-9(),!?\'\`\"]", " ", string)  # weird string removal
@@ -152,16 +152,19 @@ def data():
     test_data = sequence.pad_sequences(test_data, maxlen=64)
     print('x_train shape:', train_data.shape)
     print('x_test shape:', test_data.shape)
-    return train_data, train_labels, test_data, test_labels
+    X_train = train_data
+    Y_train = train_labels
+    X_test = test_data
+    Y_test = test_labels
+    return X_train, Y_train, X_test, Y_test
 
 def model_wrap(X_train, Y_train, X_test, Y_test):
-    from keras.preprocessing import sequence
     from keras.models import Sequential
     from keras.layers import Dense, Dropout, Activation, Embedding, Conv1D, GlobalMaxPooling1D
 
     param = {
         "max_len": 64,
-        "epochs": 50
+        "epochs": 70
     }
     model = Sequential()
     model.add(Embedding({{choice([3000, 3500, 4000, 4500, 5000, 5500, 6000])}},
@@ -191,18 +194,28 @@ def model_wrap(X_train, Y_train, X_test, Y_test):
               epochs=param["epochs"],
               validation_data=(X_test, Y_test))
     score, acc = model.evaluate(X_test, Y_test,
-                                show_accuracy=True,
                                 verbose=1)
     print('Test accuracy:', acc)
     return {'loss': -acc, 'status': STATUS_OK, 'model': model}
 
-
+from hyperas.utils import eval_hyperopt_space
 if __name__ == '__main__':
-    best_run, best_model = optim.minimize(model=model_wrap,
-                                          data=data,
-                                          algo=tpe.suggest,
-                                          max_evals=5,
-                                          trials=Trials())
+    trials = Trials()
+    best_run, best_model, space = optim.minimize(model=model_wrap,
+                                                data=data,
+                                                algo=tpe.suggest,
+                                                max_evals=5,
+                                                trials=trials,
+                                                eval_space=True,
+                                                return_space=True
+                                                )
     X_train, Y_train, X_test, Y_test = data()
     print("Evalutation of best performing model:")
     print(best_model.evaluate(X_test, Y_test))
+    f = open('SA_trials.txt', 'w')
+    for t, trial in enumerate(trials):
+        vals = trial.get('misc').get('vals')
+        print("Trial %s vals: %s" % (t, vals) + '\n')
+        f.write("Trial %s vals: %s" % (t, vals) + '\n')
+        print(eval_hyperopt_space(space, vals))
+    f.close()
