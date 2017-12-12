@@ -3,14 +3,13 @@ import re
 import codecs
 from collections import Counter
 import random
-
-from hyperopt import Trials, STATUS_OK, tpe
-from hyperas import optim
-from hyperas.distributions import choice, uniform, conditional
-
-import sys
 import os
-import tensorflow
+import gensim as gs
+
+
+w2v = gs.models.KeyedVectors.load_word2vec_format('word2vec/GoogleNews-vectors-negative300.bin/data', binary=True)
+# w2v.similarity('man', 'human')
+coded = gs.models.Word2Vec()
 
 # we want to find the Named Entities in the text
 # then select all the sentences containing the entities and get their respective sentiment
@@ -115,7 +114,7 @@ for l in text_neg:
 # print(longest)
 # print(vocab)
 # print(len(count))
-# the longest sentence in the data is 62 character long ~64 is nicer
+# the longest sentence in the data is 62 character long ~64 is rounded
 
 # print(count.most_common())
 # creating vocabulary from all the words in data
@@ -152,7 +151,7 @@ from keras.utils import plot_model
 # create param space, test with cutting out the most used words as well as least used, as the former tend to appear too
 # often, while the latter has too few instances.
 
-perc = 80  # the ratio of training data compared to test data
+perc = 80  # the ratio of training data compared to test data 80~72 90~75
 # baseparam = {
 #     "max_feat": 6000,
 #     "max_len": 64,

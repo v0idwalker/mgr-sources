@@ -168,13 +168,13 @@ def model_wrap(X_train, Y_train, X_test, Y_test):
 
     param = {
         "max_len": 64,
-        "epochs": 70
+        "epochs": 10
     }
     model = Sequential()
-    model.add(Embedding({{choice([3000, 3500, 4000, 4500, 5000, 5500, 6000])}}, # 6000
-                        {{choice([32, 64, 128])}},  # 128
+    model.add(Embedding({{choice([5000, 5500, 6000])}}, # 6000
+                        {{choice([64, 128])}},  # 128
                         input_length=param["max_len"]))
-    model.add(Dropout({{choice([0.1, 0.2, 0.3])}})) # .3
+    model.add(Dropout({{choice([0.0, 0.1, 0.2, 0.3, 0.4, 0.5])}})) # .3
 
     model.add(Conv1D({{choice([8, 16, 32, 64])}},   # 16
                      {{choice([4, 8, 12])}},        # 4
@@ -183,8 +183,8 @@ def model_wrap(X_train, Y_train, X_test, Y_test):
                      strides=1))
     model.add(GlobalMaxPooling1D())
 
-    model.add(Dense({{choice([32, 64, 128, 256])}})) # 64
-    model.add(Dropout({{choice([0.1, 0.2, 0.3])}}))  # .2
+    model.add(Dense({{choice([32, 64])}})) # 64
+    model.add(Dropout({{choice([0.1, 0.2, 0.3, 0.4, 0.5])}}))  # .2
     model.add(Activation('relu'))
 
     model.add(Dense(1))
@@ -230,5 +230,5 @@ if __name__ == '__main__':
         vals = trial.get('misc').get('vals')
         print("Trial %s vals: %s" % (t, vals))
         f.write("Trial %s vals: %s" % (t, vals))
-        print(eval_hyperopt_space(space, vals)+ '\n')
+        print(eval_hyperopt_space(space, vals))
     f.close()

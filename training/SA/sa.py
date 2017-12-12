@@ -4,13 +4,8 @@ import codecs
 from collections import Counter
 import random
 
-from hyperopt import Trials, STATUS_OK, tpe
-from hyperas import optim
-from hyperas.distributions import choice, uniform, conditional
-
 import sys
 import os
-import tensorflow
 
 # we want to find the Named Entities in the text
 # then select all the sentences containing the entities and get their respective sentiment
@@ -152,7 +147,7 @@ from keras.utils import plot_model
 # create param space, test with cutting out the most used words as well as least used, as the former tend to appear too
 # often, while the latter has too few instances.
 
-perc = 80  # the ratio of training data compared to test data
+perc = 80  # the ratio of training data compared to test data 80~72 90~75
 # baseparam = {
 #     "max_feat": 6000,
 #     "max_len": 64,
@@ -174,7 +169,7 @@ param = {
     "filters": 16,
     "filter_size": 4,
     "hidden_dims": 64,
-    "epochs": 70
+    "epochs": 20
 }
 
 print('Data is being distributed into train/test sets')
@@ -235,7 +230,7 @@ model.add(GlobalMaxPooling1D())
 
 # We add a vanilla hidden layer:
 model.add(Dense(param["hidden_dims"]))
-model.add(Dropout(0.2)) # 0.1
+model.add(Dropout(0.4)) # 0.1
 model.add(Activation('relu'))
 
 # We project onto a single unit output layer, and squash it with a sigmoid:
