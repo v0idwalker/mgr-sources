@@ -118,6 +118,7 @@ it = 0
 vocab = dict()
 for tupl in count.most_common():
     vocab[tupl[0]] = it
+    vocab[it] = tupl[0]
     it += 1
 
 # for v in vocab.items():
@@ -147,7 +148,7 @@ from keras.utils import plot_model
 # create param space, test with cutting out the most used words as well as least used, as the former tend to appear too
 # often, while the latter has too few instances.
 
-perc = 80  # the ratio of training data compared to test data 80~72 90~75
+perc = 90  # the ratio of training data compared to test data 80~72 90~75
 # baseparam = {
 #     "max_feat": 6000,
 #     "max_len": 64,
@@ -169,7 +170,7 @@ param = {
     "filters": 16,
     "filter_size": 4,
     "hidden_dims": 64,
-    "epochs": 20
+    "epochs": 5 #20
 }
 
 print('Data is being distributed into train/test sets')
@@ -242,13 +243,26 @@ model.fit(train_data, train_labels,
           batch_size=param["batch_size"],
           epochs=param["epochs"],
           validation_data=(test_data, test_labels))
-
+pred = model.predict_proba(test_data, verbose=1)
 score, acc = model.evaluate(test_data, test_labels,
                             verbose=1)
 print('Test accuracy:', acc, 'Test score: ', score)
+# print(pred)
+
+def print_predict(prediction, test_dat, test_lab, vocab):
+    for j, p in enumerate(prediction):
+        print(str(j)+': '+str(round(p[0], 3)), end=' ')
+        print(test_lab[j])
+        for w in test_dat[j]:
+            if w != 0:
+                print(vocab.get(w), end=' ')
+        print('\n')
+
+print_predict(pred, test_data, test_labels, vocab)
+
 # plot model
 
 # plot_model(model, to_file='model.png')
 
-model.save("textcnn.h5")
-model.save_weights("textcnn_weights.h5")
+# model.save("textcnn.h5")
+# model.save_weights("textcnn_weights.h5")

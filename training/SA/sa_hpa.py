@@ -1,6 +1,8 @@
 import nltk
 import re
 import codecs
+
+from hyperas.utils import eval_hyperopt_space
 from collections import Counter
 from numpy import random
 
@@ -131,7 +133,7 @@ def data():
             sentence.append(vocab[w])
         id_data.append(sentence)
 
-    perc = 80
+    perc = 90
 
     train_data = []
     train_labels = []
@@ -168,10 +170,10 @@ def model_wrap(X_train, Y_train, X_test, Y_test):
 
     param = {
         "max_len": 64,
-        "epochs": 10
+        "epochs": 5
     }
     model = Sequential()
-    model.add(Embedding({{choice([5000, 5500, 6000])}}, # 6000
+    model.add(Embedding({{choice([300, 1500, 4000, 6000])}}, # 6000
                         {{choice([64, 128])}},  # 128
                         input_length=param["max_len"]))
     model.add(Dropout({{choice([0.0, 0.1, 0.2, 0.3, 0.4, 0.5])}})) # .3
@@ -202,21 +204,17 @@ def model_wrap(X_train, Y_train, X_test, Y_test):
     print('Test accuracy:', acc)
     return {'loss': -acc, 'status': STATUS_OK, 'model': model}
 
-from hyperas.utils import eval_hyperopt_space
-import time
-
 if __name__ == '__main__':
     trials = Trials()
     best_run, best_model, space = optim.minimize(model=model_wrap,
                                                 data=data,
                                                 algo=tpe.suggest,
-                                                max_evals=20,
+                                                max_evals=60,
                                                 trials=trials,
                                                 eval_space=True,
                                                 return_space=True
                                                 )
     X_train, Y_train, X_test, Y_test = data()
-    f = open('SA_trials'+ str(int(time.time())) +'.txt', 'w')
 
     print("Evalutation of best performing model:")
     print(best_model.evaluate(X_test, Y_test))
@@ -224,11 +222,7 @@ if __name__ == '__main__':
     print(best_run)
     print('\n\n')
 
-
-
     for t, trial in enumerate(trials):
         vals = trial.get('misc').get('vals')
         print("Trial %s vals: %s" % (t, vals))
-        f.write("Trial %s vals: %s" % (t, vals))
         print(eval_hyperopt_space(space, vals))
-    f.close()

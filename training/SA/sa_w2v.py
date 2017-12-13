@@ -5,11 +5,8 @@ from collections import Counter
 import random
 import os
 import gensim as gs
+import numpy
 
-
-w2v = gs.models.KeyedVectors.load_word2vec_format('word2vec/GoogleNews-vectors-negative300.bin/data', binary=True)
-# w2v.similarity('man', 'human')
-coded = gs.models.Word2Vec()
 
 # we want to find the Named Entities in the text
 # then select all the sentences containing the entities and get their respective sentiment
@@ -196,11 +193,6 @@ for (d, l) in zip(id_data, labels):
         test_data.append(d)
         test_labels.append(l)
 
-# print(imdb.load_data(num_words=param["max_feat"]))
-# print("\n\n")
-# print(x_train)
-# print(y_train)
-
 print(len(train_data), 'train sequences')
 print(len(test_data), 'test sequences')
 
@@ -210,16 +202,34 @@ test_data = sequence.pad_sequences(test_data, maxlen=param["max_len"])
 print('x_train shape:', train_data.shape)
 print('x_test shape:', test_data.shape)
 
+# creating w2v embedding layer
+w2v = gs.models.KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin', binary=True)
 
-# print('Build model...')
+# assemble the embedding_weights in one numpy array
+vocab_dim = 300 # dimensionality of your word vectors, just as 300 dims in w2v pre-trained
+n_symbols = len(vocab) + 1 # adding 1 to account for 0th index (for masking)
+embedding_weights = numpy.zeros((n_symbols, vocab_dim))
+for word, index in vocab.items():
+    try:
+        embedding_weights[index, :] = w2v.wv[word]
+    except KeyError:
+        embedding_weights[index, :] = numpy.array(numpy.zeros(300), dtype=float)
+
+# define inputs here
+embedding_layer = Embedding(output_dim=vocab_dim, input_dim=n_symbols, trainable=False)
+embedding_layer.build((None,)) # if you don't do this, the next step won't work
+embedding_layer.set_weights([embedding_weights])
+
 
 model = Sequential()
 
 # we start off with an efficient embedding layer which maps
 # our vocab indices into embedding_dims dimensions
-model.add(Embedding(param["max_feat"],
-                    param["embed_dims"],
-                    input_length=param["max_len"]))
+# model.add(Embedding(param["max_feat"],
+#                     param["embed_dims"],
+#                     input_length=param["max_len"]))
+model.add(embedding_layer)
+
 model.add(Dropout(0.3)) # 0.2
 
 # we add a Convolution1D, which will learn filters
@@ -247,9 +257,9 @@ model.fit(train_data, train_labels,
           epochs=param["epochs"],
           validation_data=(test_data, test_labels))
 
-score, acc = model.evaluate(test_data, test_labels,
-                            verbose=1)
+score, acc = model.evaluate(test_data, test_labels, verbose=1)
 print('Test accuracy:', acc, 'Test score: ', score)
+
 # plot model
 
 # plot_model(model, to_file='model.png')
