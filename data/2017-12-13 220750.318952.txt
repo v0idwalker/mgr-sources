@@ -1,0 +1,922 @@
+2017-12-13 22:07:50.318952: I C:\tf_jenkins\home\workspace\rel-win\M\windows-gpu\PY\35\tensorflow\core\common_runtime\gpu\gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1060 6GB, pci bus id: 0000:04:00.0, compute capability: 6.1)
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 4s 437us/step - loss: 0.5787 - acc: 0.6985 - val_loss: 0.5020 - val_acc: 0.7560
+Epoch 2/5
+9740/9740 [==============================] - 1s 142us/step - loss: 0.3149 - acc: 0.8740 - val_loss: 0.5306 - val_acc: 0.7539
+Epoch 3/5
+9740/9740 [==============================] - 1s 143us/step - loss: 0.1150 - acc: 0.9657 - val_loss: 0.6560 - val_acc: 0.7497
+Epoch 4/5
+9740/9740 [==============================] - 1s 144us/step - loss: 0.0389 - acc: 0.9920 - val_loss: 0.7844 - val_acc: 0.7529
+Epoch 5/5
+9740/9740 [==============================] - 1s 143us/step - loss: 0.0165 - acc: 0.9968 - val_loss: 0.8834 - val_acc: 0.7529
+955/955 [==============================] - 0s 119us/step
+Test accuracy: 0.752879581776
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 5s 514us/step - loss: 0.3104 - acc: 0.8781 - val_loss: 0.6492 - val_acc: 0.7476
+Epoch 2/5
+9740/9740 [==============================] - 4s 418us/step - loss: 0.1218 - acc: 0.9517 - val_loss: 0.8126 - val_acc: 0.7476
+Epoch 3/5
+9740/9740 [==============================] - 4s 417us/step - loss: 0.0542 - acc: 0.9818 - val_loss: 1.0119 - val_acc: 0.7550
+Epoch 4/5
+9740/9740 [==============================] - 4s 418us/step - loss: 0.0336 - acc: 0.9895 - val_loss: 1.1050 - val_acc: 0.7539
+Epoch 5/5
+9740/9740 [==============================] - 4s 418us/step - loss: 0.0172 - acc: 0.9943 - val_loss: 1.3490 - val_acc: 0.7529
+955/955 [==============================] - 0s 87us/step
+Test accuracy: 0.752879581963
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 4s 365us/step - loss: 0.1619 - acc: 0.9440 - val_loss: 0.9450 - val_acc: 0.7581
+Epoch 2/5
+9740/9740 [==============================] - 2s 233us/step - loss: 0.0305 - acc: 0.9898 - val_loss: 1.2016 - val_acc: 0.7518
+Epoch 3/5
+9740/9740 [==============================] - 2s 233us/step - loss: 0.0135 - acc: 0.9956 - val_loss: 1.4265 - val_acc: 0.7487
+Epoch 4/5
+9740/9740 [==============================] - 2s 234us/step - loss: 0.0107 - acc: 0.9961 - val_loss: 1.5402 - val_acc: 0.7466
+Epoch 5/5
+9740/9740 [==============================] - 2s 234us/step - loss: 0.0066 - acc: 0.9978 - val_loss: 1.6888 - val_acc: 0.7424
+955/955 [==============================] - 0s 111us/step
+Test accuracy: 0.742408377151
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 2s 229us/step - loss: 0.2301 - acc: 0.9340 - val_loss: 0.8545 - val_acc: 0.7277
+Epoch 2/5
+9740/9740 [==============================] - 1s 125us/step - loss: 0.0340 - acc: 0.9903 - val_loss: 1.0819 - val_acc: 0.7309
+Epoch 3/5
+9740/9740 [==============================] - 1s 126us/step - loss: 0.0140 - acc: 0.9961 - val_loss: 1.3027 - val_acc: 0.7277
+Epoch 4/5
+9740/9740 [==============================] - 1s 124us/step - loss: 0.0060 - acc: 0.9985 - val_loss: 1.4731 - val_acc: 0.7298
+Epoch 5/5
+9740/9740 [==============================] - 1s 124us/step - loss: 0.0027 - acc: 0.9995 - val_loss: 1.5858 - val_acc: 0.7277
+955/955 [==============================] - 0s 124us/step
+Test accuracy: 0.727748691911
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 2s 238us/step - loss: 0.2769 - acc: 0.9133 - val_loss: 0.7379 - val_acc: 0.7424
+Epoch 2/5
+9740/9740 [==============================] - 1s 130us/step - loss: 0.0397 - acc: 0.9924 - val_loss: 1.0315 - val_acc: 0.7424
+Epoch 3/5
+9740/9740 [==============================] - 1s 131us/step - loss: 0.0183 - acc: 0.9960 - val_loss: 1.2112 - val_acc: 0.7435
+Epoch 4/5
+9740/9740 [==============================] - 1s 131us/step - loss: 0.0109 - acc: 0.9979 - val_loss: 1.4052 - val_acc: 0.7445
+Epoch 5/5
+9740/9740 [==============================] - 1s 132us/step - loss: 0.0075 - acc: 0.9992 - val_loss: 1.5648 - val_acc: 0.7393
+955/955 [==============================] - 0s 93us/step
+Test accuracy: 0.739267015894
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 3s 340us/step - loss: 0.1132 - acc: 0.9681 - val_loss: 1.1328 - val_acc: 0.7403
+Epoch 2/5
+9740/9740 [==============================] - 2s 171us/step - loss: 0.0084 - acc: 0.9985 - val_loss: 1.4441 - val_acc: 0.7455
+Epoch 3/5
+9740/9740 [==============================] - 2s 172us/step - loss: 0.0045 - acc: 0.9986 - val_loss: 1.6152 - val_acc: 0.7372
+Epoch 4/5
+9740/9740 [==============================] - 2s 171us/step - loss: 0.0024 - acc: 0.9995 - val_loss: 1.7597 - val_acc: 0.7403
+Epoch 5/5
+9740/9740 [==============================] - 2s 171us/step - loss: 0.0018 - acc: 0.9995 - val_loss: 1.8957 - val_acc: 0.7414
+955/955 [==============================] - 0s 70us/step
+Test accuracy: 0.741361257356
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 2s 212us/step - loss: 0.1758 - acc: 0.9573 - val_loss: 1.0561 - val_acc: 0.7236
+Epoch 2/5
+9740/9740 [==============================] - 1s 111us/step - loss: 0.0134 - acc: 0.9969 - val_loss: 1.3320 - val_acc: 0.7173
+Epoch 3/5
+9740/9740 [==============================] - 1s 110us/step - loss: 0.0045 - acc: 0.9992 - val_loss: 1.5245 - val_acc: 0.7225
+Epoch 4/5
+9740/9740 [==============================] - 1s 110us/step - loss: 0.0024 - acc: 0.9997 - val_loss: 1.6598 - val_acc: 0.7183
+Epoch 5/5
+9740/9740 [==============================] - 1s 110us/step - loss: 0.0015 - acc: 0.9997 - val_loss: 1.8033 - val_acc: 0.7173
+955/955 [==============================] - 0s 98us/step
+Test accuracy: 0.717277486661
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 3s 293us/step - loss: 0.1984 - acc: 0.9501 - val_loss: 0.8704 - val_acc: 0.7403
+Epoch 2/5
+9740/9740 [==============================] - 2s 161us/step - loss: 0.0224 - acc: 0.9960 - val_loss: 1.2121 - val_acc: 0.7257
+Epoch 3/5
+9740/9740 [==============================] - 2s 159us/step - loss: 0.0076 - acc: 0.9991 - val_loss: 1.4466 - val_acc: 0.7288
+Epoch 4/5
+9740/9740 [==============================] - 2s 158us/step - loss: 0.0054 - acc: 0.9989 - val_loss: 1.5911 - val_acc: 0.7288
+Epoch 5/5
+9740/9740 [==============================] - 2s 158us/step - loss: 0.0033 - acc: 0.9996 - val_loss: 1.7336 - val_acc: 0.7288
+955/955 [==============================] - 0s 88us/step
+Test accuracy: 0.72879581233
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 5s 543us/step - loss: 0.0584 - acc: 0.9884 - val_loss: 1.5578 - val_acc: 0.7330
+Epoch 2/5
+9740/9740 [==============================] - 4s 417us/step - loss: 0.0024 - acc: 0.9995 - val_loss: 1.8418 - val_acc: 0.7298
+Epoch 3/5
+9740/9740 [==============================] - 4s 418us/step - loss: 0.0016 - acc: 0.9996 - val_loss: 2.0285 - val_acc: 0.7340
+Epoch 4/5
+9740/9740 [==============================] - 4s 420us/step - loss: 0.0016 - acc: 0.9993 - val_loss: 2.2318 - val_acc: 0.7246
+Epoch 5/5
+9740/9740 [==============================] - 4s 419us/step - loss: 0.0013 - acc: 0.9995 - val_loss: 2.3138 - val_acc: 0.7309
+955/955 [==============================] - 0s 76us/step
+Test accuracy: 0.730890053167
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 3s 358us/step - loss: 0.1461 - acc: 0.9585 - val_loss: 1.0882 - val_acc: 0.7298
+Epoch 2/5
+9740/9740 [==============================] - 2s 220us/step - loss: 0.0053 - acc: 0.9990 - val_loss: 1.4124 - val_acc: 0.7351
+Epoch 3/5
+9740/9740 [==============================] - 2s 221us/step - loss: 0.0019 - acc: 0.9997 - val_loss: 1.5622 - val_acc: 0.7351
+Epoch 4/5
+9740/9740 [==============================] - 2s 219us/step - loss: 0.0014 - acc: 0.9997 - val_loss: 1.7027 - val_acc: 0.7298
+Epoch 5/5
+9740/9740 [==============================] - 2s 221us/step - loss: 0.0013 - acc: 0.9996 - val_loss: 1.7940 - val_acc: 0.7309
+955/955 [==============================] - 0s 106us/step
+Test accuracy: 0.730890053167
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 3s 284us/step - loss: 0.0919 - acc: 0.9806 - val_loss: 1.3074 - val_acc: 0.7288
+Epoch 2/5
+9740/9740 [==============================] - 1s 138us/step - loss: 0.0036 - acc: 0.9994 - val_loss: 1.4951 - val_acc: 0.7403
+Epoch 3/5
+9740/9740 [==============================] - 1s 136us/step - loss: 0.0019 - acc: 0.9996 - val_loss: 1.6500 - val_acc: 0.7372
+Epoch 4/5
+9740/9740 [==============================] - 1s 137us/step - loss: 0.0015 - acc: 0.9996 - val_loss: 1.7747 - val_acc: 0.7267
+Epoch 5/5
+9740/9740 [==============================] - 1s 139us/step - loss: 0.0013 - acc: 0.9997 - val_loss: 1.8547 - val_acc: 0.7319
+955/955 [==============================] - 0s 96us/step
+Test accuracy: 0.731937173586
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 4s 366us/step - loss: 0.0902 - acc: 0.9771 - val_loss: 1.3651 - val_acc: 0.7372
+Epoch 2/5
+9740/9740 [==============================] - 2s 210us/step - loss: 0.0060 - acc: 0.9993 - val_loss: 1.7918 - val_acc: 0.7330
+Epoch 3/5
+9740/9740 [==============================] - 2s 211us/step - loss: 0.0035 - acc: 0.9992 - val_loss: 2.0502 - val_acc: 0.7340
+Epoch 4/5
+9740/9740 [==============================] - 2s 212us/step - loss: 0.0026 - acc: 0.9989 - val_loss: 2.2648 - val_acc: 0.7298
+Epoch 5/5
+9740/9740 [==============================] - 2s 210us/step - loss: 0.0019 - acc: 0.9994 - val_loss: 2.3990 - val_acc: 0.7340
+955/955 [==============================] - 0s 89us/step
+Test accuracy: 0.734031414424
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 3s 280us/step - loss: 0.2288 - acc: 0.9292 - val_loss: 0.8341 - val_acc: 0.7257
+Epoch 2/5
+9740/9740 [==============================] - 1s 131us/step - loss: 0.0129 - acc: 0.9985 - val_loss: 1.0976 - val_acc: 0.7194
+Epoch 3/5
+9740/9740 [==============================] - 1s 133us/step - loss: 0.0061 - acc: 0.9990 - val_loss: 1.2565 - val_acc: 0.7236
+Epoch 4/5
+9740/9740 [==============================] - 1s 131us/step - loss: 0.0033 - acc: 0.9998 - val_loss: 1.3758 - val_acc: 0.7194
+Epoch 5/5
+9740/9740 [==============================] - 1s 132us/step - loss: 0.0027 - acc: 0.9994 - val_loss: 1.4748 - val_acc: 0.7215
+955/955 [==============================] - 0s 67us/step
+Test accuracy: 0.721465969398
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 6s 578us/step - loss: 0.0346 - acc: 0.9888 - val_loss: 1.7000 - val_acc: 0.7288
+Epoch 2/5
+9740/9740 [==============================] - 4s 424us/step - loss: 0.0018 - acc: 0.9995 - val_loss: 1.9328 - val_acc: 0.7372
+Epoch 3/5
+9740/9740 [==============================] - 4s 423us/step - loss: 0.0010 - acc: 0.9996 - val_loss: 2.0929 - val_acc: 0.7330
+Epoch 4/5
+9740/9740 [==============================] - 4s 424us/step - loss: 0.0016 - acc: 0.9992 - val_loss: 2.3043 - val_acc: 0.7309
+Epoch 5/5
+9740/9740 [==============================] - 4s 426us/step - loss: 8.7289e-04 - acc: 0.9997 - val_loss: 2.4633 - val_acc: 0.7257
+955/955 [==============================] - 0s 74us/step
+Test accuracy: 0.725654450012
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 4s 390us/step - loss: 0.0798 - acc: 0.9797 - val_loss: 1.3008 - val_acc: 0.7288
+Epoch 2/5
+9740/9740 [==============================] - 2s 248us/step - loss: 0.0027 - acc: 0.9995 - val_loss: 1.5763 - val_acc: 0.7309
+Epoch 3/5
+9740/9740 [==============================] - 2s 241us/step - loss: 0.0014 - acc: 0.9997 - val_loss: 1.7407 - val_acc: 0.7319
+Epoch 4/5
+9740/9740 [==============================] - 2s 231us/step - loss: 9.6921e-04 - acc: 0.9997 - val_loss: 1.8630 - val_acc: 0.7309
+Epoch 5/5
+9740/9740 [==============================] - 2s 238us/step - loss: 9.2360e-04 - acc: 0.9997 - val_loss: 1.9693 - val_acc: 0.7309
+955/955 [==============================] - 0s 85us/step
+Test accuracy: 0.730890053167
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 4s 378us/step - loss: 0.1165 - acc: 0.9612 - val_loss: 1.2878 - val_acc: 0.7225
+Epoch 2/5
+9740/9740 [==============================] - 2s 209us/step - loss: 0.0042 - acc: 0.9989 - val_loss: 1.5562 - val_acc: 0.7204
+Epoch 3/5
+9740/9740 [==============================] - 2s 205us/step - loss: 0.0014 - acc: 0.9997 - val_loss: 1.7442 - val_acc: 0.7215
+Epoch 4/5
+9740/9740 [==============================] - 2s 204us/step - loss: 9.6035e-04 - acc: 0.9997 - val_loss: 1.8700 - val_acc: 0.7183
+Epoch 5/5
+9740/9740 [==============================] - 2s 211us/step - loss: 8.4421e-04 - acc: 0.9997 - val_loss: 1.9569 - val_acc: 0.7194
+955/955 [==============================] - 0s 125us/step
+Test accuracy: 0.719371727499
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 4s 384us/step - loss: 0.1000 - acc: 0.9720 - val_loss: 1.2046 - val_acc: 0.7361
+Epoch 2/5
+9740/9740 [==============================] - 2s 233us/step - loss: 0.0034 - acc: 0.9996 - val_loss: 1.4836 - val_acc: 0.7319
+Epoch 3/5
+9740/9740 [==============================] - 2s 232us/step - loss: 0.0016 - acc: 0.9997 - val_loss: 1.6519 - val_acc: 0.7309
+Epoch 4/5
+9740/9740 [==============================] - 2s 223us/step - loss: 0.0012 - acc: 0.9997 - val_loss: 1.7900 - val_acc: 0.7330
+Epoch 5/5
+9740/9740 [==============================] - 2s 222us/step - loss: 0.0011 - acc: 0.9995 - val_loss: 1.8916 - val_acc: 0.7351
+955/955 [==============================] - 0s 111us/step
+Test accuracy: 0.735078534843
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 3s 277us/step - loss: 0.1138 - acc: 0.9683 - val_loss: 1.1429 - val_acc: 0.7194
+Epoch 2/5
+9740/9740 [==============================] - 1s 118us/step - loss: 0.0028 - acc: 0.9995 - val_loss: 1.3538 - val_acc: 0.7225
+Epoch 3/5
+9740/9740 [==============================] - 1s 118us/step - loss: 0.0015 - acc: 0.9997 - val_loss: 1.5006 - val_acc: 0.7246
+Epoch 4/5
+9740/9740 [==============================] - 1s 118us/step - loss: 0.0012 - acc: 0.9995 - val_loss: 1.5968 - val_acc: 0.7267
+Epoch 5/5
+9740/9740 [==============================] - 1s 117us/step - loss: 9.5270e-04 - acc: 0.9997 - val_loss: 1.6760 - val_acc: 0.7225
+955/955 [==============================] - 0s 72us/step
+Test accuracy: 0.722513089817
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 6s 594us/step - loss: 0.0439 - acc: 0.9914 - val_loss: 1.4469 - val_acc: 0.7340
+Epoch 2/5
+9740/9740 [==============================] - 4s 421us/step - loss: 0.0012 - acc: 0.9997 - val_loss: 1.7263 - val_acc: 0.7298
+Epoch 3/5
+9740/9740 [==============================] - 4s 419us/step - loss: 9.8486e-04 - acc: 0.9996 - val_loss: 1.8703 - val_acc: 0.7330
+Epoch 4/5
+9740/9740 [==============================] - 4s 422us/step - loss: 7.9332e-04 - acc: 0.9998 - val_loss: 1.9593 - val_acc: 0.7277
+Epoch 5/5
+9740/9740 [==============================] - 4s 419us/step - loss: 7.4096e-04 - acc: 0.9997 - val_loss: 2.1522 - val_acc: 0.7330
+955/955 [==============================] - 0s 92us/step
+Test accuracy: 0.732984292944
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 4s 412us/step - loss: 0.0690 - acc: 0.9896 - val_loss: 1.2942 - val_acc: 0.7298
+Epoch 2/5
+9740/9740 [==============================] - 2s 225us/step - loss: 0.0018 - acc: 0.9996 - val_loss: 1.5538 - val_acc: 0.7288
+Epoch 3/5
+9740/9740 [==============================] - 2s 227us/step - loss: 0.0012 - acc: 0.9997 - val_loss: 1.6763 - val_acc: 0.7298
+Epoch 4/5
+9740/9740 [==============================] - 2s 226us/step - loss: 9.2186e-04 - acc: 0.9998 - val_loss: 1.8151 - val_acc: 0.7288
+Epoch 5/5
+9740/9740 [==============================] - 2s 229us/step - loss: 0.0011 - acc: 0.9996 - val_loss: 1.9014 - val_acc: 0.7267
+955/955 [==============================] - 0s 88us/step
+Test accuracy: 0.726701571492
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 3s 352us/step - loss: 0.0548 - acc: 0.9882 - val_loss: 1.4896 - val_acc: 0.7361
+Epoch 2/5
+9740/9740 [==============================] - 2s 174us/step - loss: 0.0019 - acc: 0.9997 - val_loss: 1.7849 - val_acc: 0.7319
+Epoch 3/5
+9740/9740 [==============================] - 2s 172us/step - loss: 0.0012 - acc: 0.9996 - val_loss: 1.9760 - val_acc: 0.7309
+Epoch 4/5
+9740/9740 [==============================] - 2s 174us/step - loss: 8.3621e-04 - acc: 0.9997 - val_loss: 2.1013 - val_acc: 0.7288
+Epoch 5/5
+9740/9740 [==============================] - 2s 173us/step - loss: 7.9132e-04 - acc: 0.9996 - val_loss: 2.1715 - val_acc: 0.7340
+955/955 [==============================] - 0s 90us/step
+Test accuracy: 0.734031413363
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+2017-12-13 22:12:35.336237: W C:\tf_jenkins\home\workspace\rel-win\M\windows-gpu\PY\35\tensorflow\core\common_runtime\bfc_allocator.cc:217] Allocator (GPU_0_bfc) ran out of memory trying to allocate 3.57GiB. The caller indicates that this is not a failure, but may mean that there could be performance gains if more memory is available.
+9740/9740 [==============================] - 4s 371us/step - loss: 0.0712 - acc: 0.9838 - val_loss: 1.3344 - val_acc: 0.7351
+Epoch 2/5
+9740/9740 [==============================] - 2s 161us/step - loss: 0.0029 - acc: 0.9995 - val_loss: 1.5600 - val_acc: 0.7361
+Epoch 3/5
+9740/9740 [==============================] - 2s 163us/step - loss: 0.0018 - acc: 0.9996 - val_loss: 1.7031 - val_acc: 0.7288
+Epoch 4/5
+9740/9740 [==============================] - 2s 162us/step - loss: 0.0010 - acc: 0.9997 - val_loss: 1.8162 - val_acc: 0.7361
+Epoch 5/5
+9740/9740 [==============================] - 2s 162us/step - loss: 0.0012 - acc: 0.9996 - val_loss: 1.9236 - val_acc: 0.7288
+955/955 [==============================] - 0s 98us/step
+Test accuracy: 0.728795811269
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 6s 618us/step - loss: 0.0413 - acc: 0.9882 - val_loss: 1.6209 - val_acc: 0.7277
+Epoch 2/5
+9740/9740 [==============================] - 4s 425us/step - loss: 0.0021 - acc: 0.9993 - val_loss: 1.9641 - val_acc: 0.7288
+Epoch 3/5
+9740/9740 [==============================] - 4s 435us/step - loss: 0.0014 - acc: 0.9996 - val_loss: 2.1897 - val_acc: 0.7309
+Epoch 4/5
+9740/9740 [==============================] - 4s 460us/step - loss: 0.0011 - acc: 0.9996 - val_loss: 2.3950 - val_acc: 0.7319
+Epoch 5/5
+9740/9740 [==============================] - 4s 454us/step - loss: 9.6840e-04 - acc: 0.9996 - val_loss: 2.5035 - val_acc: 0.7309
+955/955 [==============================] - 0s 87us/step
+Test accuracy: 0.730890053167
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 6s 635us/step - loss: 0.0238 - acc: 0.9936 - val_loss: 1.9994 - val_acc: 0.7257
+Epoch 2/5
+9740/9740 [==============================] - 4s 431us/step - loss: 0.0016 - acc: 0.9995 - val_loss: 2.2516 - val_acc: 0.7298
+Epoch 3/5
+9740/9740 [==============================] - 4s 449us/step - loss: 0.0012 - acc: 0.9995 - val_loss: 2.5290 - val_acc: 0.7204
+Epoch 4/5
+9740/9740 [==============================] - 4s 421us/step - loss: 8.3378e-04 - acc: 0.9995 - val_loss: 2.6780 - val_acc: 0.7204
+Epoch 5/5
+9740/9740 [==============================] - 4s 417us/step - loss: 0.0010 - acc: 0.9997 - val_loss: 2.7369 - val_acc: 0.7277
+955/955 [==============================] - 0s 85us/step
+Test accuracy: 0.727748691911
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+2017-12-13 22:13:34.699836: W C:\tf_jenkins\home\workspace\rel-win\M\windows-gpu\PY\35\tensorflow\core\common_runtime\bfc_allocator.cc:217] Allocator (GPU_0_bfc) ran out of memory trying to allocate 3.57GiB. The caller indicates that this is not a failure, but may mean that there could be performance gains if more memory is available.
+9740/9740 [==============================] - 4s 394us/step - loss: 0.1772 - acc: 0.9309 - val_loss: 1.1108 - val_acc: 0.7330
+Epoch 2/5
+9740/9740 [==============================] - 2s 162us/step - loss: 0.0227 - acc: 0.9961 - val_loss: 1.4908 - val_acc: 0.7194
+Epoch 3/5
+9740/9740 [==============================] - 2s 162us/step - loss: 0.0110 - acc: 0.9978 - val_loss: 1.7894 - val_acc: 0.7215
+Epoch 4/5
+9740/9740 [==============================] - 2s 162us/step - loss: 0.0082 - acc: 0.9988 - val_loss: 1.9750 - val_acc: 0.7225
+Epoch 5/5
+9740/9740 [==============================] - 2s 168us/step - loss: 0.0054 - acc: 0.9990 - val_loss: 2.0995 - val_acc: 0.7246
+955/955 [==============================] - 0s 100us/step
+Test accuracy: 0.724607329593
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 4s 386us/step - loss: 0.0937 - acc: 0.9776 - val_loss: 1.2193 - val_acc: 0.7330
+Epoch 2/5
+9740/9740 [==============================] - 2s 171us/step - loss: 0.0041 - acc: 0.9994 - val_loss: 1.4806 - val_acc: 0.7330
+Epoch 3/5
+9740/9740 [==============================] - 2s 175us/step - loss: 0.0021 - acc: 0.9998 - val_loss: 1.6785 - val_acc: 0.7277
+Epoch 4/5
+9740/9740 [==============================] - 2s 164us/step - loss: 0.0014 - acc: 0.9998 - val_loss: 1.8148 - val_acc: 0.7225
+Epoch 5/5
+9740/9740 [==============================] - 2s 162us/step - loss: 0.0013 - acc: 0.9996 - val_loss: 1.8957 - val_acc: 0.7246
+955/955 [==============================] - 0s 107us/step
+Test accuracy: 0.72460733003
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 6s 641us/step - loss: 0.0211 - acc: 0.9952 - val_loss: 1.6960 - val_acc: 0.7215
+Epoch 2/5
+9740/9740 [==============================] - 4s 426us/step - loss: 9.4109e-04 - acc: 0.9997 - val_loss: 1.9494 - val_acc: 0.7267
+Epoch 3/5
+9740/9740 [==============================] - 4s 414us/step - loss: 8.5048e-04 - acc: 0.9997 - val_loss: 2.1022 - val_acc: 0.7246
+Epoch 4/5
+9740/9740 [==============================] - 4s 416us/step - loss: 7.3546e-04 - acc: 0.9997 - val_loss: 2.2715 - val_acc: 0.7298
+Epoch 5/5
+9740/9740 [==============================] - 4s 413us/step - loss: 6.9528e-04 - acc: 0.9997 - val_loss: 2.3528 - val_acc: 0.7309
+955/955 [==============================] - 0s 100us/step
+Test accuracy: 0.730890053167
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 6s 659us/step - loss: 0.0438 - acc: 0.9873 - val_loss: 1.5738 - val_acc: 0.7319
+Epoch 2/5
+9740/9740 [==============================] - 4s 441us/step - loss: 0.0016 - acc: 0.9995 - val_loss: 1.8909 - val_acc: 0.7267
+Epoch 3/5
+9740/9740 [==============================] - 4s 437us/step - loss: 0.0012 - acc: 0.9996 - val_loss: 2.1470 - val_acc: 0.7246
+Epoch 4/5
+9740/9740 [==============================] - 4s 430us/step - loss: 8.4758e-04 - acc: 0.9997 - val_loss: 2.2759 - val_acc: 0.7246
+Epoch 5/5
+9740/9740 [==============================] - 4s 422us/step - loss: 8.6986e-04 - acc: 0.9996 - val_loss: 2.4055 - val_acc: 0.7257
+955/955 [==============================] - 0s 104us/step
+Test accuracy: 0.725654450012
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 4s 403us/step - loss: 0.0393 - acc: 0.9888 - val_loss: 1.6605 - val_acc: 0.7319
+Epoch 2/5
+9740/9740 [==============================] - 2s 176us/step - loss: 0.0017 - acc: 0.9996 - val_loss: 1.8751 - val_acc: 0.7340
+Epoch 3/5
+9740/9740 [==============================] - 2s 182us/step - loss: 0.0013 - acc: 0.9995 - val_loss: 2.0423 - val_acc: 0.7309
+Epoch 4/5
+9740/9740 [==============================] - 2s 183us/step - loss: 9.8845e-04 - acc: 0.9996 - val_loss: 2.1522 - val_acc: 0.7340
+Epoch 5/5
+9740/9740 [==============================] - 2s 179us/step - loss: 8.8667e-04 - acc: 0.9996 - val_loss: 2.2417 - val_acc: 0.7309
+955/955 [==============================] - 0s 87us/step
+Test accuracy: 0.730890052543
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+2017-12-13 22:14:57.324264: W C:\tf_jenkins\home\workspace\rel-win\M\windows-gpu\PY\35\tensorflow\core\common_runtime\bfc_allocator.cc:217] Allocator (GPU_0_bfc) ran out of memory trying to allocate 3.57GiB. The caller indicates that this is not a failure, but may mean that there could be performance gains if more memory is available.
+9740/9740 [==============================] - 4s 402us/step - loss: 0.2185 - acc: 0.9274 - val_loss: 0.9893 - val_acc: 0.7141
+Epoch 2/5
+9740/9740 [==============================] - 2s 157us/step - loss: 0.0197 - acc: 0.9966 - val_loss: 1.3763 - val_acc: 0.7141
+Epoch 3/5
+9740/9740 [==============================] - 2s 157us/step - loss: 0.0083 - acc: 0.9990 - val_loss: 1.6183 - val_acc: 0.7120
+Epoch 4/5
+9740/9740 [==============================] - 2s 158us/step - loss: 0.0055 - acc: 0.9988 - val_loss: 1.8147 - val_acc: 0.7225
+Epoch 5/5
+9740/9740 [==============================] - 2s 158us/step - loss: 0.0042 - acc: 0.9992 - val_loss: 1.9384 - val_acc: 0.7141
+955/955 [==============================] - 0s 124us/step
+Test accuracy: 0.714136126029
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 8s 843us/step - loss: 0.0233 - acc: 0.9929 - val_loss: 1.9820 - val_acc: 0.7267
+Epoch 2/5
+9740/9740 [==============================] - 4s 422us/step - loss: 0.0015 - acc: 0.9996 - val_loss: 2.3826 - val_acc: 0.7288
+Epoch 3/5
+9740/9740 [==============================] - 4s 416us/step - loss: 0.0012 - acc: 0.9995 - val_loss: 2.5465 - val_acc: 0.7309
+Epoch 4/5
+9740/9740 [==============================] - 4s 415us/step - loss: 7.9265e-04 - acc: 0.9997 - val_loss: 2.6631 - val_acc: 0.7319
+Epoch 5/5
+9740/9740 [==============================] - 4s 411us/step - loss: 7.9597e-04 - acc: 0.9996 - val_loss: 2.7360 - val_acc: 0.7225
+955/955 [==============================] - 0s 90us/step
+Test accuracy: 0.722513089192
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 7s 671us/step - loss: 0.0349 - acc: 0.9893 - val_loss: 1.7585 - val_acc: 0.7351
+Epoch 2/5
+9740/9740 [==============================] - 4s 445us/step - loss: 0.0017 - acc: 0.9996 - val_loss: 2.0562 - val_acc: 0.7340
+Epoch 3/5
+9740/9740 [==============================] - 4s 434us/step - loss: 9.6967e-04 - acc: 0.9995 - val_loss: 2.2798 - val_acc: 0.7298
+Epoch 4/5
+9740/9740 [==============================] - 4s 437us/step - loss: 7.7098e-04 - acc: 0.9997 - val_loss: 2.3683 - val_acc: 0.7277
+Epoch 5/5
+9740/9740 [==============================] - 4s 433us/step - loss: 7.2656e-04 - acc: 0.9996 - val_loss: 2.5086 - val_acc: 0.7330
+955/955 [==============================] - 0s 101us/step
+Test accuracy: 0.732984294005
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+2017-12-13 22:15:58.642562: W C:\tf_jenkins\home\workspace\rel-win\M\windows-gpu\PY\35\tensorflow\core\common_runtime\bfc_allocator.cc:217] Allocator (GPU_0_bfc) ran out of memory trying to allocate 3.57GiB. The caller indicates that this is not a failure, but may mean that there could be performance gains if more memory is available.
+9600/9740 [============================>.] - ETA: 0s - loss: 0.0532 - acc: 0.98182017-12-13 22:16:00.339477: W C:\tf_jenkins\home\workspace\rel-win\M\windows-gpu\PY\35\tensorflow\core\common_runtime\bfc_allocator.cc:217] Allocator (GPU_0_bfc) ran out of memory trying to allocate 2.73GiB. The caller indicates that this is not a failure, but may mean that there could be perf9740/9740 [==============================] - 4s 442us/step - loss: 0.0524 - acc: 0.9820 - val_loss: 1.6286 - val_acc: 0.7194
+Epoch 2/5
+9740/9740 [==============================] - 2s 171us/step - loss: 0.0026 - acc: 0.9994 - val_loss: 1.9467 - val_acc: 0.7183
+Epoch 3/5
+9740/9740 [==============================] - 2s 169us/step - loss: 0.0018 - acc: 0.9993 - val_loss: 2.0670 - val_acc: 0.7194
+Epoch 4/5
+9740/9740 [==============================] - 2s 168us/step - loss: 0.0010 - acc: 0.9997 - val_loss: 2.1695 - val_acc: 0.7131
+Epoch 5/5
+9740/9740 [==============================] - 2s 167us/step - loss: 8.3842e-04 - acc: 0.9997 - val_loss: 2.2695 - val_acc: 0.7141
+955/955 [==============================] - 0s 140us/step
+Test accuracy: 0.714136125405
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 4s 399us/step - loss: 0.0414 - acc: 0.9884 - val_loss: 1.5736 - val_acc: 0.7204
+Epoch 2/5
+9740/9740 [==============================] - 1s 153us/step - loss: 0.0014 - acc: 0.9996 - val_loss: 1.7875 - val_acc: 0.7257
+Epoch 3/5
+9740/9740 [==============================] - 1s 150us/step - loss: 0.0010 - acc: 0.9997 - val_loss: 1.9517 - val_acc: 0.7257
+Epoch 4/5
+9740/9740 [==============================] - 1s 149us/step - loss: 8.1138e-04 - acc: 0.9997 - val_loss: 2.0531 - val_acc: 0.7194
+Epoch 5/5
+9740/9740 [==============================] - 1s 152us/step - loss: 8.4789e-04 - acc: 0.9995 - val_loss: 2.1350 - val_acc: 0.7236
+955/955 [==============================] - 0s 106us/step
+Test accuracy: 0.723560209611
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 7s 711us/step - loss: 0.0439 - acc: 0.9875 - val_loss: 1.9112 - val_acc: 0.7194
+Epoch 2/5
+9740/9740 [==============================] - 5s 462us/step - loss: 0.0035 - acc: 0.9989 - val_loss: 2.3213 - val_acc: 0.7277
+Epoch 3/5
+9740/9740 [==============================] - 4s 444us/step - loss: 0.0022 - acc: 0.9996 - val_loss: 2.6712 - val_acc: 0.7257
+Epoch 4/5
+9740/9740 [==============================] - 4s 445us/step - loss: 0.0020 - acc: 0.9988 - val_loss: 2.8225 - val_acc: 0.7267
+Epoch 5/5
+9740/9740 [==============================] - 4s 456us/step - loss: 0.0017 - acc: 0.9992 - val_loss: 2.9743 - val_acc: 0.7288
+955/955 [==============================] - 0s 118us/step
+Test accuracy: 0.72879581233
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 4s 398us/step - loss: 0.0847 - acc: 0.9754 - val_loss: 1.4504 - val_acc: 0.7099
+Epoch 2/5
+9740/9740 [==============================] - 1s 129us/step - loss: 0.0064 - acc: 0.9988 - val_loss: 1.7667 - val_acc: 0.7141
+Epoch 3/5
+9740/9740 [==============================] - 1s 130us/step - loss: 0.0034 - acc: 0.9992 - val_loss: 1.9277 - val_acc: 0.7162
+Epoch 4/5
+9740/9740 [==============================] - 1s 128us/step - loss: 0.0024 - acc: 0.9995 - val_loss: 2.0468 - val_acc: 0.7141
+Epoch 5/5
+9740/9740 [==============================] - 1s 129us/step - loss: 0.0018 - acc: 0.9996 - val_loss: 2.1994 - val_acc: 0.7162
+955/955 [==============================] - 0s 106us/step
+Test accuracy: 0.716230367304
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 4s 458us/step - loss: 0.0418 - acc: 0.9874 - val_loss: 1.8013 - val_acc: 0.7225
+Epoch 2/5
+9740/9740 [==============================] - 2s 177us/step - loss: 0.0016 - acc: 0.9997 - val_loss: 2.0523 - val_acc: 0.7215
+Epoch 3/5
+9740/9740 [==============================] - 2s 176us/step - loss: 0.0015 - acc: 0.9996 - val_loss: 2.2070 - val_acc: 0.7110
+Epoch 4/5
+9740/9740 [==============================] - 2s 176us/step - loss: 0.0012 - acc: 0.9997 - val_loss: 2.3663 - val_acc: 0.7141
+Epoch 5/5
+9740/9740 [==============================] - 2s 181us/step - loss: 0.0013 - acc: 0.9995 - val_loss: 2.4505 - val_acc: 0.7173
+955/955 [==============================] - 0s 73us/step
+Test accuracy: 0.717277487722
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 7s 726us/step - loss: 0.0631 - acc: 0.9796 - val_loss: 1.5120 - val_acc: 0.7288
+Epoch 2/5
+9740/9740 [==============================] - 4s 438us/step - loss: 0.0025 - acc: 0.9994 - val_loss: 1.8281 - val_acc: 0.7288
+Epoch 3/5
+9740/9740 [==============================] - 4s 434us/step - loss: 0.0015 - acc: 0.9995 - val_loss: 2.0376 - val_acc: 0.7267
+Epoch 4/5
+9740/9740 [==============================] - 4s 440us/step - loss: 0.0013 - acc: 0.9995 - val_loss: 2.3033 - val_acc: 0.7162
+Epoch 5/5
+9740/9740 [==============================] - 4s 450us/step - loss: 0.0014 - acc: 0.9993 - val_loss: 2.3220 - val_acc: 0.7288
+955/955 [==============================] - 0s 108us/step
+Test accuracy: 0.72879581233
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+2017-12-13 22:17:35.009528: W C:\tf_jenkins\home\workspace\rel-win\M\windows-gpu\PY\35\tensorflow\core\common_runtime\bfc_allocator.cc:217] Allocator (GPU_0_bfc) ran out of memory trying to allocate 3.57GiB. The caller indicates that this is not a failure, but may mean that there could be performance gains if more memory is available.
+9740/9740 [==============================] - 4s 444us/step - loss: 0.0992 - acc: 0.9663 - val_loss: 1.3005 - val_acc: 0.7194
+Epoch 2/5
+9740/9740 [==============================] - 1s 147us/step - loss: 0.0056 - acc: 0.9994 - val_loss: 1.6572 - val_acc: 0.7236
+Epoch 3/5
+9740/9740 [==============================] - 1s 151us/step - loss: 0.0022 - acc: 0.9996 - val_loss: 1.8245 - val_acc: 0.7215
+Epoch 4/5
+9740/9740 [==============================] - 1s 146us/step - loss: 0.0020 - acc: 0.9996 - val_loss: 1.9927 - val_acc: 0.7225
+Epoch 5/5
+9740/9740 [==============================] - 1s 145us/step - loss: 0.0015 - acc: 0.9996 - val_loss: 2.0685 - val_acc: 0.7204
+955/955 [==============================] - 0s 121us/step
+Test accuracy: 0.720418848979
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 4s 433us/step - loss: 0.0837 - acc: 0.9770 - val_loss: 1.4842 - val_acc: 0.7257
+Epoch 2/5
+9740/9740 [==============================] - 1s 135us/step - loss: 0.0055 - acc: 0.9996 - val_loss: 1.7979 - val_acc: 0.7225
+Epoch 3/5
+9740/9740 [==============================] - 1s 137us/step - loss: 0.0029 - acc: 0.9995 - val_loss: 1.9981 - val_acc: 0.7277
+Epoch 4/5
+9740/9740 [==============================] - 1s 135us/step - loss: 0.0023 - acc: 0.9993 - val_loss: 2.1406 - val_acc: 0.7267
+Epoch 5/5
+9740/9740 [==============================] - 1s 134us/step - loss: 0.0015 - acc: 0.9997 - val_loss: 2.2708 - val_acc: 0.7277
+955/955 [==============================] - 0s 105us/step
+Test accuracy: 0.727748691287
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 7s 746us/step - loss: 0.0280 - acc: 0.9936 - val_loss: 1.6746 - val_acc: 0.7267
+Epoch 2/5
+9740/9740 [==============================] - 4s 443us/step - loss: 0.0012 - acc: 0.9997 - val_loss: 1.9478 - val_acc: 0.7246
+Epoch 3/5
+9740/9740 [==============================] - 4s 446us/step - loss: 0.0010 - acc: 0.9995 - val_loss: 2.1255 - val_acc: 0.7267
+Epoch 4/5
+9740/9740 [==============================] - 4s 444us/step - loss: 8.5729e-04 - acc: 0.9997 - val_loss: 2.2511 - val_acc: 0.7309
+Epoch 5/5
+9740/9740 [==============================] - 5s 478us/step - loss: 0.0011 - acc: 0.9993 - val_loss: 2.4539 - val_acc: 0.7204
+955/955 [==============================] - 0s 76us/step
+Test accuracy: 0.720418848355
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+2017-12-13 22:18:23.126530: W C:\tf_jenkins\home\workspace\rel-win\M\windows-gpu\PY\35\tensorflow\core\common_runtime\bfc_allocator.cc:217] Allocator (GPU_0_bfc) ran out of memory trying to allocate 3.57GiB. The caller indicates that this is not a failure, but may mean that there could be performance gains if more memory is available.
+9740/9740 [==============================] - 5s 493us/step - loss: 0.1324 - acc: 0.9605 - val_loss: 1.1921 - val_acc: 0.7277
+Epoch 2/5
+9740/9740 [==============================] - 2s 162us/step - loss: 0.0148 - acc: 0.9989 - val_loss: 1.6096 - val_acc: 0.7267
+Epoch 3/5
+9740/9740 [==============================] - 2s 162us/step - loss: 0.0077 - acc: 0.9994 - val_loss: 1.8572 - val_acc: 0.7277
+Epoch 4/5
+9740/9740 [==============================] - 2s 162us/step - loss: 0.0063 - acc: 0.9993 - val_loss: 2.0289 - val_acc: 0.7277
+Epoch 5/5
+9740/9740 [==============================] - 2s 162us/step - loss: 0.0050 - acc: 0.9994 - val_loss: 2.1633 - val_acc: 0.7277
+955/955 [==============================] - 0s 109us/step
+Test accuracy: 0.727748691287
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 4s 424us/step - loss: 0.0418 - acc: 0.9905 - val_loss: 1.7146 - val_acc: 0.7246
+Epoch 2/5
+9740/9740 [==============================] - 1s 123us/step - loss: 0.0013 - acc: 0.9997 - val_loss: 1.8286 - val_acc: 0.7183
+Epoch 3/5
+9740/9740 [==============================] - 1s 124us/step - loss: 9.4313e-04 - acc: 0.9996 - val_loss: 1.9527 - val_acc: 0.7236
+Epoch 4/5
+9740/9740 [==============================] - 1s 124us/step - loss: 8.4036e-04 - acc: 0.9997 - val_loss: 2.0685 - val_acc: 0.7225
+Epoch 5/5
+9740/9740 [==============================] - 1s 128us/step - loss: 8.6739e-04 - acc: 0.9996 - val_loss: 2.1171 - val_acc: 0.7236
+955/955 [==============================] - 0s 82us/step
+Test accuracy: 0.723560209611
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 5s 543us/step - loss: 0.0409 - acc: 0.9917 - val_loss: 1.4019 - val_acc: 0.7225
+Epoch 2/5
+9740/9740 [==============================] - 2s 232us/step - loss: 0.0014 - acc: 0.9997 - val_loss: 1.7288 - val_acc: 0.7194
+Epoch 3/5
+9740/9740 [==============================] - 2s 229us/step - loss: 9.9392e-04 - acc: 0.9997 - val_loss: 1.8882 - val_acc: 0.7246
+Epoch 4/5
+9740/9740 [==============================] - 2s 230us/step - loss: 9.2113e-04 - acc: 0.9997 - val_loss: 1.9963 - val_acc: 0.7246
+Epoch 5/5
+9740/9740 [==============================] - 2s 227us/step - loss: 7.6843e-04 - acc: 0.9997 - val_loss: 2.1163 - val_acc: 0.7246
+955/955 [==============================] - 0s 109us/step
+Test accuracy: 0.724607330654
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 7s 761us/step - loss: 0.0294 - acc: 0.9920 - val_loss: 1.7404 - val_acc: 0.7141
+Epoch 2/5
+9740/9740 [==============================] - 4s 452us/step - loss: 0.0015 - acc: 0.9996 - val_loss: 2.0871 - val_acc: 0.7089
+Epoch 3/5
+9740/9740 [==============================] - 4s 438us/step - loss: 0.0013 - acc: 0.9996 - val_loss: 2.3223 - val_acc: 0.7162
+Epoch 4/5
+9740/9740 [==============================] - 4s 436us/step - loss: 8.0913e-04 - acc: 0.9997 - val_loss: 2.4096 - val_acc: 0.7162
+Epoch 5/5
+9740/9740 [==============================] - 4s 457us/step - loss: 8.4618e-04 - acc: 0.9997 - val_loss: 2.5379 - val_acc: 0.7120
+955/955 [==============================] - 0s 141us/step
+Test accuracy: 0.712041885628
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 5s 510us/step - loss: 0.0813 - acc: 0.9862 - val_loss: 1.2342 - val_acc: 0.7277
+Epoch 2/5
+9740/9740 [==============================] - 2s 157us/step - loss: 0.0028 - acc: 0.9996 - val_loss: 1.5468 - val_acc: 0.7257
+Epoch 3/5
+9740/9740 [==============================] - 1s 152us/step - loss: 0.0015 - acc: 0.9998 - val_loss: 1.7423 - val_acc: 0.7257
+Epoch 4/5
+9740/9740 [==============================] - 2s 154us/step - loss: 0.0010 - acc: 0.9997 - val_loss: 1.8581 - val_acc: 0.7267
+Epoch 5/5
+9740/9740 [==============================] - 2s 159us/step - loss: 9.7182e-04 - acc: 0.9997 - val_loss: 1.9594 - val_acc: 0.7215
+955/955 [==============================] - 0s 119us/step
+Test accuracy: 0.721465969398
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+2017-12-13 22:19:40.636637: W C:\tf_jenkins\home\workspace\rel-win\M\windows-gpu\PY\35\tensorflow\core\common_runtime\bfc_allocator.cc:217] Allocator (GPU_0_bfc) ran out of memory trying to allocate 2.89GiB. The caller indicates that this is not a failure, but may mean that there could be performance gains if more memory is available.
+9728/9740 [============================>.] - ETA: 0s - loss: 0.0331 - acc: 0.98782017-12-13 22:19:43.054324: W C:\tf_jenkins\home\workspace\rel-win\M\windows-gpu\PY\35\tensorflow\core\common_runtime\bfc_allocator.cc:217] Allocator (GPU_0_bfc) ran out of memory trying to allocate 2.48GiB. The caller indicates that this is not a failure, but may mean that there could be perf9740/9740 [==============================] - 6s 618us/step - loss: 0.0331 - acc: 0.9878 - val_loss: 1.7943 - val_acc: 0.7225
+Epoch 2/5
+9740/9740 [==============================] - 2s 230us/step - loss: 0.0013 - acc: 0.9996 - val_loss: 2.1584 - val_acc: 0.7288
+Epoch 3/5
+9740/9740 [==============================] - 2s 228us/step - loss: 9.8872e-04 - acc: 0.9997 - val_loss: 2.3186 - val_acc: 0.7257
+Epoch 4/5
+9740/9740 [==============================] - 2s 228us/step - loss: 9.8971e-04 - acc: 0.9996 - val_loss: 2.4652 - val_acc: 0.7194
+Epoch 5/5
+9740/9740 [==============================] - 2s 230us/step - loss: 7.9475e-04 - acc: 0.9995 - val_loss: 2.5355 - val_acc: 0.7298
+955/955 [==============================] - 0s 128us/step
+Test accuracy: 0.729842932124
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 5s 468us/step - loss: 0.1100 - acc: 0.9578 - val_loss: 1.2764 - val_acc: 0.7277
+Epoch 2/5
+9740/9740 [==============================] - 1s 123us/step - loss: 0.0050 - acc: 0.9994 - val_loss: 1.5680 - val_acc: 0.7298
+Epoch 3/5
+9740/9740 [==============================] - 1s 121us/step - loss: 0.0026 - acc: 0.9996 - val_loss: 1.7633 - val_acc: 0.7288
+Epoch 4/5
+9740/9740 [==============================] - 1s 121us/step - loss: 0.0013 - acc: 0.9997 - val_loss: 1.8884 - val_acc: 0.7288
+Epoch 5/5
+9740/9740 [==============================] - 1s 125us/step - loss: 0.0012 - acc: 0.9995 - val_loss: 1.9955 - val_acc: 0.7298
+955/955 [==============================] - 0s 103us/step
+Test accuracy: 0.729842932124
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 7s 737us/step - loss: 0.0161 - acc: 0.9951 - val_loss: 1.9042 - val_acc: 0.7277
+Epoch 2/5
+9740/9740 [==============================] - 4s 392us/step - loss: 8.6504e-04 - acc: 0.9998 - val_loss: 2.1386 - val_acc: 0.7215
+Epoch 3/5
+9740/9740 [==============================] - 4s 398us/step - loss: 8.3413e-04 - acc: 0.9997 - val_loss: 2.2595 - val_acc: 0.7215
+Epoch 4/5
+9740/9740 [==============================] - 4s 403us/step - loss: 7.7769e-04 - acc: 0.9995 - val_loss: 2.3473 - val_acc: 0.7257
+Epoch 5/5
+9740/9740 [==============================] - 4s 404us/step - loss: 6.7726e-04 - acc: 0.9997 - val_loss: 2.4612 - val_acc: 0.7236
+955/955 [==============================] - 0s 110us/step
+Test accuracy: 0.723560210235
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 5s 546us/step - loss: 0.0370 - acc: 0.9929 - val_loss: 1.6387 - val_acc: 0.7267
+Epoch 2/5
+9740/9740 [==============================] - 2s 196us/step - loss: 0.0012 - acc: 0.9995 - val_loss: 1.8481 - val_acc: 0.7288
+Epoch 3/5
+9740/9740 [==============================] - 2s 198us/step - loss: 8.9383e-04 - acc: 0.9997 - val_loss: 1.9878 - val_acc: 0.7277
+Epoch 4/5
+9740/9740 [==============================] - 2s 202us/step - loss: 8.1601e-04 - acc: 0.9997 - val_loss: 2.1405 - val_acc: 0.7215
+Epoch 5/5
+9740/9740 [==============================] - 2s 197us/step - loss: 7.8086e-04 - acc: 0.9997 - val_loss: 2.1949 - val_acc: 0.7288
+955/955 [==============================] - 0s 126us/step
+Test accuracy: 0.728795811706
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 5s 515us/step - loss: 0.0643 - acc: 0.9804 - val_loss: 1.6330 - val_acc: 0.7246
+Epoch 2/5
+9740/9740 [==============================] - 2s 157us/step - loss: 0.0044 - acc: 0.9991 - val_loss: 1.9533 - val_acc: 0.7236
+Epoch 3/5
+9740/9740 [==============================] - 2s 157us/step - loss: 0.0022 - acc: 0.9994 - val_loss: 2.2389 - val_acc: 0.7267
+Epoch 4/5
+9740/9740 [==============================] - 2s 155us/step - loss: 0.0018 - acc: 0.9993 - val_loss: 2.3882 - val_acc: 0.7246
+Epoch 5/5
+9740/9740 [==============================] - 2s 155us/step - loss: 0.0016 - acc: 0.9992 - val_loss: 2.5083 - val_acc: 0.7257
+955/955 [==============================] - 0s 114us/step
+Test accuracy: 0.725654451073
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 7s 750us/step - loss: 0.0582 - acc: 0.9838 - val_loss: 1.6586 - val_acc: 0.7089
+Epoch 2/5
+9740/9740 [==============================] - 4s 384us/step - loss: 0.0023 - acc: 0.9997 - val_loss: 1.9846 - val_acc: 0.7099
+Epoch 3/5
+9740/9740 [==============================] - 4s 394us/step - loss: 0.0015 - acc: 0.9996 - val_loss: 2.1716 - val_acc: 0.7089
+Epoch 4/5
+9740/9740 [==============================] - 4s 389us/step - loss: 0.0011 - acc: 0.9997 - val_loss: 2.2872 - val_acc: 0.7099
+Epoch 5/5
+9740/9740 [==============================] - 4s 386us/step - loss: 7.5378e-04 - acc: 0.9997 - val_loss: 2.4175 - val_acc: 0.7079
+955/955 [==============================] - 0s 94us/step
+Test accuracy: 0.707853402455
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 5s 498us/step - loss: 0.0623 - acc: 0.9877 - val_loss: 1.3744 - val_acc: 0.7246
+Epoch 2/5
+9740/9740 [==============================] - 1s 125us/step - loss: 0.0018 - acc: 0.9997 - val_loss: 1.5678 - val_acc: 0.7288
+Epoch 3/5
+9740/9740 [==============================] - 1s 126us/step - loss: 0.0012 - acc: 0.9997 - val_loss: 1.7331 - val_acc: 0.7267
+Epoch 4/5
+9740/9740 [==============================] - 1s 122us/step - loss: 9.4322e-04 - acc: 0.9997 - val_loss: 1.8123 - val_acc: 0.7267
+Epoch 5/5
+9740/9740 [==============================] - 1s 122us/step - loss: 7.0549e-04 - acc: 0.9997 - val_loss: 1.9010 - val_acc: 0.7288
+955/955 [==============================] - 0s 106us/step
+Test accuracy: 0.728795811706
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+2017-12-13 22:21:31.369389: W C:\tf_jenkins\home\workspace\rel-win\M\windows-gpu\PY\35\tensorflow\core\common_runtime\bfc_allocator.cc:217] Allocator (GPU_0_bfc) ran out of memory trying to allocate 1.51GiB. The caller indicates that this is not a failure, but may mean that there could be performance gains if more memory is available.
+9740/9740 [==============================] - 5s 537us/step - loss: 0.0218 - acc: 0.9952 - val_loss: 2.0666 - val_acc: 0.7204
+Epoch 2/5
+9740/9740 [==============================] - 2s 164us/step - loss: 9.8857e-04 - acc: 0.9997 - val_loss: 2.1570 - val_acc: 0.7246
+Epoch 3/5
+9740/9740 [==============================] - 2s 165us/step - loss: 8.2984e-04 - acc: 0.9997 - val_loss: 2.3108 - val_acc: 0.7225
+Epoch 4/5
+9740/9740 [==============================] - 2s 164us/step - loss: 7.9896e-04 - acc: 0.9996 - val_loss: 2.3354 - val_acc: 0.7246
+Epoch 5/5
+9740/9740 [==============================] - 2s 164us/step - loss: 8.6775e-04 - acc: 0.9997 - val_loss: 2.3768 - val_acc: 0.7236
+955/955 [==============================] - 0s 90us/step
+Test accuracy: 0.723560210235
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 6s 618us/step - loss: 0.0335 - acc: 0.9894 - val_loss: 1.6489 - val_acc: 0.7173
+Epoch 2/5
+9740/9740 [==============================] - 2s 232us/step - loss: 0.0014 - acc: 0.9997 - val_loss: 1.8993 - val_acc: 0.7204
+Epoch 3/5
+9740/9740 [==============================] - 2s 231us/step - loss: 0.0010 - acc: 0.9996 - val_loss: 2.0887 - val_acc: 0.7173
+Epoch 4/5
+9740/9740 [==============================] - 2s 231us/step - loss: 8.7481e-04 - acc: 0.9997 - val_loss: 2.2036 - val_acc: 0.7267
+Epoch 5/5
+9740/9740 [==============================] - 2s 231us/step - loss: 7.6569e-04 - acc: 0.9997 - val_loss: 2.2728 - val_acc: 0.7267
+955/955 [==============================] - 0s 126us/step
+Test accuracy: 0.726701570868
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 8s 811us/step - loss: 0.0301 - acc: 0.9929 - val_loss: 1.7867 - val_acc: 0.7236
+Epoch 2/5
+9740/9740 [==============================] - 4s 432us/step - loss: 0.0011 - acc: 0.9996 - val_loss: 2.1104 - val_acc: 0.7267
+Epoch 3/5
+9740/9740 [==============================] - 4s 435us/step - loss: 7.7004e-04 - acc: 0.9996 - val_loss: 2.2944 - val_acc: 0.7246
+Epoch 4/5
+9740/9740 [==============================] - 4s 432us/step - loss: 8.5057e-04 - acc: 0.9994 - val_loss: 2.4072 - val_acc: 0.7236
+Epoch 5/5
+9740/9740 [==============================] - 4s 435us/step - loss: 8.8001e-04 - acc: 0.9997 - val_loss: 2.4649 - val_acc: 0.7298
+955/955 [==============================] - 0s 109us/step
+Test accuracy: 0.729842932124
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 5s 523us/step - loss: 0.0621 - acc: 0.9766 - val_loss: 1.5966 - val_acc: 0.7099
+Epoch 2/5
+9740/9740 [==============================] - 1s 145us/step - loss: 0.0053 - acc: 0.9986 - val_loss: 2.0088 - val_acc: 0.7099
+Epoch 3/5
+9740/9740 [==============================] - 1s 147us/step - loss: 0.0026 - acc: 0.9995 - val_loss: 2.2019 - val_acc: 0.7089
+Epoch 4/5
+9740/9740 [==============================] - 1s 147us/step - loss: 0.0016 - acc: 0.9994 - val_loss: 2.3788 - val_acc: 0.7131
+Epoch 5/5
+9740/9740 [==============================] - 1s 145us/step - loss: 0.0019 - acc: 0.9996 - val_loss: 2.4748 - val_acc: 0.7110
+955/955 [==============================] - 0s 103us/step
+Test accuracy: 0.710994763711
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 8s 835us/step - loss: 0.0427 - acc: 0.9890 - val_loss: 1.6252 - val_acc: 0.7319
+Epoch 2/5
+9740/9740 [==============================] - 4s 440us/step - loss: 0.0014 - acc: 0.9996 - val_loss: 1.8752 - val_acc: 0.7267
+Epoch 3/5
+9740/9740 [==============================] - 4s 435us/step - loss: 0.0010 - acc: 0.9996 - val_loss: 2.0386 - val_acc: 0.7225
+Epoch 4/5
+9740/9740 [==============================] - 4s 444us/step - loss: 9.7081e-04 - acc: 0.9997 - val_loss: 2.2360 - val_acc: 0.7288
+Epoch 5/5
+9740/9740 [==============================] - 4s 437us/step - loss: 7.7450e-04 - acc: 0.9997 - val_loss: 2.3492 - val_acc: 0.7267
+955/955 [==============================] - 0s 115us/step
+Test accuracy: 0.726701571492
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 6s 565us/step - loss: 0.0532 - acc: 0.9841 - val_loss: 1.5571 - val_acc: 0.7257
+Epoch 2/5
+9740/9740 [==============================] - 2s 172us/step - loss: 0.0031 - acc: 0.9995 - val_loss: 1.8618 - val_acc: 0.7257
+Epoch 3/5
+9740/9740 [==============================] - 2s 170us/step - loss: 0.0018 - acc: 0.9996 - val_loss: 2.0487 - val_acc: 0.7204
+Epoch 4/5
+9740/9740 [==============================] - 2s 173us/step - loss: 0.0014 - acc: 0.9996 - val_loss: 2.1692 - val_acc: 0.7236
+Epoch 5/5
+9740/9740 [==============================] - 2s 168us/step - loss: 0.0011 - acc: 0.9996 - val_loss: 2.3124 - val_acc: 0.7298
+955/955 [==============================] - 0s 91us/step
+Test accuracy: 0.729842932749
+Train on 9740 samples, validate on 955 samples
+Epoch 1/5
+9740/9740 [==============================] - 5s 562us/step - loss: 0.0276 - acc: 0.9917 - val_loss: 1.9507 - val_acc: 0.7257
+Epoch 2/5
+9740/9740 [==============================] - 1s 149us/step - loss: 8.8282e-04 - acc: 0.9997 - val_loss: 2.0737 - val_acc: 0.7298
+Epoch 3/5
+9740/9740 [==============================] - 1s 147us/step - loss: 7.9730e-04 - acc: 0.9997 - val_loss: 2.1590 - val_acc: 0.7288
+Epoch 4/5
+9740/9740 [==============================] - 1s 149us/step - loss: 7.5530e-04 - acc: 0.9997 - val_loss: 2.2277 - val_acc: 0.7288
+Epoch 5/5
+9740/9740 [==============================] - 1s 149us/step - loss: 6.8370e-04 - acc: 0.9997 - val_loss: 2.2836 - val_acc: 0.7257
+955/955 [==============================] - 0s 82us/step
+Test accuracy: 0.725654450012
+9751 train sequences
+944 test sequences
+Pad data to be uniformly long (samples length x time)
+x_train shape: (9751, 64)
+x_test shape: (944, 64)
+Evalutation of best performing model:
+944/944 [==============================] - 0s 107us/step
+[0.25872187542143632, 0.97669491525423724]
+Best performing model chosen hyper-parameters:
+{'Dropout_1': 0.2, 'Conv1D': 32, 'batch_size': 32, 'Dropout': 0.4, 'Conv1D_1': 8, 'Dense': 32}
+
+
+
+Trial 0 vals: {'Dropout_1': [1], 'Conv1D': [1], 'batch_size': [2], 'Dropout': [0], 'Conv1D_1': [1], 'Dense': [0]}
+{'Dropout_1': 0.2, 'Conv1D': 16, 'batch_size': 96, 'Dropout': 0.0, 'Conv1D_1': 8, 'Dense': 32}
+Trial 1 vals: {'Dropout_1': [1], 'Conv1D': [2], 'batch_size': [0], 'Dropout': [4], 'Conv1D_1': [1], 'Dense': [0]}
+{'Dropout_1': 0.2, 'Conv1D': 32, 'batch_size': 32, 'Dropout': 0.4, 'Conv1D_1': 8, 'Dense': 32}
+Trial 2 vals: {'Dropout_1': [2], 'Conv1D': [3], 'batch_size': [1], 'Dropout': [4], 'Conv1D_1': [1], 'Dense': [1]}
+{'Dropout_1': 0.3, 'Conv1D': 64, 'batch_size': 64, 'Dropout': 0.4, 'Conv1D_1': 8, 'Dense': 64}
+Trial 3 vals: {'Dropout_1': [1], 'Conv1D': [2], 'batch_size': [3], 'Dropout': [2], 'Conv1D_1': [0], 'Dense': [1]}
+{'Dropout_1': 0.2, 'Conv1D': 32, 'batch_size': 128, 'Dropout': 0.2, 'Conv1D_1': 4, 'Dense': 64}
+Trial 4 vals: {'Dropout_1': [4], 'Conv1D': [1], 'batch_size': [3], 'Dropout': [3], 'Conv1D_1': [2], 'Dense': [0]}
+{'Dropout_1': 0.5, 'Conv1D': 16, 'batch_size': 128, 'Dropout': 0.3, 'Conv1D_1': 12, 'Dense': 32}
+Trial 5 vals: {'Dropout_1': [2], 'Conv1D': [3], 'batch_size': [2], 'Dropout': [3], 'Conv1D_1': [1], 'Dense': [0]}
+{'Dropout_1': 0.3, 'Conv1D': 64, 'batch_size': 96, 'Dropout': 0.3, 'Conv1D_1': 8, 'Dense': 32}
+Trial 6 vals: {'Dropout_1': [3], 'Conv1D': [2], 'batch_size': [3], 'Dropout': [0], 'Conv1D_1': [0], 'Dense': [1]}
+{'Dropout_1': 0.4, 'Conv1D': 32, 'batch_size': 128, 'Dropout': 0.0, 'Conv1D_1': 4, 'Dense': 64}
+Trial 7 vals: {'Dropout_1': [3], 'Conv1D': [0], 'batch_size': [2], 'Dropout': [1], 'Conv1D_1': [2], 'Dense': [0]}
+{'Dropout_1': 0.4, 'Conv1D': 8, 'batch_size': 96, 'Dropout': 0.1, 'Conv1D_1': 12, 'Dense': 32}
+Trial 8 vals: {'Dropout_1': [2], 'Conv1D': [1], 'batch_size': [0], 'Dropout': [3], 'Conv1D_1': [2], 'Dense': [1]}
+{'Dropout_1': 0.3, 'Conv1D': 16, 'batch_size': 32, 'Dropout': 0.3, 'Conv1D_1': 12, 'Dense': 64}
+Trial 9 vals: {'Dropout_1': [0], 'Conv1D': [0], 'batch_size': [1], 'Dropout': [3], 'Conv1D_1': [1], 'Dense': [1]}
+{'Dropout_1': 0.1, 'Conv1D': 8, 'batch_size': 64, 'Dropout': 0.3, 'Conv1D_1': 8, 'Dense': 64}
+Trial 10 vals: {'Dropout_1': [1], 'Conv1D': [2], 'batch_size': [3], 'Dropout': [3], 'Conv1D_1': [2], 'Dense': [1]}
+{'Dropout_1': 0.2, 'Conv1D': 32, 'batch_size': 128, 'Dropout': 0.3, 'Conv1D_1': 12, 'Dense': 64}
+Trial 11 vals: {'Dropout_1': [4], 'Conv1D': [2], 'batch_size': [1], 'Dropout': [0], 'Conv1D_1': [1], 'Dense': [0]}
+{'Dropout_1': 0.5, 'Conv1D': 32, 'batch_size': 64, 'Dropout': 0.0, 'Conv1D_1': 8, 'Dense': 32}
+Trial 12 vals: {'Dropout_1': [1], 'Conv1D': [0], 'batch_size': [3], 'Dropout': [3], 'Conv1D_1': [2], 'Dense': [0]}
+{'Dropout_1': 0.2, 'Conv1D': 8, 'batch_size': 128, 'Dropout': 0.3, 'Conv1D_1': 12, 'Dense': 32}
+Trial 13 vals: {'Dropout_1': [1], 'Conv1D': [2], 'batch_size': [0], 'Dropout': [4], 'Conv1D_1': [2], 'Dense': [1]}
+{'Dropout_1': 0.2, 'Conv1D': 32, 'batch_size': 32, 'Dropout': 0.4, 'Conv1D_1': 12, 'Dense': 64}
+Trial 14 vals: {'Dropout_1': [0], 'Conv1D': [1], 'batch_size': [1], 'Dropout': [5], 'Conv1D_1': [1], 'Dense': [1]}
+{'Dropout_1': 0.1, 'Conv1D': 16, 'batch_size': 64, 'Dropout': 0.5, 'Conv1D_1': 8, 'Dense': 64}
+Trial 15 vals: {'Dropout_1': [1], 'Conv1D': [1], 'batch_size': [1], 'Dropout': [0], 'Conv1D_1': [0], 'Dense': [1]}
+{'Dropout_1': 0.2, 'Conv1D': 16, 'batch_size': 64, 'Dropout': 0.0, 'Conv1D_1': 4, 'Dense': 64}
+Trial 16 vals: {'Dropout_1': [1], 'Conv1D': [0], 'batch_size': [1], 'Dropout': [5], 'Conv1D_1': [1], 'Dense': [1]}
+{'Dropout_1': 0.2, 'Conv1D': 8, 'batch_size': 64, 'Dropout': 0.5, 'Conv1D_1': 8, 'Dense': 64}
+Trial 17 vals: {'Dropout_1': [0], 'Conv1D': [1], 'batch_size': [3], 'Dropout': [0], 'Conv1D_1': [2], 'Dense': [1]}
+{'Dropout_1': 0.1, 'Conv1D': 16, 'batch_size': 128, 'Dropout': 0.0, 'Conv1D_1': 12, 'Dense': 64}
+Trial 18 vals: {'Dropout_1': [0], 'Conv1D': [1], 'batch_size': [0], 'Dropout': [1], 'Conv1D_1': [1], 'Dense': [0]}
+{'Dropout_1': 0.1, 'Conv1D': 16, 'batch_size': 32, 'Dropout': 0.1, 'Conv1D_1': 8, 'Dense': 32}
+Trial 19 vals: {'Dropout_1': [0], 'Conv1D': [1], 'batch_size': [1], 'Dropout': [4], 'Conv1D_1': [2], 'Dense': [1]}
+{'Dropout_1': 0.1, 'Conv1D': 16, 'batch_size': 64, 'Dropout': 0.4, 'Conv1D_1': 12, 'Dense': 64}
+Trial 20 vals: {'Dropout_1': [1], 'Conv1D': [3], 'batch_size': [2], 'Dropout': [2], 'Conv1D_1': [1], 'Dense': [0]}
+{'Dropout_1': 0.2, 'Conv1D': 64, 'batch_size': 96, 'Dropout': 0.2, 'Conv1D_1': 8, 'Dense': 32}
+Trial 21 vals: {'Dropout_1': [1], 'Conv1D': [2], 'batch_size': [2], 'Dropout': [4], 'Conv1D_1': [1], 'Dense': [0]}
+{'Dropout_1': 0.2, 'Conv1D': 32, 'batch_size': 96, 'Dropout': 0.4, 'Conv1D_1': 8, 'Dense': 32}
+Trial 22 vals: {'Dropout_1': [1], 'Conv1D': [2], 'batch_size': [0], 'Dropout': [4], 'Conv1D_1': [1], 'Dense': [0]}
+{'Dropout_1': 0.2, 'Conv1D': 32, 'batch_size': 32, 'Dropout': 0.4, 'Conv1D_1': 8, 'Dense': 32}
+Trial 23 vals: {'Dropout_1': [3], 'Conv1D': [3], 'batch_size': [0], 'Dropout': [0], 'Conv1D_1': [1], 'Dense': [0]}
+{'Dropout_1': 0.4, 'Conv1D': 64, 'batch_size': 32, 'Dropout': 0.0, 'Conv1D_1': 8, 'Dense': 32}
+Trial 24 vals: {'Dropout_1': [4], 'Conv1D': [2], 'batch_size': [2], 'Dropout': [5], 'Conv1D_1': [0], 'Dense': [0]}
+{'Dropout_1': 0.5, 'Conv1D': 32, 'batch_size': 96, 'Dropout': 0.5, 'Conv1D_1': 4, 'Dense': 32}
+Trial 25 vals: {'Dropout_1': [1], 'Conv1D': [1], 'batch_size': [2], 'Dropout': [4], 'Conv1D_1': [1], 'Dense': [0]}
+{'Dropout_1': 0.2, 'Conv1D': 16, 'batch_size': 96, 'Dropout': 0.4, 'Conv1D_1': 8, 'Dense': 32}
+Trial 26 vals: {'Dropout_1': [1], 'Conv1D': [2], 'batch_size': [0], 'Dropout': [0], 'Conv1D_1': [1], 'Dense': [0]}
+{'Dropout_1': 0.2, 'Conv1D': 32, 'batch_size': 32, 'Dropout': 0.0, 'Conv1D_1': 8, 'Dense': 32}
+Trial 27 vals: {'Dropout_1': [1], 'Conv1D': [1], 'batch_size': [0], 'Dropout': [2], 'Conv1D_1': [1], 'Dense': [0]}
+{'Dropout_1': 0.2, 'Conv1D': 16, 'batch_size': 32, 'Dropout': 0.2, 'Conv1D_1': 8, 'Dense': 32}
+Trial 28 vals: {'Dropout_1': [2], 'Conv1D': [3], 'batch_size': [2], 'Dropout': [1], 'Conv1D_1': [1], 'Dense': [0]}
+{'Dropout_1': 0.3, 'Conv1D': 64, 'batch_size': 96, 'Dropout': 0.1, 'Conv1D_1': 8, 'Dense': 32}
+Trial 29 vals: {'Dropout_1': [4], 'Conv1D': [0], 'batch_size': [2], 'Dropout': [4], 'Conv1D_1': [0], 'Dense': [0]}
+{'Dropout_1': 0.5, 'Conv1D': 8, 'batch_size': 96, 'Dropout': 0.4, 'Conv1D_1': 4, 'Dense': 32}
+Trial 30 vals: {'Dropout_1': [3], 'Conv1D': [2], 'batch_size': [0], 'Dropout': [0], 'Conv1D_1': [1], 'Dense': [0]}
+{'Dropout_1': 0.4, 'Conv1D': 32, 'batch_size': 32, 'Dropout': 0.0, 'Conv1D_1': 8, 'Dense': 32}
+Trial 31 vals: {'Dropout_1': [2], 'Conv1D': [1], 'batch_size': [0], 'Dropout': [2], 'Conv1D_1': [1], 'Dense': [0]}
+{'Dropout_1': 0.3, 'Conv1D': 16, 'batch_size': 32, 'Dropout': 0.2, 'Conv1D_1': 8, 'Dense': 32}
+Trial 32 vals: {'Dropout_1': [1], 'Conv1D': [3], 'batch_size': [2], 'Dropout': [4], 'Conv1D_1': [0], 'Dense': [0]}
+{'Dropout_1': 0.2, 'Conv1D': 64, 'batch_size': 96, 'Dropout': 0.4, 'Conv1D_1': 4, 'Dense': 32}
+Trial 33 vals: {'Dropout_1': [1], 'Conv1D': [2], 'batch_size': [2], 'Dropout': [0], 'Conv1D_1': [1], 'Dense': [0]}
+{'Dropout_1': 0.2, 'Conv1D': 32, 'batch_size': 96, 'Dropout': 0.0, 'Conv1D_1': 8, 'Dense': 32}
+Trial 34 vals: {'Dropout_1': [4], 'Conv1D': [1], 'batch_size': [0], 'Dropout': [1], 'Conv1D_1': [1], 'Dense': [0]}
+{'Dropout_1': 0.5, 'Conv1D': 16, 'batch_size': 32, 'Dropout': 0.1, 'Conv1D_1': 8, 'Dense': 32}
+Trial 35 vals: {'Dropout_1': [3], 'Conv1D': [2], 'batch_size': [3], 'Dropout': [4], 'Conv1D_1': [0], 'Dense': [0]}
+{'Dropout_1': 0.4, 'Conv1D': 32, 'batch_size': 128, 'Dropout': 0.4, 'Conv1D_1': 4, 'Dense': 32}
+Trial 36 vals: {'Dropout_1': [2], 'Conv1D': [3], 'batch_size': [2], 'Dropout': [5], 'Conv1D_1': [1], 'Dense': [0]}
+{'Dropout_1': 0.3, 'Conv1D': 64, 'batch_size': 96, 'Dropout': 0.5, 'Conv1D_1': 8, 'Dense': 32}
+Trial 37 vals: {'Dropout_1': [1], 'Conv1D': [0], 'batch_size': [0], 'Dropout': [2], 'Conv1D_1': [1], 'Dense': [0]}
+{'Dropout_1': 0.2, 'Conv1D': 8, 'batch_size': 32, 'Dropout': 0.2, 'Conv1D_1': 8, 'Dense': 32}
+Trial 38 vals: {'Dropout_1': [2], 'Conv1D': [1], 'batch_size': [2], 'Dropout': [0], 'Conv1D_1': [0], 'Dense': [0]}
+{'Dropout_1': 0.3, 'Conv1D': 16, 'batch_size': 96, 'Dropout': 0.0, 'Conv1D_1': 4, 'Dense': 32}
+Trial 39 vals: {'Dropout_1': [3], 'Conv1D': [2], 'batch_size': [3], 'Dropout': [3], 'Conv1D_1': [1], 'Dense': [0]}
+{'Dropout_1': 0.4, 'Conv1D': 32, 'batch_size': 128, 'Dropout': 0.3, 'Conv1D_1': 8, 'Dense': 32}
+Trial 40 vals: {'Dropout_1': [1], 'Conv1D': [1], 'batch_size': [0], 'Dropout': [1], 'Conv1D_1': [2], 'Dense': [0]}
+{'Dropout_1': 0.2, 'Conv1D': 16, 'batch_size': 32, 'Dropout': 0.1, 'Conv1D_1': 12, 'Dense': 32}
+Trial 41 vals: {'Dropout_1': [4], 'Conv1D': [0], 'batch_size': [2], 'Dropout': [4], 'Conv1D_1': [1], 'Dense': [0]}
+{'Dropout_1': 0.5, 'Conv1D': 8, 'batch_size': 96, 'Dropout': 0.4, 'Conv1D_1': 8, 'Dense': 32}
+Trial 42 vals: {'Dropout_1': [1], 'Conv1D': [2], 'batch_size': [3], 'Dropout': [0], 'Conv1D_1': [2], 'Dense': [1]}
+{'Dropout_1': 0.2, 'Conv1D': 32, 'batch_size': 128, 'Dropout': 0.0, 'Conv1D_1': 12, 'Dense': 64}
+Trial 43 vals: {'Dropout_1': [0], 'Conv1D': [1], 'batch_size': [1], 'Dropout': [3], 'Conv1D_1': [1], 'Dense': [0]}
+{'Dropout_1': 0.1, 'Conv1D': 16, 'batch_size': 64, 'Dropout': 0.3, 'Conv1D_1': 8, 'Dense': 32}
+Trial 44 vals: {'Dropout_1': [1], 'Conv1D': [2], 'batch_size': [0], 'Dropout': [5], 'Conv1D_1': [0], 'Dense': [1]}
+{'Dropout_1': 0.2, 'Conv1D': 32, 'batch_size': 32, 'Dropout': 0.5, 'Conv1D_1': 4, 'Dense': 64}
+Trial 45 vals: {'Dropout_1': [1], 'Conv1D': [0], 'batch_size': [2], 'Dropout': [0], 'Conv1D_1': [1], 'Dense': [0]}
+{'Dropout_1': 0.2, 'Conv1D': 8, 'batch_size': 96, 'Dropout': 0.0, 'Conv1D_1': 8, 'Dense': 32}
+Trial 46 vals: {'Dropout_1': [3], 'Conv1D': [3], 'batch_size': [1], 'Dropout': [4], 'Conv1D_1': [2], 'Dense': [1]}
+{'Dropout_1': 0.4, 'Conv1D': 64, 'batch_size': 64, 'Dropout': 0.4, 'Conv1D_1': 12, 'Dense': 64}
+Trial 47 vals: {'Dropout_1': [2], 'Conv1D': [1], 'batch_size': [3], 'Dropout': [3], 'Conv1D_1': [1], 'Dense': [0]}
+{'Dropout_1': 0.3, 'Conv1D': 16, 'batch_size': 128, 'Dropout': 0.3, 'Conv1D_1': 8, 'Dense': 32}
+Trial 48 vals: {'Dropout_1': [0], 'Conv1D': [2], 'batch_size': [0], 'Dropout': [2], 'Conv1D_1': [1], 'Dense': [0]}
+{'Dropout_1': 0.1, 'Conv1D': 32, 'batch_size': 32, 'Dropout': 0.2, 'Conv1D_1': 8, 'Dense': 32}
+Trial 49 vals: {'Dropout_1': [1], 'Conv1D': [1], 'batch_size': [1], 'Dropout': [0], 'Conv1D_1': [2], 'Dense': [1]}
+{'Dropout_1': 0.2, 'Conv1D': 16, 'batch_size': 64, 'Dropout': 0.0, 'Conv1D_1': 12, 'Dense': 64}
+Trial 50 vals: {'Dropout_1': [4], 'Conv1D': [2], 'batch_size': [2], 'Dropout': [1], 'Conv1D_1': [1], 'Dense': [0]}
+{'Dropout_1': 0.5, 'Conv1D': 32, 'batch_size': 96, 'Dropout': 0.1, 'Conv1D_1': 8, 'Dense': 32}
+Trial 51 vals: {'Dropout_1': [1], 'Conv1D': [0], 'batch_size': [0], 'Dropout': [4], 'Conv1D_1': [0], 'Dense': [0]}
+{'Dropout_1': 0.2, 'Conv1D': 8, 'batch_size': 32, 'Dropout': 0.4, 'Conv1D_1': 4, 'Dense': 32}
+Trial 52 vals: {'Dropout_1': [0], 'Conv1D': [1], 'batch_size': [3], 'Dropout': [5], 'Conv1D_1': [1], 'Dense': [1]}
+{'Dropout_1': 0.1, 'Conv1D': 16, 'batch_size': 128, 'Dropout': 0.5, 'Conv1D_1': 8, 'Dense': 64}
+Trial 53 vals: {'Dropout_1': [1], 'Conv1D': [3], 'batch_size': [2], 'Dropout': [0], 'Conv1D_1': [2], 'Dense': [0]}
+{'Dropout_1': 0.2, 'Conv1D': 64, 'batch_size': 96, 'Dropout': 0.0, 'Conv1D_1': 12, 'Dense': 32}
+Trial 54 vals: {'Dropout_1': [1], 'Conv1D': [2], 'batch_size': [1], 'Dropout': [4], 'Conv1D_1': [1], 'Dense': [0]}
+{'Dropout_1': 0.2, 'Conv1D': 32, 'batch_size': 64, 'Dropout': 0.4, 'Conv1D_1': 8, 'Dense': 32}
+Trial 55 vals: {'Dropout_1': [3], 'Conv1D': [1], 'batch_size': [0], 'Dropout': [3], 'Conv1D_1': [1], 'Dense': [1]}
+{'Dropout_1': 0.4, 'Conv1D': 16, 'batch_size': 32, 'Dropout': 0.3, 'Conv1D_1': 8, 'Dense': 64}
+Trial 56 vals: {'Dropout_1': [4], 'Conv1D': [2], 'batch_size': [2], 'Dropout': [0], 'Conv1D_1': [0], 'Dense': [0]}
+{'Dropout_1': 0.5, 'Conv1D': 32, 'batch_size': 96, 'Dropout': 0.0, 'Conv1D_1': 4, 'Dense': 32}
+Trial 57 vals: {'Dropout_1': [1], 'Conv1D': [0], 'batch_size': [0], 'Dropout': [2], 'Conv1D_1': [1], 'Dense': [0]}
+{'Dropout_1': 0.2, 'Conv1D': 8, 'batch_size': 32, 'Dropout': 0.2, 'Conv1D_1': 8, 'Dense': 32}
+Trial 58 vals: {'Dropout_1': [2], 'Conv1D': [1], 'batch_size': [2], 'Dropout': [4], 'Conv1D_1': [2], 'Dense': [0]}
+{'Dropout_1': 0.3, 'Conv1D': 16, 'batch_size': 96, 'Dropout': 0.4, 'Conv1D_1': 12, 'Dense': 32}
+Trial 59 vals: {'Dropout_1': [0], 'Conv1D': [3], 'batch_size': [3], 'Dropout': [1], 'Conv1D_1': [1], 'Dense': [1]}
+{'Dropout_1': 0.1, 'Conv1D': 64, 'batch_size': 128, 'Dropout': 0.1, 'Conv1D_1': 8, 'Dense': 64}
