@@ -1,4 +1,3 @@
-# data preparation for training
 from collections import Counter
 import random
 import gensim
@@ -91,51 +90,3 @@ for (d, l) in zip(data, labels):
         test_data.append(d)
         test_labels.append(l)
 
-# train data
-from keras.preprocessing import sequence
-from keras.models import Sequential
-from keras.layers import Dense, Dropout, Activation, Embedding, Conv1D, GlobalMaxPooling1D
-from keras.layers import LSTM, Bidirectional
-
-max_feat = 30000
-embedding_dimensions = 128
-epochs = 10
-batch_size = 64
-
-train_data = sequence.pad_sequences(data, maxlen=max_len)
-train_labels = sequence.pad_sequences(labels, maxlen=max_len)
-
-print('training data shape:', train_data.shape)
-print('testing data shape:', test_data.shape)
-
-model = Sequential()
-
-# model.add(Embedding())
-# add the first layer with input_shape
-model.add(Embedding(max_feat,
-                    embedding_dimensions,
-                    input_length=max_len))
-
-
-# model.add(Conv1D(3,
-#                  8,
-#                  padding='valid',
-#                  activation='relu',
-#                  strides=1))
-#
-# model.add(GlobalMaxPooling1D())
-#
-# model.add(Dense(256))
-# model.add(Dropout(0.5)) # 0.1
-# model.add(Activation('relu'))
-#
-# model.add(Dense(1))
-# model.add(Activation('sigmoid'))
-
-model.add(Bidirectional(LSTM(64, return_sequences=True)))
-# model.add(Dropout(0.5))
-model.add(Dense(1, activation='sigmoid'))
-
-
-model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-model.fit(train_data, train_labels, batch_size=batch_size, epochs=epochs, validation_data=(test_data, test_labels))
