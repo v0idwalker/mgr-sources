@@ -9,4 +9,9 @@ need to be started from the document root, but has different prerequisites, comp
 
 The next script, run as:
  `python training/SA/sa_w2v.py`<br />
- is similar to the first one, but the word embeddings are pre-trained vectors from w2v, for better results. Currently the difference is 5%.  
+ uses the word embeddings from pre-trained vectors from w2v, instead of those initialised by keras. 
+ Currently the difference is 5%.
+ 
+ The script<br /> 
+ `python training/SA/sa._w2v_hp.py`<br />
+ combines search through hyper-parameters space with the embedding layer made from w2v pre-trained vectors.  
