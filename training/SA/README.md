@@ -14,4 +14,4 @@ The next script, run as:
  
  The script<br /> 
  `python training/SA/sa._w2v_hp.py`<br />
- combines search through hyper-parameters space with the embedding layer made from w2v pre-trained vectors.  
+ combines search through hyper-parameters space with the embedding layer made from w2v pre-trained vectors. Same ramifications are in effect, as in the previous hyper-parameter search script.   
