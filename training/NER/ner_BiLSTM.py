@@ -7,11 +7,14 @@ w2v = gensim.models.KeyedVectors.load_word2vec_format('GoogleNews-vectors-negati
 
 # print(w2v.wv['man'])
 
-f = open("training/NER/data.txt", "r+")
+f = open("training/NER/data.txt", "r+", encoding='UTF-8')
+
 
 longest = 0     # longest sentence in the data
 
 count = Counter()
+# word -> vector mapping
+wvm = dict()
 
 # word dictionaries
 str_id = dict()
@@ -49,7 +52,7 @@ sentence = []
 sent_lab = []
 
 for l in f:
-    # print(l)
+    # print(l) # do not use in windows or any other crippled consoles, as it breaks, thanks to windows console not being unicode, or being unable to show some unicode chars.
     if l.strip() == "":
         # store data in selected arrays
         data.append(sentence)
@@ -65,28 +68,41 @@ print(data[:20])
 # print(str_id)
 print(labels[:20])
 # print(lab_id)
-print(id_lab)
+# print(id_lab)
 
 f.close()
+unknown = 0
+# generating wordvectors
+for word in str_id:
+    try:
+        wvm[word] = w2v.wv[word]
+    except KeyError:
+        wvm[word] = numpy.random.rand(300)
+        unknown = unknown+1
+        print(wvm[word])
 
-perc = 80
-max_len = 0
-train_data = []
-test_data = []
-train_labels = []
-test_labels = []
+print(str(unknown) +' ' +str(len(str_id)) )
 
-for d in data:
-    if max_len < len(d):
-        max_len = len(d)
 
-for (d, l) in zip(data, labels):
-    if (random.randint(1, 100) <= perc):
-        # traindata
-        train_data.append(d)
-        train_labels.append(l)
-    else:
-        # testdata
-        test_data.append(d)
-        test_labels.append(l)
+# perc = 80
+# max_len = 0
+# train_data = []
+# test_data = []
+# train_labels = []
+# test_labels = []
+#
+# for d in data:
+#     if max_len < len(d):
+#         max_len = len(d)
+#
+# for (d, l) in zip(data, labels):
+#     if (random.randint(1, 100) <= perc):
+#         # traindata
+#         train_data.append(d)
+#         train_labels.append(l)
+#     else:
+#         # testdata
+#         test_data.append(d)
+#         test_labels.append(l)
+
 

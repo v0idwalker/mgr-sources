@@ -213,7 +213,7 @@ for word, index in vocab.items():
     try:
         embedding_weights[index, :] = w2v.wv[word]
     except KeyError:
-        embedding_weights[index, :] = numpy.array(numpy.zeros(300), dtype=float)
+        embedding_weights[index, :] = numpy.array(numpy.zeros(300), dtype=float) # add random instead of zeroes, might get better success rates.
 
 # define inputs here
 embedding_layer = Embedding(output_dim=vocab_dim, input_dim=n_symbols, trainable=False)
@@ -264,5 +264,5 @@ print('Test accuracy:', acc, 'Test score: ', score)
 
 # plot_model(model, to_file='model.png')
 
-model.save("textcnn.h5")
-model.save_weights("textcnn_weights.h5")
+model.save("textcnn_sa_w2v.h5")
+model.save_weights("textcnn_weights_sa_w2v.h5")

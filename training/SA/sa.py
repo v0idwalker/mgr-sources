@@ -258,11 +258,12 @@ def print_predict(prediction, test_dat, test_lab, vocab):
                 print(vocab.get(w), end=' ')
         print('\n')
 
+print(model.summary())
 print_predict(pred, test_data, test_labels, vocab)
 
 # plot model
 
 # plot_model(model, to_file='model.png')
 
-# model.save("textcnn.h5")
-# model.save_weights("textcnn_weights.h5")
+model.save("textcnn_sa.h5")
+model.save_weights("textcnn_weights_sa.h5")
