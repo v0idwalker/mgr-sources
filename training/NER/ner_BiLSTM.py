@@ -3,6 +3,9 @@ import random
 import gensim
 import numpy
 
+from keras.models import Sequential
+from keras.layers import LSTM, Bidirectional, TimeDistributed, Dropout, Dense
+
 w2v = gensim.models.KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin', binary=True)
 
 # print(w2v.wv['man'])
@@ -77,32 +80,20 @@ for word in str_id:
     try:
         wvm[word] = w2v.wv[word]
     except KeyError:
-        wvm[word] = numpy.random.rand(300)
+        wvm[word] = (numpy.random.rand(300)*2)-1
         unknown = unknown+1
-        print(wvm[word])
+        print(word)
 
-print(str(unknown) +' ' +str(len(str_id)) )
-
-
-# perc = 80
-# max_len = 0
-# train_data = []
-# test_data = []
-# train_labels = []
-# test_labels = []
-#
-# for d in data:
-#     if max_len < len(d):
-#         max_len = len(d)
-#
-# for (d, l) in zip(data, labels):
-#     if (random.randint(1, 100) <= perc):
-#         # traindata
-#         train_data.append(d)
-#         train_labels.append(l)
-#     else:
-#         # testdata
-#         test_data.append(d)
-#         test_labels.append(l)
+print(str(unknown) + ' ' +str(len(str_id)) )
 
 
+model = Sequential()
+
+model.add(Bidirectional(LSTM(units=150, return_sequences=True)))
+model.add(Dropout(0.4))
+model.add(Bidirectional(LSTM(units=150, return_sequences=True)))
+model.add(Dropout(0.5))
+model.add(TimeDistributed(Dense(10, activation='softmax')))
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+model.summary()
+model.fit(TRAIN_DATA, TRAIN_LABELS, )

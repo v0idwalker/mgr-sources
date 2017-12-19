@@ -148,29 +148,10 @@ from keras.utils import plot_model
 # create param space, test with cutting out the most used words as well as least used, as the former tend to appear too
 # often, while the latter has too few instances.
 
-perc = 80  # the ratio of training data compared to test data 80~72 90~75
-# baseparam = {
-#     "max_feat": 6000,
-#     "max_len": 64,
-#     "batch_size": 128,
-#     "embed_dims": 50,
-#     "filters": 24,
-#     "kernel_size": 4,
-#     "hidden_dims": 128,
-#     "epochs": 10
-# }
-#
-# for
+perc = 90  # the ratio of training data compared to test data 80~72 90~75
 
 param = {
-    "max_feat": 6000,
     "max_len": 64,
-    "batch_size": 32, #16?
-    "embed_dims": 128,
-    "filters": 16,
-    "filter_size": 4,
-    "hidden_dims": 64,
-    "epochs": 70
 }
 
 print('Data is being distributed into train/test sets')
@@ -213,13 +194,23 @@ for word, index in vocab.items():
     try:
         embedding_weights[index, :] = w2v.wv[word]
     except KeyError:
-        embedding_weights[index, :] = numpy.array(numpy.zeros(300), dtype=float) # add random instead of zeroes, might get better success rates.
+        # embedding_weights[index, :] = numpy.array(numpy.zeros(300), dtype=float) # add random instead of zeroes, might get better success rates.
+        embedding_weights[index, :] = numpy.array((numpy.random.rand(300)*2)-1, dtype=float)
 
 # define inputs here
 embedding_layer = Embedding(output_dim=vocab_dim, input_dim=n_symbols, trainable=False)
-embedding_layer.build((None,)) # if you don't do this, the next step won't work
+embedding_layer.build((None,))  # if you don't do this, the next step won't work
 embedding_layer.set_weights([embedding_weights])
 
+param = {
+    "max_feat": 6000,
+    "batch_size": 32, #16?
+    "embed_dims": 128,
+    "filters": 16,
+    "filter_size": 4,
+    "hidden_dims": 64,
+    "epochs": 15
+}
 
 model = Sequential()
 
@@ -230,12 +221,20 @@ model = Sequential()
 #                     input_length=param["max_len"]))
 model.add(embedding_layer)
 
-model.add(Dropout(0.3)) # 0.2
+model.add(Dropout(0.4)) # 0.2
+
+# {'Conv1D': 128, 'batch_size': 96, 'Conv1D_3': 4, 'Dropout_1': 0.3, 'Dropout': 0.4, 'Conv1D_1': 4, 'Conv1D_2': 64, 'Dense': 32}
 
 # we add a Convolution1D, which will learn filters
 # word group filters of size filter_length:
-model.add(Conv1D(param["filters"],
-                 param["filter_size"],
+model.add(Conv1D(128,
+                 4,
+                 padding='valid',
+                 activation='relu',
+                 strides=1))
+
+model.add(Conv1D(64,  # 16
+                 4,  # 4
                  padding='valid',
                  activation='relu',
                  strides=1))
@@ -243,8 +242,8 @@ model.add(Conv1D(param["filters"],
 model.add(GlobalMaxPooling1D())
 
 # We add a vanilla hidden layer:
-model.add(Dense(param["hidden_dims"]))
-model.add(Dropout(0.2)) # 0.1
+model.add(Dense(32))
+model.add(Dropout(0.4)) # 0.1
 model.add(Activation('relu'))
 
 # We project onto a single unit output layer, and squash it with a sigmoid:
@@ -252,6 +251,7 @@ model.add(Dense(1))
 model.add(Activation('sigmoid'))
 
 model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+model.summary()
 model.fit(train_data, train_labels,
           batch_size=param["batch_size"],
           epochs=param["epochs"],

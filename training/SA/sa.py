@@ -239,6 +239,7 @@ model.add(Dense(1))
 model.add(Activation('sigmoid'))
 
 model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+model.summary()
 model.fit(train_data, train_labels,
           batch_size=param["batch_size"],
           epochs=param["epochs"],

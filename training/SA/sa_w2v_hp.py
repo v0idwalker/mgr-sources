@@ -176,7 +176,7 @@ def data():
         try:
             embedding_weights[index, :] = w2v.wv[word]
         except KeyError:
-            embedding_weights[index, :] = numpy.array(numpy.zeros(300), dtype=float)
+            embedding_weights[index, :] = numpy.array((numpy.random.rand(300) * 2) - 1, dtype=float)
 
     # define inputs here
     embedding_layer = Embedding(output_dim=vocab_dim, input_dim=n_symbols, trainable=False)
@@ -201,12 +201,6 @@ def model_wrap(X_train, Y_train, X_test, Y_test, embedding_layer):
     model.add(Dropout({{choice([0.0, 0.1, 0.2, 0.3, 0.4, 0.5])}})) # .3
 
     model.add(Conv1D({{choice([8, 16, 32, 64, 128])}},   # 16
-                     {{choice([4, 8, 12])}},        # 4
-                     padding='valid',
-                     activation='relu',
-                     strides=1))
-
-    model.add(Conv1D({{choice([8, 16, 32, 64])}},   # 16
                      {{choice([4, 8, 12])}},        # 4
                      padding='valid',
                      activation='relu',
@@ -240,7 +234,7 @@ if __name__ == '__main__':
     best_run, best_model, space = optim.minimize(model=model_wrap,
                                                 data=data,
                                                 algo=tpe.suggest,
-                                                max_evals=60,
+                                                max_evals=100,
                                                 trials=trials,
                                                 eval_space=True,
                                                 return_space=True
