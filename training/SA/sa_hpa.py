@@ -176,7 +176,7 @@ def model_wrap(X_train, Y_train, X_test, Y_test):
     model.add(Embedding({{choice([300, 1500, 4000, 6000])}}, # 6000
                         {{choice([64, 128])}},  # 128
                         input_length=param["max_len"]))
-    model.add(Dropout({{choice([0.0, 0.1, 0.2, 0.3, 0.4, 0.5])}})) # .3
+    model.add(Dropout({{choice([0.1, 0.2, 0.3, 0.4, 0.5])}})) # .3
 
     model.add(Conv1D({{choice([8, 16, 32, 64])}},   # 16
                      {{choice([4, 8, 12])}},        # 4

@@ -5,8 +5,9 @@ import numpy
 
 from keras.models import Sequential
 from keras.layers import LSTM, Bidirectional, TimeDistributed, Dropout, Dense
+from keras.utils.vis_utils import plot_model
 
-w2v = gensim.models.KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin', binary=True)
+# w2v = gensim.models.KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin', binary=True)
 
 # print(w2v.wv['man'])
 
@@ -67,9 +68,9 @@ for l in f:
         sentence.append(str_id[line[0].strip()])
         sent_lab.append(lab_id[line[1].strip()])
 
-print(data[:20])
+# print(data[:20])
 # print(str_id)
-print(labels[:20])
+# print(labels[:20])
 # print(lab_id)
 # print(id_lab)
 
@@ -78,22 +79,44 @@ unknown = 0
 # generating wordvectors
 for word in str_id:
     try:
-        wvm[word] = w2v.wv[word]
+        # wvm[word] = w2v.wv[word]
+        pass
     except KeyError:
         wvm[word] = (numpy.random.rand(300)*2)-1
         unknown = unknown+1
-        print(word)
+        # print(word)
 
-print(str(unknown) + ' ' +str(len(str_id)) )
+# print(str(unknown) + ' ' +str(len(str_id)) )
+
+from data_preprocess import DataUtil
+
+dutil = DataUtil("wordvecs.txt", "news_tagged_data.txt")
+dX, dY = dutil.read_and_parse_data("wordvecs.txt", "news_tagged_data.txt")
+
+perc = 90
+
+test_split_mask = numpy.random.rand(len(dX)) < (0.01*perc)
+train_X = dX[test_split_mask]
+train_Y = dY[test_split_mask]
+test_X = dX[~test_split_mask]
+test_Y = dY[~test_split_mask]
 
 
 model = Sequential()
 
-model.add(Bidirectional(LSTM(units=150, return_sequences=True)))
-model.add(Dropout(0.4))
-model.add(Bidirectional(LSTM(units=150, return_sequences=True)))
+model.add(Bidirectional(LSTM(units=150, return_sequences=True), input_shape=(29,300)))
 model.add(Dropout(0.5))
 model.add(TimeDistributed(Dense(10, activation='softmax')))
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+
 model.summary()
-model.fit(TRAIN_DATA, TRAIN_LABELS, )
+
+model.fit(train_X, train_Y, epochs=25, batch_size=56, validation_data=(test_X, test_Y))
+
+score = model.evaluate(test_X, test_Y, verbose=0)
+print("Accuracy on test: " + str(score[1]))
+
+import pydot
+import graphviz
+
+plot_model(model, to_file='BiLSTMv1.png', show_layer_names=True)
