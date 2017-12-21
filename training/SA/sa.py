@@ -3,8 +3,6 @@ import re
 import codecs
 from collections import Counter
 import random
-
-import sys
 import os
 
 # we want to find the Named Entities in the text
@@ -144,6 +142,7 @@ from keras.preprocessing import sequence
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation, Embedding, Conv1D, GlobalMaxPooling1D
 from keras.utils import plot_model
+from keras import optimizers, regularizers
 
 # create param space, test with cutting out the most used words as well as least used, as the former tend to appear too
 # often, while the latter has too few instances.
@@ -170,7 +169,7 @@ param = {
     "filters": 16,
     "filter_size": 4,
     "hidden_dims": 64,
-    "epochs": 5 #20
+    "epochs": 10
 }
 
 print('Data is being distributed into train/test sets')
@@ -183,15 +182,15 @@ train_labels = []
 test_data = []
 test_labels = []
 
-for (d, l) in zip(id_data, labels):
+for (d, lab) in zip(id_data, labels):
     if (random.randint(1,100)<=perc):
         # traindata
         train_data.append(d)
-        train_labels.append(l)
+        train_labels.append(lab)
     else:
         # testdata
         test_data.append(d)
-        test_labels.append(l)
+        test_labels.append(lab)
 
 # print(imdb.load_data(num_words=param["max_feat"]))
 # print("\n\n")
@@ -217,7 +216,7 @@ model = Sequential()
 model.add(Embedding(param["max_feat"],
                     param["embed_dims"],
                     input_length=param["max_len"]))
-model.add(Dropout(0.3)) # 0.2
+# model.add(Dropout(0.3)) # 0.2
 
 # we add a Convolution1D, which will learn filters
 # word group filters of size filter_length:
@@ -225,6 +224,9 @@ model.add(Conv1D(param["filters"],
                  param["filter_size"],
                  padding='valid',
                  activation='relu',
+                 kernel_regularizer=regularizers.l2(l=0.001),
+                 bias_regularizer=regularizers.l2(l=0.001),
+                 activity_regularizer=regularizers.l2(l=0.001),
                  strides=1))
 # we use max pooling:
 model.add(GlobalMaxPooling1D())
@@ -238,9 +240,9 @@ model.add(Activation('relu'))
 model.add(Dense(1))
 model.add(Activation('sigmoid'))
 
-model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-model.summary()
-model.fit(train_data, train_labels,
+adam = optimizers.Adam(lr=0.0005, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.003)
+model.compile(loss='binary_crossentropy', optimizer=adam, metrics=['accuracy'])
+epochs = model.fit(train_data, train_labels,
           batch_size=param["batch_size"],
           epochs=param["epochs"],
           validation_data=(test_data, test_labels))
@@ -260,7 +262,24 @@ def print_predict(prediction, test_dat, test_lab, vocab):
         print('\n')
 
 print(model.summary())
-print_predict(pred, test_data, test_labels, vocab)
+# print_predict(pred, test_data, test_labels, vocab)
+
+def plot_graph_from_hist(history):
+    import matplotlib.pyplot as plt
+    import datetime, time
+    # summarize keras history for accuracy
+    plt.plot(history.history['acc'])
+    plt.plot(history.history['val_acc'])
+    plt.plot(history.history['loss'])
+    plt.plot(history.history['val_loss'])
+    plt.title('model accuracy/loss')
+    plt.ylabel('accuracy/loss')
+    plt.xlabel('epoch')
+    plt.legend(['train_acc', 'test_acc', 'train_loss', 'test_loss'], loc='upper left')
+    # plt.show()
+    plt.savefig('plots/SA_fig'+str(time.mktime(datetime.datetime.today().timetuple()))+'.png')
+
+# plot_graph_from_hist(epochs)
 
 # plot model
 

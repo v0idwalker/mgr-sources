@@ -93,7 +93,7 @@ from data_preprocess import DataUtil
 dutil = DataUtil("wordvecs.txt", "news_tagged_data.txt")
 dX, dY = dutil.read_and_parse_data("wordvecs.txt", "news_tagged_data.txt")
 
-perc = 90
+perc = 90 # diff between taina nd test
 
 test_split_mask = numpy.random.rand(len(dX)) < (0.01*perc)
 train_X = dX[test_split_mask]

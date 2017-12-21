@@ -144,6 +144,7 @@ from keras.preprocessing import sequence
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation, Embedding, Conv1D, GlobalMaxPooling1D
 from keras.utils import plot_model
+from keras import optimizers, regularizers
 
 # create param space, test with cutting out the most used words as well as least used, as the former tend to appear too
 # often, while the latter has too few instances.
@@ -203,57 +204,54 @@ embedding_layer.build((None,))  # if you don't do this, the next step won't work
 embedding_layer.set_weights([embedding_weights])
 
 param = {
-    "max_feat": 6000,
     "batch_size": 32, #16?
     "embed_dims": 128,
     "filters": 16,
     "filter_size": 4,
     "hidden_dims": 64,
-    "epochs": 15
+    "epochs": 10
 }
 
 model = Sequential()
 
 # we start off with an efficient embedding layer which maps
 # our vocab indices into embedding_dims dimensions
-# model.add(Embedding(param["max_feat"],
-#                     param["embed_dims"],
-#                     input_length=param["max_len"]))
+
 model.add(embedding_layer)
 
-model.add(Dropout(0.4)) # 0.2
-
 # {'Conv1D': 128, 'batch_size': 96, 'Conv1D_3': 4, 'Dropout_1': 0.3, 'Dropout': 0.4, 'Conv1D_1': 4, 'Conv1D_2': 64, 'Dense': 32}
+# Trial 0 vals: {'Conv1D_1': [1], 'batch_size': [2], 'Dense': [0], 'Conv1D': [1], 'Dropout': [0.28192006496913374]}
+# {'Conv1D_1': 8, 'batch_size': 96, 'Dense': 32, 'Conv1D': 16, 'Dropout': 0.28192006496913374}
+# {'Conv1D': 128, 'Dropout': 0.37678000665362027, 'Conv1D_1': 12, 'batch_size': 32, 'Dense': 32}
 
 # we add a Convolution1D, which will learn filters
 # word group filters of size filter_length:
-model.add(Conv1D(128,
-                 4,
+model.add(Conv1D(64,
+                 6,
                  padding='valid',
                  activation='relu',
+                 kernel_regularizer=regularizers.l2(l=0.001),
+                 activity_regularizer=regularizers.l2(l=0.001),
+                 bias_regularizer=regularizers.l2(l=0.001),
                  strides=1))
 
-model.add(Conv1D(64,  # 16
-                 4,  # 4
-                 padding='valid',
-                 activation='relu',
-                 strides=1))
 # we use max pooling:
 model.add(GlobalMaxPooling1D())
 
 # We add a vanilla hidden layer:
-model.add(Dense(32))
-model.add(Dropout(0.4)) # 0.1
+model.add(Dense(64))
+model.add(Dropout(0.35)) # 0.1
 model.add(Activation('relu'))
 
 # We project onto a single unit output layer, and squash it with a sigmoid:
 model.add(Dense(1))
 model.add(Activation('sigmoid'))
 
-model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+adam = optimizers.Adam(lr=0.003, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.003)
+model.compile(loss='binary_crossentropy', optimizer=adam, metrics=['accuracy'])
 model.summary()
 model.fit(train_data, train_labels,
-          batch_size=param["batch_size"],
+          batch_size=32,
           epochs=param["epochs"],
           validation_data=(test_data, test_labels))
 

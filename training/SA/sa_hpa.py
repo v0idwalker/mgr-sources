@@ -167,22 +167,26 @@ def data():
 def model_wrap(X_train, Y_train, X_test, Y_test):
     from keras.models import Sequential
     from keras.layers import Dense, Dropout, Activation, Embedding, Conv1D, GlobalMaxPooling1D
+    from keras import optimizers, regularizers
 
     param = {
         "max_len": 64,
-        "epochs": 5
+        "epochs": 15
     }
     model = Sequential()
     model.add(Embedding({{choice([300, 1500, 4000, 6000])}}, # 6000
                         {{choice([64, 128])}},  # 128
+                        kernel_regularizer=regularizers.l2(l=0.001),
+                        activity_regularizer=regularizers.l2(l=0.001),
+                        bias_regularizer=regularizers.l2(l=0.001),
                         input_length=param["max_len"]))
-    model.add(Dropout({{choice([0.1, 0.2, 0.3, 0.4, 0.5])}})) # .3
 
     model.add(Conv1D({{choice([8, 16, 32, 64])}},   # 16
                      {{choice([4, 8, 12])}},        # 4
                      padding='valid',
                      activation='relu',
                      strides=1))
+
     model.add(GlobalMaxPooling1D())
 
     model.add(Dense({{choice([32, 64])}})) # 64
@@ -192,8 +196,9 @@ def model_wrap(X_train, Y_train, X_test, Y_test):
     model.add(Dense(1))
     model.add(Activation('sigmoid'))
 
+    adam = optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.001)
     model.compile(loss='binary_crossentropy',
-                  optimizer='adam',
+                  optimizer=adam,
                   metrics=['accuracy'])
     model.fit(X_train, Y_train,
               batch_size={{choice([32, 64, 96, 128])}},     # 32 16?
@@ -209,7 +214,7 @@ if __name__ == '__main__':
     best_run, best_model, space = optim.minimize(model=model_wrap,
                                                 data=data,
                                                 algo=tpe.suggest,
-                                                max_evals=60,
+                                                max_evals=100,
                                                 trials=trials,
                                                 eval_space=True,
                                                 return_space=True

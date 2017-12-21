@@ -6,7 +6,7 @@ from numpy import random
 
 from hyperopt import Trials, STATUS_OK, tpe
 from hyperas import optim
-from hyperas.distributions import choice
+from hyperas.distributions import choice, uniform
 
 import gensim as gs
 import numpy
@@ -188,6 +188,8 @@ def data():
 def model_wrap(X_train, Y_train, X_test, Y_test, embedding_layer):
     from keras.models import Sequential
     from keras.layers import Dense, Dropout, Activation, Conv1D, GlobalMaxPooling1D
+    from keras.layers.normalization import BatchNormalization
+    from keras import optimizers, regularizers
 
     param = {
         "max_len": 64,
@@ -198,28 +200,30 @@ def model_wrap(X_train, Y_train, X_test, Y_test, embedding_layer):
 
     model.add(embedding_layer)
 
-    model.add(Dropout({{choice([0.0, 0.1, 0.2, 0.3, 0.4, 0.5])}})) # .3
-
     model.add(Conv1D({{choice([8, 16, 32, 64, 128])}},   # 16
                      {{choice([4, 8, 12])}},        # 4
                      padding='valid',
                      activation='relu',
+                     kernel_regularizer=regularizers.l2(l=0.001),
+                     activity_regularizer=regularizers.l2(l=0.001),
+                     bias_regularizer=regularizers.l2(l=0.001),
                      strides=1))
 
     model.add(GlobalMaxPooling1D())
 
-    model.add(Dense({{choice([32, 64])}})) # 64
-    model.add(Dropout({{choice([0.1, 0.2, 0.3, 0.4, 0.5])}}))  # .2
+    model.add(Dense({{choice([24, 32, 64])}})) # 64
+    model.add(Dropout({{uniform(0.2, 0.4)}}))  # .2
     model.add(Activation('relu'))
 
     model.add(Dense(1))
     model.add(Activation('sigmoid'))
 
+    adam = optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.00)
     model.compile(loss='binary_crossentropy',
-                  optimizer='adam',
+                  optimizer=adam,
                   metrics=['accuracy'])
     model.fit(X_train, Y_train,
-              batch_size={{choice([32, 64, 96, 128])}},     # 32 16?
+              batch_size={{choice([16, 32, 64, 96])}},     # 32 16?
               epochs=param["epochs"],
               validation_data=(X_test, Y_test))
     score, acc = model.evaluate(X_test, Y_test,
@@ -234,7 +238,7 @@ if __name__ == '__main__':
     best_run, best_model, space = optim.minimize(model=model_wrap,
                                                 data=data,
                                                 algo=tpe.suggest,
-                                                max_evals=100,
+                                                max_evals=50,
                                                 trials=trials,
                                                 eval_space=True,
                                                 return_space=True
