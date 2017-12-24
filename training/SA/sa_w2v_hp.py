@@ -178,9 +178,8 @@ def data():
         except KeyError:
             embedding_weights[index, :] = numpy.array((numpy.random.rand(300) * 2) - 1, dtype=float)
 
-    # define inputs here
-    embedding_layer = Embedding(output_dim=vocab_dim, input_dim=n_symbols, trainable=False)
-    embedding_layer.build((None,))  # if you don't do this, the next step won't work
+    embedding_layer = Embedding(output_dim=vocab_dim, input_dim=n_symbols, trainable=True)
+    embedding_layer.build((None,))
     embedding_layer.set_weights([embedding_weights])
 
     return X_train, Y_train, X_test, Y_test, embedding_layer
@@ -200,30 +199,29 @@ def model_wrap(X_train, Y_train, X_test, Y_test, embedding_layer):
 
     model.add(embedding_layer)
 
-    model.add(Conv1D({{choice([8, 16, 32, 64, 128])}},   # 16
+    model.add(Conv1D({{choice([16, 24, 32, 40])}},   # 16
                      {{choice([4, 8, 12])}},        # 4
                      padding='valid',
                      activation='relu',
                      kernel_regularizer=regularizers.l2(l=0.001),
-                     activity_regularizer=regularizers.l2(l=0.001),
-                     bias_regularizer=regularizers.l2(l=0.001),
                      strides=1))
 
     model.add(GlobalMaxPooling1D())
 
     model.add(Dense({{choice([24, 32, 64])}})) # 64
-    model.add(Dropout({{uniform(0.2, 0.4)}}))  # .2
+    model.add(Dropout(0.5))
     model.add(Activation('relu'))
 
     model.add(Dense(1))
     model.add(Activation('sigmoid'))
 
-    adam = optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.00)
+    adam = optimizers.Adam(lr={{choice([0.001, 0.0001, 0.0005])}}, beta_1=0.9, beta_2=0.999, epsilon=1e-08,
+                           decay={{choice([0.001, 0.002, 0.003])}})
     model.compile(loss='binary_crossentropy',
                   optimizer=adam,
                   metrics=['accuracy'])
     model.fit(X_train, Y_train,
-              batch_size={{choice([16, 32, 64, 96])}},     # 32 16?
+              batch_size=32,     # 32 16?
               epochs=param["epochs"],
               validation_data=(X_test, Y_test))
     score, acc = model.evaluate(X_test, Y_test,
@@ -238,7 +236,7 @@ if __name__ == '__main__':
     best_run, best_model, space = optim.minimize(model=model_wrap,
                                                 data=data,
                                                 algo=tpe.suggest,
-                                                max_evals=50,
+                                                max_evals=80,
                                                 trials=trials,
                                                 eval_space=True,
                                                 return_space=True

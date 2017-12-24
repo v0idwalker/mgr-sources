@@ -43,11 +43,6 @@ for l in f:
             # print(l.split("\t")[1].strip())
 
 
-# print(str_id.keys())
-# print(lab_id.keys())
-
-# reiterate over data
-
 f.seek(0, 0)
 
 data = []

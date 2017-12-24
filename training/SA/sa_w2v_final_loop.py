@@ -157,108 +157,146 @@ param = {
 
 print('Data is being distributed into train/test sets')
 
+def plot_graph_from_hist(histories):
+    import matplotlib.pyplot as plt
+    import datetime, time
+    # summarize keras history for accuracy
+    for h in histories:
+        plt.plot(h.history['acc'], color='red', linestyle='solid', label="Train accuracy")
+        plt.plot(h.history['val_acc'], color='blue', linestyle='solid', label="Validation accuracy")
+        plt.plot(h.history['loss'], color='red', linestyle='dashed', label="Test loss")
+        plt.plot(h.history['val_loss'], color='blue', linestyle='dashed', label="Test loss")
+    plt.title('model accuracy/loss')
+    plt.ylabel('accuracy/loss')
+    plt.xlabel('epoch')
+    plt.legend(['train_acc', 'test_acc', 'train_loss', 'test_loss'], loc='upper left')
+    # plt.show()
+    plt.savefig('plots/SA_W2V_fig'+str(time.mktime(datetime.datetime.today().timetuple()))+'.png')
 
 # (x_train, y_train), (x_test, y_test) = imdb.load_data(num_words=param["max_feat"]) #(train_data, train_)
 
-train_data = []
-train_labels = []
-test_data = []
-test_labels = []
+histories = []
 
-for (d, l) in zip(id_data, labels):
-    if (random.randint(1,100)<=perc):
-        # traindata
-        train_data.append(d)
-        train_labels.append(l)
-    else:
-        # testdata
-        test_data.append(d)
-        test_labels.append(l)
+for x in range(1, 20):
 
-print(len(train_data), 'train sequences')
-print(len(test_data), 'test sequences')
+    train_data = []
+    train_labels = []
+    test_data = []
+    test_labels = []
 
-print('Pad data to be uniformly long (samples length x time)')
-train_data = sequence.pad_sequences(train_data, maxlen=param["max_len"])
-test_data = sequence.pad_sequences(test_data, maxlen=param["max_len"])
-print('x_train shape:', train_data.shape)
-print('x_test shape:', test_data.shape)
+    for (d, l) in zip(id_data, labels):
+        if (random.randint(1,100)<=perc):
+            # traindata
+            train_data.append(d)
+            train_labels.append(l)
+        else:
+            # testdata
+            test_data.append(d)
+            test_labels.append(l)
 
-# creating w2v embedding layer
-w2v = gs.models.KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin', binary=True)
+    print(len(train_data), 'train sequences')
+    print(len(test_data), 'test sequences')
 
-# assemble the embedding_weights in one numpy array
-vocab_dim = 300 # dimensionality of your word vectors, just as 300 dims in w2v pre-trained
-n_symbols = len(vocab) + 1 # adding 1 to account for 0th index (for masking)
-embedding_weights = numpy.zeros((n_symbols, vocab_dim))
-for word, index in vocab.items():
-    try:
-        embedding_weights[index, :] = w2v.wv[word]
-    except KeyError:
-        # embedding_weights[index, :] = numpy.array(numpy.zeros(300), dtype=float) # add random instead of zeroes, might get better success rates.
-        embedding_weights[index, :] = numpy.array((numpy.random.rand(300)*2)-1, dtype=float)
+    print('Pad data to be uniformly long (samples length x time)')
+    train_data = sequence.pad_sequences(train_data, maxlen=param["max_len"])
+    test_data = sequence.pad_sequences(test_data, maxlen=param["max_len"])
+    print('x_train shape:', train_data.shape)
+    print('x_test shape:', test_data.shape)
 
-# define inputs here
-embedding_layer = Embedding(output_dim=vocab_dim, input_dim=n_symbols, trainable=True)
-embedding_layer.build((None,))  # if you don't do this, the next step won't work
-embedding_layer.set_weights([embedding_weights])
+    # creating w2v embedding layer
+    w2v = gs.models.KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin', binary=True)
 
-param = {
-    "batch_size": 32, #16?
-    "embed_dims": 128,
-    "filters": 16,
-    "filter_size": 4,
-    "hidden_dims": 64,
-    "epochs": 10
-}
+    # assemble the embedding_weights in one numpy array
+    vocab_dim = 300 # dimensionality of your word vectors, just as 300 dims in w2v pre-trained
+    n_symbols = len(vocab) + 1 # adding 1 to account for 0th index (for masking)
+    embedding_weights = numpy.zeros((n_symbols, vocab_dim))
+    for word, index in vocab.items():
+        try:
+            embedding_weights[index, :] = w2v.wv[word]
+        except KeyError:
+            # embedding_weights[index, :] = numpy.array(numpy.zeros(300), dtype=float) # add random instead of zeroes, might get better success rates.
+            embedding_weights[index, :] = numpy.array((numpy.random.rand(300)*2)-1, dtype=float)
 
-model = Sequential()
+    # define inputs here
+    embedding_layer = Embedding(output_dim=vocab_dim, input_dim=n_symbols, trainable=True)
+    embedding_layer.build((None,))  # if you don't do this, the next step won't work
+    embedding_layer.set_weights([embedding_weights])
 
-# we start off with an efficient embedding layer which maps
-# our vocab indices into embedding_dims dimensions
+    param = {
+        "max_len": 64,
+        "batch_size": 32, #16?
+        "embed_dims": 128,
+        "filters": 16,
+        "filter_size": 4,
+        "hidden_dims": 64,
+        "epochs": 25
+    }
 
-model.add(embedding_layer)
+    model = Sequential()
 
-# {'Conv1D': 128, 'batch_size': 96, 'Conv1D_3': 4, 'Dropout_1': 0.3, 'Dropout': 0.4, 'Conv1D_1': 4, 'Conv1D_2': 64, 'Dense': 32}
-# Trial 0 vals: {'Conv1D_1': [1], 'batch_size': [2], 'Dense': [0], 'Conv1D': [1], 'Dropout': [0.28192006496913374]}
-# {'Conv1D_1': 8, 'batch_size': 96, 'Dense': 32, 'Conv1D': 16, 'Dropout': 0.28192006496913374}
-# {'Conv1D': 128, 'Dropout': 0.37678000665362027, 'Conv1D_1': 12, 'batch_size': 32, 'Dense': 32}
+    # we start off with an efficient embedding layer which maps
+    # our vocab indices into embedding_dims dimensions
 
-# we add a Convolution1D, which will learn filters
-# word group filters of size filter_length:
-model.add(Conv1D(16,
-                 4,
-                 padding='valid',
-                 activation='relu',
-                 kernel_regularizer=regularizers.l2(l=0.01),
-                 strides=1))
+    model.add(embedding_layer)
 
-# we use max pooling:
-model.add(GlobalMaxPooling1D())
+    # {'Conv1D': 128, 'batch_size': 96, 'Conv1D_3': 4, 'Dropout_1': 0.3, 'Dropout': 0.4, 'Conv1D_1': 4, 'Conv1D_2': 64, 'Dense': 32}
+    # Trial 0 vals: {'Conv1D_1': [1], 'batch_size': [2], 'Dense': [0], 'Conv1D': [1], 'Dropout': [0.28192006496913374]}
+    # {'Conv1D_1': 8, 'batch_size': 96, 'Dense': 32, 'Conv1D': 16, 'Dropout': 0.28192006496913374}
+    # {'Conv1D': 128, 'Dropout': 0.37678000665362027, 'Conv1D_1': 12, 'batch_size': 32, 'Dense': 32}
 
-# We add a vanilla hidden layer:
-model.add(Dense(64))
-model.add(Dropout(0.5)) # 0.1
-model.add(Activation('relu'))
+    # we add a Convolution1D, which will learn filters
+    # word group filters of size filter_length:
+    model.add(Conv1D(32,
+                     6,
+                     padding='valid',
+                     activation='relu',
+                     kernel_regularizer=regularizers.l2(l=0.01),
+                     strides=1))
 
-# We project onto a single unit output layer, and squash it with a sigmoid:
-model.add(Dense(1))
-model.add(Activation('sigmoid'))
+    # we use max pooling:
+    model.add(GlobalMaxPooling1D())
 
-adam = optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.01)
-model.compile(loss='binary_crossentropy', optimizer=adam, metrics=['accuracy'])
-model.summary()
-model.fit(train_data, train_labels,
-          batch_size=32,
-          epochs=param["epochs"],
-          validation_data=(test_data, test_labels))
+    # We add a vanilla hidden layer:
+    model.add(Dense(64))
+    model.add(Dropout(0.5)) # 0.1
+    model.add(Activation('relu'))
 
-score, acc = model.evaluate(test_data, test_labels, verbose=1)
-print('Test accuracy:', acc, 'Test score: ', score)
+    # We project onto a single unit output layer, and squash it with a sigmoid:
+    model.add(Dense(1))
+    model.add(Activation('sigmoid'))
+
+    adam = optimizers.Adam(lr=0.0005, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.006)
+    model.compile(loss='binary_crossentropy', optimizer=adam, metrics=['accuracy'])
+    model.summary()
+    histories.append(model.fit(train_data, train_labels,
+              batch_size=32,
+              epochs=param["epochs"],
+              validation_data=(test_data, test_labels)))
+
+    score, acc = model.evaluate(test_data, test_labels, verbose=1)
+    print('Test accuracy:', acc, 'Test score: ', score)
+
+plot_graph_from_hist(histories)
+wh_acc = 0
+wh_loss = 0
+wh_vacc = 0
+wh_vloss = 0
+
+for h in histories:
+    wh_acc += h.history['acc'][len(h.history['acc'])-1]
+    print(h.history['acc'])
+    wh_vacc += h.history['val_acc'][len(h.history['val_acc'])-1]
+    wh_loss += h.history['loss'][len(h.history['loss'])-1]
+    wh_vloss += h.history['val_loss'][len(h.history['val_loss'])-1]
+
+print('acc:'+str(wh_acc/10))
+print('val_acc:'+ str(wh_vacc/10))
+print('loss:' +str(wh_loss/10))
+print('val_loss:' + str(wh_vloss/10))
 
 # plot model
 
 # plot_model(model, to_file='model.png')
 
-model.save("textcnn_sa_w2v.h5")
-model.save_weights("textcnn_weights_sa_w2v.h5")
+# model.save("textcnn_sa_w2v.h5")
+# model.save_weights("textcnn_weights_sa_w2v.h5")

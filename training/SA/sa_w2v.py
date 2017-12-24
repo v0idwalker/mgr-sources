@@ -199,7 +199,7 @@ for word, index in vocab.items():
         embedding_weights[index, :] = numpy.array((numpy.random.rand(300)*2)-1, dtype=float)
 
 # define inputs here
-embedding_layer = Embedding(output_dim=vocab_dim, input_dim=n_symbols, trainable=False)
+embedding_layer = Embedding(output_dim=vocab_dim, input_dim=n_symbols, trainable=True)
 embedding_layer.build((None,))  # if you don't do this, the next step won't work
 embedding_layer.set_weights([embedding_weights])
 
@@ -226,13 +226,11 @@ model.add(embedding_layer)
 
 # we add a Convolution1D, which will learn filters
 # word group filters of size filter_length:
-model.add(Conv1D(64,
-                 6,
+model.add(Conv1D(16,
+                 4,
                  padding='valid',
                  activation='relu',
-                 kernel_regularizer=regularizers.l2(l=0.001),
-                 activity_regularizer=regularizers.l2(l=0.001),
-                 bias_regularizer=regularizers.l2(l=0.001),
+                 kernel_regularizer=regularizers.l2(l=0.01),
                  strides=1))
 
 # we use max pooling:
@@ -240,14 +238,14 @@ model.add(GlobalMaxPooling1D())
 
 # We add a vanilla hidden layer:
 model.add(Dense(64))
-model.add(Dropout(0.35)) # 0.1
+model.add(Dropout(0.5)) # 0.1
 model.add(Activation('relu'))
 
 # We project onto a single unit output layer, and squash it with a sigmoid:
 model.add(Dense(1))
 model.add(Activation('sigmoid'))
 
-adam = optimizers.Adam(lr=0.003, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.003)
+adam = optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.01)
 model.compile(loss='binary_crossentropy', optimizer=adam, metrics=['accuracy'])
 model.summary()
 model.fit(train_data, train_labels,

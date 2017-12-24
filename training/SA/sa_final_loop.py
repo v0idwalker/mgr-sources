@@ -254,7 +254,7 @@ for x in range(1,10):
                      param["filter_size"],
                      padding='valid',
                      activation='relu',
-                     kernel_regularizer=regularizers.l2(l=0.005),
+                     kernel_regularizer=regularizers.l2(l=0.004),
                      # bias_regularizer=regularizers.l2(l=0.001),
                      # activity_regularizer=regularizers.l2(l=0.001),
                      strides=1))
@@ -285,15 +285,21 @@ for x in range(1,10):
 
 
 plot_graph_from_hist(histories)
-wh_acc, wh_loss, wh_vacc, wh_vloss = 0
+wh_acc = 0
+wh_loss = 0
+wh_vacc = 0
+wh_vloss = 0
 
 for h in histories:
-    wh_acc += h.history['acc'][len(h.history['acc'])]
-    wh_vacc += h.history['val_acc'][len(h.history['val_acc'])]
-    wh_loss += h.history['loss'][len(h.history['loss'])]
-    wh_vloss += h.history['val_loss'][len(h.history['val_loss'])]
+    wh_acc += h.history['acc'][len(h.history['acc'])-1]
+    wh_vacc += h.history['val_acc'][len(h.history['val_acc'])-1]
+    wh_loss += h.history['loss'][len(h.history['loss'])-1]
+    wh_vloss += h.history['val_loss'][len(h.history['val_loss'])-1]
 
-print('acc:'+str(wh_acc)+' val_acc:'+ str(wh_vacc) + ' loss:' +str(wh_loss) +' val_loss:' + wh_vloss)
+print('acc:'+str(wh_acc/10))
+print('val_acc:'+ str(wh_vacc/10))
+print('loss:' +str(wh_loss/10))
+print('val_loss:' + str(wh_vloss/10))
 
 # plot model
 

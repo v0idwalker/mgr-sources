@@ -169,7 +169,7 @@ param = {
     "filters": 16,
     "filter_size": 4,
     "hidden_dims": 64,
-    "epochs": 10
+    "epochs": 15
 }
 
 print('Data is being distributed into train/test sets')
@@ -224,23 +224,23 @@ model.add(Conv1D(param["filters"],
                  param["filter_size"],
                  padding='valid',
                  activation='relu',
-                 kernel_regularizer=regularizers.l2(l=0.001),
-                 bias_regularizer=regularizers.l2(l=0.001),
-                 activity_regularizer=regularizers.l2(l=0.001),
+                 kernel_regularizer=regularizers.l2(l=0.01),
+                 # bias_regularizer=regularizers.l2(l=0.001),
+                 # activity_regularizer=regularizers.l2(l=0.001),
                  strides=1))
 # we use max pooling:
 model.add(GlobalMaxPooling1D())
 
 # We add a vanilla hidden layer:
 model.add(Dense(param["hidden_dims"]))
-model.add(Dropout(0.4)) # 0.1
+model.add(Dropout(0.5)) # 0.1
 model.add(Activation('relu'))
 
 # We project onto a single unit output layer, and squash it with a sigmoid:
 model.add(Dense(1))
 model.add(Activation('sigmoid'))
 
-adam = optimizers.Adam(lr=0.0005, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.003)
+adam = optimizers.Adam(lr=0.0003, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.003)
 model.compile(loss='binary_crossentropy', optimizer=adam, metrics=['accuracy'])
 epochs = model.fit(train_data, train_labels,
           batch_size=param["batch_size"],
