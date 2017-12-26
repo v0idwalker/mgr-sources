@@ -145,6 +145,7 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation, Embedding, Conv1D, GlobalMaxPooling1D
 from keras.utils import plot_model
 from keras import optimizers, regularizers
+from sklearn.model_selection import KFold
 
 # create param space, test with cutting out the most used words as well as least used, as the former tend to appear too
 # often, while the latter has too few instances.
@@ -154,8 +155,6 @@ perc = 90  # the ratio of training data compared to test data 80~72 90~75
 param = {
     "max_len": 64,
 }
-
-print('Data is being distributed into train/test sets')
 
 def plot_graph_from_hist(histories):
     import matplotlib.pyplot as plt
@@ -175,17 +174,43 @@ def plot_graph_from_hist(histories):
 
 # (x_train, y_train), (x_test, y_test) = imdb.load_data(num_words=param["max_feat"]) #(train_data, train_)
 
+# creating w2v embedding layer
+w2v = gs.models.KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin', binary=True)
+
+# assemble the embedding_weights in one numpy array
+vocab_dim = 300 # dimensionality of your word vectors, just as 300 dims in w2v pre-trained
+n_symbols = len(vocab) + 1 # adding 1 to account for 0th index (for masking)
+embedding_weights = numpy.zeros((n_symbols, vocab_dim))
+for word, index in vocab.items():
+    try:
+        embedding_weights[index, :] = w2v.wv[word]
+    except KeyError:
+        # embedding_weights[index, :] = numpy.array(numpy.zeros(300), dtype=float) # add random instead of zeroes, might get better success rates. Faster learning rate if not random.
+        new_random_wv = numpy.array((numpy.random.rand(300) * 2) - 1, dtype=float)
+        norm_const = numpy.linalg.norm(new_random_wv)
+        new_random_wv /= norm_const
+        embedding_weights[index, :] = new_random_wv
+
+# define inputs here
+
 histories = []
+accu = []
+runs = 10
 
-for x in range(1, 20):
+for x in range(1, runs):
 
+    print('Data is being distributed into train/test sets')
     train_data = []
     train_labels = []
     test_data = []
     test_labels = []
 
+    embedding_layer = Embedding(output_dim=vocab_dim, input_dim=n_symbols, trainable=True)
+    embedding_layer.build((None,))  # if you don't do this, the next step won't work
+    embedding_layer.set_weights([embedding_weights])
+
     for (d, l) in zip(id_data, labels):
-        if (random.randint(1,100)<=perc):
+        if (random.randint(1, 100) <= perc):
             # traindata
             train_data.append(d)
             train_labels.append(l)
@@ -203,25 +228,6 @@ for x in range(1, 20):
     print('x_train shape:', train_data.shape)
     print('x_test shape:', test_data.shape)
 
-    # creating w2v embedding layer
-    w2v = gs.models.KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin', binary=True)
-
-    # assemble the embedding_weights in one numpy array
-    vocab_dim = 300 # dimensionality of your word vectors, just as 300 dims in w2v pre-trained
-    n_symbols = len(vocab) + 1 # adding 1 to account for 0th index (for masking)
-    embedding_weights = numpy.zeros((n_symbols, vocab_dim))
-    for word, index in vocab.items():
-        try:
-            embedding_weights[index, :] = w2v.wv[word]
-        except KeyError:
-            # embedding_weights[index, :] = numpy.array(numpy.zeros(300), dtype=float) # add random instead of zeroes, might get better success rates.
-            embedding_weights[index, :] = numpy.array((numpy.random.rand(300)*2)-1, dtype=float)
-
-    # define inputs here
-    embedding_layer = Embedding(output_dim=vocab_dim, input_dim=n_symbols, trainable=True)
-    embedding_layer.build((None,))  # if you don't do this, the next step won't work
-    embedding_layer.set_weights([embedding_weights])
-
     param = {
         "max_len": 64,
         "batch_size": 32, #16?
@@ -229,7 +235,7 @@ for x in range(1, 20):
         "filters": 16,
         "filter_size": 4,
         "hidden_dims": 64,
-        "epochs": 25
+        "epochs": 10
     }
 
     model = Sequential()
@@ -265,7 +271,7 @@ for x in range(1, 20):
     model.add(Dense(1))
     model.add(Activation('sigmoid'))
 
-    adam = optimizers.Adam(lr=0.0005, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.006)
+    adam = optimizers.Adam(lr=0.0005, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0058)
     model.compile(loss='binary_crossentropy', optimizer=adam, metrics=['accuracy'])
     model.summary()
     histories.append(model.fit(train_data, train_labels,
@@ -274,25 +280,17 @@ for x in range(1, 20):
               validation_data=(test_data, test_labels)))
 
     score, acc = model.evaluate(test_data, test_labels, verbose=1)
+    accu.append(acc)
     print('Test accuracy:', acc, 'Test score: ', score)
 
 plot_graph_from_hist(histories)
-wh_acc = 0
-wh_loss = 0
-wh_vacc = 0
-wh_vloss = 0
 
-for h in histories:
-    wh_acc += h.history['acc'][len(h.history['acc'])-1]
-    print(h.history['acc'])
-    wh_vacc += h.history['val_acc'][len(h.history['val_acc'])-1]
-    wh_loss += h.history['loss'][len(h.history['loss'])-1]
-    wh_vloss += h.history['val_loss'][len(h.history['val_loss'])-1]
+mean_acc = 0
 
-print('acc:'+str(wh_acc/10))
-print('val_acc:'+ str(wh_vacc/10))
-print('loss:' +str(wh_loss/10))
-print('val_loss:' + str(wh_vloss/10))
+for a in accu:
+    mean_acc += a
+
+print('val_acc:'+str(mean_acc/runs))
 
 # plot model
 
