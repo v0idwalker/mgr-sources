@@ -197,7 +197,7 @@ histories = []
 accu = []
 runs = 10
 
-for x in range(1, runs):
+for x in range(0, runs):
 
     print('Data is being distributed into train/test sets')
     train_data = []

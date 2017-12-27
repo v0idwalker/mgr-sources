@@ -169,7 +169,7 @@ param = {
     "filters": 16,
     "filter_size": 4,
     "hidden_dims": 64,
-    "epochs": 15
+    "epochs": 25
 }
 
 print('Data is being distributed into train/test sets')
@@ -205,7 +205,7 @@ def plot_graph_from_hist(histories):
 # (x_train, y_train), (x_test, y_test) = imdb.load_data(num_words=param["max_feat"]) #(train_data, train_)
 histories = []
 
-for x in range(1,10):
+for x in range(0, 20):
 
     train_data = []
     train_labels = []
@@ -296,10 +296,10 @@ for h in histories:
     wh_loss += h.history['loss'][len(h.history['loss'])-1]
     wh_vloss += h.history['val_loss'][len(h.history['val_loss'])-1]
 
-print('acc:'+str(wh_acc/10))
-print('val_acc:'+ str(wh_vacc/10))
-print('loss:' +str(wh_loss/10))
-print('val_loss:' + str(wh_vloss/10))
+print('acc:'+str(wh_acc/20))
+print('val_acc:'+ str(wh_vacc/20))
+print('loss:' +str(wh_loss/20))
+print('val_loss:' + str(wh_vloss/20))
 
 # plot model
 

@@ -185,18 +185,17 @@ for word, index in vocab.items():
     try:
         embedding_weights[index, :] = w2v.wv[word]
     except KeyError:
-        # embedding_weights[index, :] = numpy.array(numpy.zeros(300), dtype=float) # add random instead of zeroes, might get better success rates. Faster learning rate if not random.
-        new_random_wv = numpy.array((numpy.random.rand(300) * 2) - 1, dtype=float)
-        norm_const = numpy.linalg.norm(new_random_wv)
-        new_random_wv /= norm_const
-        embedding_weights[index, :] = new_random_wv
+        embedding_weights[index, :] = numpy.array(numpy.zeros(300), dtype=float) # add random instead of zeroes, might get better success rates. Faster learning rate if not random.
+        # new_random_wv = numpy.array((numpy.random.rand(300) * 2) - 1, dtype=float)
+        # norm_const = numpy.linalg.norm(new_random_wv)
+        # new_random_wv /= norm_const
+        # embedding_weights[index, :] = new_random_wv
 
 # define inputs here
 
 #KFold CV
 
-from sklearn.model_selection import KFold # import KFold
-kf = KFold(n_splits=10,  random_state=None, shuffle=True) # Define the split - into 2 folds
+kf = KFold(n_splits=10,  random_state=None, shuffle=True)
 
 print('Data is being distributed into train/test sets')
 X = numpy.array(id_data)
@@ -206,11 +205,13 @@ histories = []
 accu = []
 
 for trainidx, testidx in kf.split(X):
+    print(trainidx)
+    print(testidx)
     train_data, train_labels, test_data, test_labels = X[trainidx], Y[trainidx], X[testidx], Y[testidx]
     train_data = sequence.pad_sequences(train_data, maxlen=param["max_len"])
     test_data = sequence.pad_sequences(test_data, maxlen=param["max_len"])
 
-    embedding_layer = Embedding(output_dim=vocab_dim, input_dim=n_symbols, trainable=True)
+    embedding_layer = Embedding(output_dim=vocab_dim, input_dim=n_symbols, trainable=False)
     embedding_layer.build((None,))  # if you don't do this, the next step won't work
     embedding_layer.set_weights([embedding_weights])
 
@@ -234,7 +235,6 @@ for trainidx, testidx in kf.split(X):
     model.add(embedding_layer)
 
     # {'Conv1D': 128, 'batch_size': 96, 'Conv1D_3': 4, 'Dropout_1': 0.3, 'Dropout': 0.4, 'Conv1D_1': 4, 'Conv1D_2': 64, 'Dense': 32}
-    # Trial 0 vals: {'Conv1D_1': [1], 'batch_size': [2], 'Dense': [0], 'Conv1D': [1], 'Dropout': [0.28192006496913374]}
     # {'Conv1D_1': 8, 'batch_size': 96, 'Dense': 32, 'Conv1D': 16, 'Dropout': 0.28192006496913374}
     # {'Conv1D': 128, 'Dropout': 0.37678000665362027, 'Conv1D_1': 12, 'batch_size': 32, 'Dense': 32}
 
@@ -268,13 +268,14 @@ for trainidx, testidx in kf.split(X):
               validation_data=(test_data, test_labels)))
 
     score, acc = model.evaluate(test_data, test_labels, verbose=1)
-    accu.append(acc)
     print('Test accuracy:', acc, 'Test score: ', score)
+    print(acc)
+    accu.append(acc)
 
 plot_graph_from_hist(histories)
 
 mean_acc = 0
-
+print(accu)
 for a in accu:
     mean_acc += a
 
