@@ -186,7 +186,7 @@ for word, index in vocab.items():
         embedding_weights[index, :] = w2v.wv[word]
     except KeyError:
         # embedding_weights[index, :] = numpy.array(numpy.zeros(300), dtype=float) # add random instead of zeroes, might get better success rates. Faster learning rate if not random.
-        new_random_wv = numpy.array((numpy.random.rand(300) * 2) - 1, dtype=float)
+        new_random_wv = numpy.array((numpy.random.rand(300) * 2) - 1, dtype=numpy.float32)
         norm_const = numpy.linalg.norm(new_random_wv)
         new_random_wv /= norm_const
         embedding_weights[index, :] = new_random_wv
