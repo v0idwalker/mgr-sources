@@ -8,10 +8,16 @@ from keras.utils.vis_utils import plot_model
 
 w2v = gensim.models.KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin', binary=True)
 
-# print(w2v.wv['man'])
+N_OF_LAB_CLASSES = 10 # Number of classes in trainig data
+N_OF_FEAT = 300 # for W2V, 100 for GLOVE. dimensionality of vector space.
+
+def gimme_rand_wv():
+    new_random_wv = numpy.array((numpy.random.rand(N_OF_FEAT) * 2) - 1, dtype=numpy.float32)
+    norm_const = numpy.linalg.norm(new_random_wv)
+    new_random_wv /= norm_const
+    return new_random_wv
 
 f = open("training/NER/data.txt", "r+", encoding='UTF-8')
-
 
 longest = 0     # longest sentence in the data
 
@@ -30,11 +36,16 @@ id_str = dict() # ID to word
 # label dictionaries
 id_lab = dict() # ID to label_representation
 lab_id = dict() # label_representation to ID
+onehotvec = dict()
+
+longest_sentence = 0 # padding length
 
 
 for l in f:
     if l.strip() == "":
-        raw_data.append(tuple(raw_sentence), tuple(raw_labels))
+        raw_data.append((tuple(raw_sentence), tuple(raw_labels)))
+        if longest_sentence < len(raw_sentence):
+            longest_sentence = len(raw_sentence)
         raw_sentence = []
         raw_labels = []
     else:
@@ -44,35 +55,64 @@ for l in f:
         if line[0].strip() not in str_id:
             str_id[line[0].strip()] = len(str_id)
             id_str[len(id_str)] = line[0].strip()
-            # print(l.split("\t")[0].strip())
         if line[1].strip() not in lab_id:
-            lab_id[line[1].strip()] = len(lab_id)
-            id_lab[len(id_lab)] = line[1].strip()
-            # print(l.split("\t")[1].strip())
+            it = len(lab_id)
+            lab_id[line[1].strip()] = it
+            id_lab[it] = line[1].strip()
+            one_hot_vec = numpy.zeros(N_OF_LAB_CLASSES, dtype=numpy.int32) # create representation in form of one hot vector
+            one_hot_vec[it] = 1
+            onehotvec[it] = tuple(one_hot_vec) # store representation
+            onehotvec[tuple(one_hot_vec)] = it
 
+# adding another representation for PADDING label
+it = len(lab_id)
+lab_id['NULL'] = it
+id_lab[it] = 'NULL'
+one_hot_vec = numpy.zeros(N_OF_LAB_CLASSES, dtype=numpy.int32)
+one_hot_vec[N_OF_LAB_CLASSES-1] = 1
+onehotvec[it] = tuple(one_hot_vec)
+onehotvec[tuple(one_hot_vec)] = it
 
-
-unknown = 0
-# generating wordvectors
+# generating wordvectors from word2vec pretrained
+# known from w2v
+# unknown are randomised w2v like 300 dimensional word-vectors
 for word in str_id:
     try:
         wvm[str_id[word]] = w2v.wv[word]
-        pass
     except KeyError:
-        new_random_wv = numpy.array((numpy.random.rand(300) * 2) - 1, dtype=numpy.float32)
-        norm_const = numpy.linalg.norm(new_random_wv)
-        new_random_wv /= norm_const
-        wvm[str_id[word]] = new_random_wv
+        wvm[str_id[word]] = gimme_rand_wv()
         # print(word)
 
-# print(str(unknown) + ' ' +str(len(str_id)) )
+# building data from
+# print(raw_data[:20])
+
+X = [] # all data
+Y = [] # all labels
 
 
+for sentence, labels in raw_data:
+    wv, lab = [], []
+
+    for itx in range(len(sentence)):
+        single_wv = sentence[itx]
+        single_lab = labels[itx]
+        wv.append(wvm[str_id[single_wv]]) # appending the wordvectors
+        lab.append(list(onehotvec[lab_id[single_lab]])) # appending the label representation
+
+    # padding the sequences
+    pad_X = numpy.zeros(300)
+    pad_Y = numpy.array(onehotvec[lab_id['NULL']])
+    pad_length = longest - len(wv)
+    X.append(((pad_length) * [pad_X]) + wv)
+    Y.append(((pad_length) * [pad_Y]) + lab)
+
+dX = numpy.array(X)
+dY = numpy.array(Y)
 
 from data_preprocess import DataUtil
 
 dutil = DataUtil("wordvecs.txt", "news_tagged_data.txt")
-dX, dY = dutil.read_and_parse_data("wordvecs.txt", "news_tagged_data.txt")
+tX, tY = dutil.read_and_parse_data("wordvecs.txt", "news_tagged_data.txt")
 
 perc = 90 # diff between taina nd test
 
@@ -82,6 +122,11 @@ train_Y = dY[test_split_mask]
 test_X = dX[~test_split_mask]
 test_Y = dY[~test_split_mask]
 
+print(dX[:1])
+print(dX.shape)
+print(tX[:1])
+print(tX.shape)
+print(longest)
 
 model = Sequential()
 
