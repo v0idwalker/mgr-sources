@@ -19,8 +19,6 @@ def gimme_rand_wv():
 
 f = open("training/NER/data.txt", "r+", encoding='UTF-8')
 
-longest = 0     # longest sentence in the data
-
 count = Counter()
 
 wvm = dict() # word ID -> vector mapping
@@ -102,17 +100,12 @@ for sentence, labels in raw_data:
     # padding the sequences
     pad_X = numpy.zeros(300)
     pad_Y = numpy.array(onehotvec[lab_id['NULL']])
-    pad_length = longest - len(wv)
+    pad_length = longest_sentence - len(wv)
     X.append(((pad_length) * [pad_X]) + wv)
     Y.append(((pad_length) * [pad_Y]) + lab)
 
 dX = numpy.array(X)
 dY = numpy.array(Y)
-
-from data_preprocess import DataUtil
-
-dutil = DataUtil("wordvecs.txt", "news_tagged_data.txt")
-tX, tY = dutil.read_and_parse_data("wordvecs.txt", "news_tagged_data.txt")
 
 perc = 90 # diff between taina nd test
 
@@ -122,12 +115,7 @@ train_Y = dY[test_split_mask]
 test_X = dX[~test_split_mask]
 test_Y = dY[~test_split_mask]
 
-print(dX[:1])
-print(dX.shape)
-print(tX[:1])
-print(tX.shape)
-print(longest)
-
+# defining deep NER model
 model = Sequential()
 
 model.add(Bidirectional(LSTM(units=150, return_sequences=True), input_shape=(29,300)))
