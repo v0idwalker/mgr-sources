@@ -110,6 +110,8 @@ dY = numpy.array(Y)
 perc = 90 # diff between taina nd test
 
 test_split_mask = numpy.random.rand(len(dX)) < (0.01*perc)
+# print(test_split_mask[:10])
+# print(~test_split_mask[:10])
 train_X = dX[test_split_mask]
 train_Y = dY[test_split_mask]
 test_X = dX[~test_split_mask]
