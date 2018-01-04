@@ -1,6 +1,7 @@
 from collections import Counter
 import gensim
 import numpy
+import helper
 
 from keras.models import Sequential
 from keras.layers import LSTM, Bidirectional, TimeDistributed, Dropout, Dense
@@ -10,12 +11,6 @@ w2v = gensim.models.KeyedVectors.load_word2vec_format('GoogleNews-vectors-negati
 
 N_OF_LAB_CLASSES = 10 # Number of classes in trainig data
 N_OF_FEAT = 300 # for W2V, 100 for GLOVE. dimensionality of vector space.
-
-def gimme_rand_wv():
-    new_random_wv = numpy.array((numpy.random.rand(N_OF_FEAT) * 2) - 1, dtype=numpy.float32)
-    norm_const = numpy.linalg.norm(new_random_wv)
-    new_random_wv /= norm_const
-    return new_random_wv
 
 f = open("training/NER/data.txt", "r+", encoding='UTF-8')
 
@@ -78,7 +73,7 @@ for word in str_id:
     try:
         wvm[str_id[word]] = w2v.wv[word]
     except KeyError:
-        wvm[str_id[word]] = gimme_rand_wv()
+        wvm[str_id[word]] = helper.gimme_rand_wv()
         # print(word)
 
 # building data from
@@ -109,12 +104,10 @@ dY = numpy.array(Y)
 
 perc = 90 # diff between taina nd test
 
-test_split_mask = numpy.random.rand(len(dX)) < (0.01*perc)
-# print(test_split_mask[:10])
-# print(~test_split_mask[:10])
+test_split_mask = numpy.random.rand(len(dX)) < (0.01*perc) # creates a boolean array according to which we divide the data.
 train_X = dX[test_split_mask]
 train_Y = dY[test_split_mask]
-test_X = dX[~test_split_mask]
+test_X = dX[~test_split_mask] # ~ negation of said array
 test_Y = dY[~test_split_mask]
 
 # defining deep NER model
@@ -127,12 +120,11 @@ model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accur
 
 model.summary()
 
-model.fit(train_X, train_Y, epochs=25, batch_size=56, validation_data=(test_X, test_Y))
+hist = model.fit(train_X, train_Y, epochs=25, batch_size=56, validation_data=(test_X, test_Y))
 
-score = model.evaluate(test_X, test_Y, verbose=0)
+score, acc = model.evaluate(test_X, test_Y, verbose=1)
 print("Accuracy on test: " + str(score[1]))
 
-import pydot
-import graphviz
+helper.plot_graph_from_hist(hist, filepath='plots', filename='BiLSTM')
 
 plot_model(model, to_file='BiLSTMv1.png', show_layer_names=True)

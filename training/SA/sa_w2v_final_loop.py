@@ -1,11 +1,11 @@
 import nltk
-import re
 import codecs
 from collections import Counter
 import random
 import os
 import gensim as gs
 import numpy
+import helper
 
 
 # we want to find the Named Entities in the text
@@ -18,54 +18,6 @@ import numpy
 
 nltk.download('stopwords')  # only in case of english texts could this help
 nltk.download('punkt')
-
-
-def sanitise_text(string):
-    # english regexp pre-processing for TF
-    string = re.sub(r"[^A-Za-z0-9(),!?\'\`\"]", " ", string) # weird string removal
-    string = re.sub(r"\'s", " \'s", string)
-    string = re.sub(r"\'ve", " \'ve", string)
-    string = re.sub(r"n\'t", " n\'t", string)
-    string = re.sub(r"\'re", " \'re", string)
-    string = re.sub(r"\'d", " \'d", string)
-    string = re.sub(r"\'ll", " \'ll", string)
-    string = re.sub(r"\.", " . ", string)
-    string = re.sub(r",", " , ", string)
-    string = re.sub(r"!", " ! ", string)
-    string = re.sub(r"\(", " \( ", string)
-    string = re.sub(r"\)", " \) ", string)
-    string = re.sub(r"\?", " \? ", string)
-    string = re.sub(r"\s{2,}", " ", string)
-    string = re.sub(r"-", " - ", string)
-    string = re.sub(r"'", " \" ", string)
-    string = re.sub(r"\"", " \" ", string)
-    return string.strip().lower()
-
-
-def sanitise_vocabulary_string(string):
-    # weird
-    if string not in ["--", "``", "`"]:
-        # , "'s", "n't", ".", ",", "(", ")", "[", "]", "'", "\"", ??
-        return True
-    else:
-        return False
-
-
-def sanitise_en_negation(string):
-    # replace negation with reasonable words
-    string.replace("can\'t", "can not")
-    string.replace("couldn\'t", "could not")
-    string.replace("won\'t", "will not")
-    string.replace("wouldn\'t", "would not")
-    string.replace("isn\'t", "is not")
-    string.replace("wasn\'t", "was not")
-    string.replace("shan\'t", "shall not")
-    string.replace("shouldn\'t", "should not")
-    # ...
-    # https://en.wiktionary.org/wiki/Category:English_words_suffixed_with_-n%27t
-    # isn't useful or is?
-    return string
-
 
 # create vocabulary from training files/words/
 text_pos = codecs.open(os.path.join('training','SA','sentence_polarity','rt-polaritydata', 'rt-polarity.pos'), "r", "ISO-8859-1")
@@ -82,13 +34,13 @@ i = 0
 
 for l in text_pos:
     # print(l)
-    l = sanitise_text(l)
+    l = helper.sanitise_text(l)
     if (longest < len(nltk.word_tokenize(l, 'english'))):
         longest = len(nltk.word_tokenize(l, 'english'))
     sentence = []
     for w in nltk.word_tokenize(l, 'english'):
         # remove stopwords and useless strings
-        if (w.lower() not in stopwords) and (sanitise_vocabulary_string(w.lower())):
+        if (w.lower() not in stopwords) and (helper.sanitise_vocabulary_string(w.lower())):
             count[w.lower()] += 1
             sentence.append(w)
     data.append(sentence)
@@ -96,13 +48,13 @@ for l in text_pos:
 
 for l in text_neg:
     # print(l)
-    l = sanitise_text(l)
+    l = helper.sanitise_text(l)
     if (longest < len(nltk.word_tokenize(l, 'english'))):
         longest = len(nltk.word_tokenize(l, 'english'))
     sentence = []
     for w in nltk.word_tokenize(l, 'english'):
         # remove stopwords and useless strings
-        if (w.lower() not in stopwords) and (sanitise_vocabulary_string(w.lower())):
+        if (w.lower() not in stopwords) and (helper.sanitise_vocabulary_string(w.lower())):
             count[w.lower()] += 1
             sentence.append(w)
     data.append(sentence)
@@ -155,22 +107,6 @@ perc = 90  # the ratio of training data compared to test data 80~72 90~75
 param = {
     "max_len": 64,
 }
-
-def plot_graph_from_hist(histories):
-    import matplotlib.pyplot as plt
-    import datetime, time
-    # summarize keras history for accuracy
-    for h in histories:
-        plt.plot(h.history['acc'], color='red', linestyle='solid', label="Train accuracy")
-        plt.plot(h.history['val_acc'], color='blue', linestyle='solid', label="Validation accuracy")
-        plt.plot(h.history['loss'], color='red', linestyle='dashed', label="Test loss")
-        plt.plot(h.history['val_loss'], color='blue', linestyle='dashed', label="Test loss")
-    plt.title('model accuracy/loss')
-    plt.ylabel('accuracy/loss')
-    plt.xlabel('epoch')
-    plt.legend(['train_acc', 'test_acc', 'train_loss', 'test_loss'], loc='upper left')
-    # plt.show()
-    plt.savefig('plots/SA_W2V_fig'+str(time.mktime(datetime.datetime.today().timetuple()))+'.png')
 
 # (x_train, y_train), (x_test, y_test) = imdb.load_data(num_words=param["max_feat"]) #(train_data, train_)
 
@@ -283,7 +219,7 @@ for x in range(0, runs):
     accu.append(acc)
     print('Test accuracy:', acc, 'Test score: ', score)
 
-plot_graph_from_hist(histories)
+helper.plot_graph_from_hist(histories, filepath='plots', filename='SA_loop_final')
 
 mean_acc = 0
 
