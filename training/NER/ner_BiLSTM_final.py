@@ -123,8 +123,11 @@ model.summary()
 hist = model.fit(train_X, train_Y, epochs=25, batch_size=56, validation_data=(test_X, test_Y))
 
 score, acc = model.evaluate(test_X, test_Y, verbose=1)
-print("Accuracy on test: " + str(score[1]))
 
-helper.plot_graph_from_hist(hist, filepath='plots', filename='BiLSTM')
+#print("Accuracy on test: " + str(score[1]))
 
-plot_model(model, to_file='BiLSTMv1.png', show_layer_names=True)
+#helper.plot_graph_from_hist(hist, filepath='plots', filename='BiLSTM')
+
+model.save('NER_Bi-LSTM.h5')
+
+#plot_model(model, to_file='BiLSTMv1.png', show_layer_names=True)

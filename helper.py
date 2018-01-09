@@ -1,4 +1,5 @@
 import re
+import numpy
 
 def sanitise_text(string):
     # english regexp pre-processing for TF
@@ -62,8 +63,8 @@ def plot_graph_from_hist(histories, filepath='plots', filename='graph'):
     # plt.show()
     plt.savefig(filepath+'/'+filename+str(time.mktime(datetime.datetime.today().timetuple()))+'.png')
 
-    def gimme_rand_wv():
-        new_random_wv = numpy.array((numpy.random.rand(N_OF_FEAT) * 2) - 1, dtype=numpy.float32)
-        norm_const = numpy.linalg.norm(new_random_wv)
-        new_random_wv /= norm_const
-        return new_random_wv
+def gimme_rand_wv():
+    new_random_wv = numpy.array((numpy.random.rand(300) * 2) - 1, dtype=numpy.float32)
+    norm_const = numpy.linalg.norm(new_random_wv)
+    new_random_wv /= norm_const
+    return new_random_wv
