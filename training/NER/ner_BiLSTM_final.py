@@ -4,7 +4,7 @@ import numpy
 import helper
 
 from keras.models import Sequential
-from keras.layers import LSTM, Bidirectional, TimeDistributed, Dropout, Dense
+from keras.layers import LSTM, Bidirectional, TimeDistributed, Dropout, Dense, Embedding
 from keras.utils.vis_utils import plot_model
 
 w2v = gensim.models.KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin', binary=True)
@@ -113,14 +113,15 @@ test_Y = dY[~test_split_mask]
 # defining deep NER model
 model = Sequential()
 
+# model.add(Embedding(300, len(str_id), trainable=True ))
 model.add(Bidirectional(LSTM(units=150, return_sequences=True), input_shape=(29,300)))
 model.add(Dropout(0.5))
 model.add(TimeDistributed(Dense(10, activation='softmax')))
-model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy', 'f1score'])
 
 model.summary()
 
-hist = model.fit(train_X, train_Y, epochs=25, batch_size=56, validation_data=(test_X, test_Y))
+hist = model.fit(train_X, train_Y, epochs=25, batch_size=56, validation_data=(test_X, test_Y)) #56
 
 score, acc = model.evaluate(test_X, test_Y, verbose=1)
 

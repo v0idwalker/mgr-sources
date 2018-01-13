@@ -115,7 +115,7 @@ w2v = gs.models.KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative30
 
 # assemble the embedding_weights in one numpy array
 vocab_dim = 300 # dimensionality of your word vectors, just as 300 dims in w2v pre-trained
-n_symbols = len(vocab) + 1 # adding 1 to account for 0th index (for masking)
+n_symbols = len(vocab) + 1 # adding 1 to account for 0th index (for masking) +- unneccessary
 embedding_weights = numpy.zeros((n_symbols, vocab_dim))
 for word, index in vocab.items():
     try:
@@ -126,6 +126,7 @@ for word, index in vocab.items():
         norm_const = numpy.linalg.norm(new_random_wv)
         new_random_wv /= norm_const
         embedding_weights[index, :] = new_random_wv
+
 
 # define inputs here
 
