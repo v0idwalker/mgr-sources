@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 import scrapy
-from crawl.items import theIndependentItem
+from crawl.items import  theIndependentItem
 
 class IndependentSpider(scrapy.Spider):
-    name = "independent"
-    baseURL = "http://www.independent.co.uk/"
-    allowed_domains = ["http://www.independent.co.uk/"]
-    start_urls = ['http://www.independent.co.uk/news/world/']
+    name = "www.independent.co.uk"
+    baseURL = "https://www.independent.co.uk"
+    allowed_domains = ["https://www.independent.co.uk"]
+    start_urls = ['https://www.independent.co.uk/']
 
     def parse(self, response):
         link_data = response.xpath('//div[@class="content"]/h1/a')

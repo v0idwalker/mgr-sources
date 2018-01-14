@@ -1,6 +1,12 @@
 import csv
 import sys
 
+try:
+    import win_unicode_console
+    win_unicode_console.enable()
+except ImportError as e:
+    print(e)
+
 searchstring = sys.argv[3]
 searchlist = searchstring.split(" ")
 
