@@ -137,59 +137,58 @@ param = {
 
 # (x_train, y_train), (x_test, y_test) = imdb.load_data(num_words=param["max_feat"]) #(train_data, train_)
 
-
+average = 0
 
 # print('Build model...')
+for i in range(0, 10):
 
-model = Sequential()
+    model = Sequential()
 
-# we start off with an efficient embedding layer which maps
-# our vocab indices into embedding_dims dimensions
-model.add(Embedding(maxfeat,
-                    param["embed_dims"],
-                    ))
-# we add a Convolution1D, which will learn filters
-# word group filters of size filter_length:
-model.add(Conv1D(64,
-                 8,
-                 padding='valid',
-                 activation='relu',
-                 strides=1))
-model.add(Conv1D(32,
-                 4,
-                 padding='valid',
-                 activation='relu',
-                 strides=1))
-# we use max pooling:
-model.add(GlobalMaxPooling1D())
+    # we start off with an efficient embedding layer which maps
+    # our vocab indices into embedding_dims dimensions
+    model.add(Embedding(maxfeat,
+                        param["embed_dims"],
+                        ))
+    # we add a Convolution1D, which will learn filters
+    # word group filters of size filter_length:
+    model.add(Conv1D(64,
+                     4,
+                     padding='valid',
+                     activation='relu',
+                     strides=1))
 
-# We project onto a single unit output layer, and squash it with a sigmoid:
-model.add(Dropout(0.3)) # 0.2
-model.add(Dense(1))
-model.add(Activation('sigmoid'))
+    # we use max pooling:
+    model.add(GlobalMaxPooling1D())
 
-model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-model.summary()
-model.fit(x_train, y_train,
-          batch_size=param["batch_size"],
-          epochs=param["epochs"],
-          validation_data=(x_test, y_test))
-pred = model.predict_proba(x_test, verbose=1)
-score, acc = model.evaluate(x_test, y_test,
-                            verbose=1)
-print('Test accuracy:', acc, 'Test score: ', score)
-# print(pred)
+    # We project onto a single unit output layer, and squash it with a sigmoid:
+    model.add(Dropout(0.3)) # 0.2
+    model.add(Dense(1))
+    model.add(Activation('sigmoid'))
 
-def print_predict(prediction, test_dat, test_lab, vocab):
-    for j, p in enumerate(prediction):
-        print(str(j)+': '+str(round(p[0], 3)), end=' ')
-        print(test_lab[j])
-        for w in test_dat[j]:
-            if w != 0:
-                print(vocab.get(w), end=' ')
-        print('\n')
+    model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+    model.summary()
+    model.fit(x_train, y_train,
+              batch_size=param["batch_size"],
+              epochs=param["epochs"],
+              validation_data=(x_test, y_test))
+    pred = model.predict_proba(x_test, verbose=1)
+    score, acc = model.evaluate(x_test, y_test,
+                                verbose=1)
+    print('Test accuracy:', acc, 'Test score: ', score)
+    # print(pred)
 
-print(model.summary())
+    average += acc
+
+    def print_predict(prediction, test_dat, test_lab, vocab):
+        for j, p in enumerate(prediction):
+            print(str(j)+': '+str(round(p[0], 3)), end=' ')
+            print(test_lab[j])
+            for w in test_dat[j]:
+                if w != 0:
+                    print(vocab.get(w), end=' ')
+            print('\n')
+
+    print(model.summary())
 # print_predict(pred, test_data, test_labels, vocab)
 
 # plot model
@@ -198,3 +197,5 @@ print(model.summary())
 
 # model.save("textcnn_sa_van.h5")
 # model.save_weights("textcnn_weights_sa_van.h5")
+
+print(average/10)

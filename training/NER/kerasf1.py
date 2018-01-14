@@ -79,9 +79,3 @@ def f1(y_true, y_pred):
     precision = precision(y_true, y_pred)
     recall = recall(y_true, y_pred)
     return 2 * ((precision * recall) / (precision + recall))
-
-
-# you can use it like this
-model.compile(loss='binary_crossentropy',
-              optimizer="adam",
-              metrics=[mcor, recall, f1])
